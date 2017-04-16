@@ -4,14 +4,14 @@ See for yourself!
 All help is welcomed
 
 ## Screenshots
-![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/full.png)
-![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/extend-panel.png)
-![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/extend-panel-shell-theme.png)
-![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/extend-panel-volume.png)
-![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/extend-panel-network.png)
-![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/extend-panel-power.png)
-![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/extend-panel-calendar.png)
-![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/extend-panel-notifications.png)
+![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/full.png)
+![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel.png)
+![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-shell-theme.png)
+![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-volume.png)
+![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-network.png)
+![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-power.png)
+![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-calendar.png)
+![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-notifications.png)
 
 
 ## Features
