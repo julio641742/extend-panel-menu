@@ -21,7 +21,7 @@ All help is welcomed
 Clone the repository, rename the cloned folder to `extend-panel-menu@julio641742` and move it to `~/.local/share/gnome-shell/extensions/`. Enable it with Gnome Tweak Tool
 
 ## One-click install
-<del>It's on [Gnome Shell Extensions](https://extensions.gnome.org/)</del>
+It's on [Gnome Shell Extensions](https://extensions.gnome.org/extension/1201/extend-panel-menu/)
 
 
 ## Known Issues
