@@ -35,10 +35,3 @@ It's on [Gnome Shell Extensions](https://extensions.gnome.org/extension/1201/ext
 ### v1
 First version
 
-## Fedora Linux Updates Indicator
-If you use Fedora you can use this indicator
-> https://github.com/julio641742/fedora-update
-
-## Fedora Fresh Installation Script
-Install Steam, Spotify, Codecs, Google Chrome, Numix Theme and Icons, Fedy, Sublime Text and RPM Fusion [Free and Non Free] on your fedora installation without the sweat.
-> https://github.com/julio641742/fedora-fresh-installation
