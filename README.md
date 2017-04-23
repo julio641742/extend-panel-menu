@@ -25,7 +25,11 @@ Clone the repository, rename the cloned folder to `extend-panel-menu@julio641742
 ## One-click install
 It's on [Gnome Shell Extensions](https://extensions.gnome.org/extension/1201/extend-panel-menu/)
 
-
+## Theme and Icons (used in screenshots)
+ - [macOS-Sierra]( https://github.com/B00merang-Project/macOS-Sierra) GTK Theme
+ - [Capitaine-cursors](https://github.com/keeferrourke/capitaine-cursors)
+ - [La-capitaine-icon-theme](https://github.com/keeferrourke/la-capitaine-icon-theme)
+ 
 ## Known Issues
 > This extension may not work properly in some distros
 
