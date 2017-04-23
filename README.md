@@ -1,6 +1,7 @@
 # Extend Panel Menu
 
 See for yourself!
+
 All help is welcomed
 
 ## Screenshots
@@ -12,6 +13,7 @@ All help is welcomed
 ![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-power.png)
 ![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-calendar.png)
 ![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-notifications.png)
+![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-user.png)
 
 
 ## Features
@@ -35,3 +37,9 @@ It's on [Gnome Shell Extensions](https://extensions.gnome.org/extension/1201/ext
 ### v1
 First version
 
+### v2
+Cosmetics bugfixes
+New user menu
+New power menu
+Menus optimized
+Nighshift/Weather support (GNOME Shell >= 3.26)
