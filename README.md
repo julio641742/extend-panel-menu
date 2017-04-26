@@ -47,3 +47,9 @@ It's on [Gnome Shell Extensions](https://extensions.gnome.org/extension/1201/ext
 - New power menu
 - Menus optimized
 - Nighshift/Weather support (GNOME Shell >= 3.26)
+
+### v3
+- New network menu
+- Calendar menu with Weather indicator (GNOME Shell >= 3.26)
+- Fixed some bugs
+
