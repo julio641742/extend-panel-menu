@@ -20,7 +20,7 @@ All help is welcomed
 - Separate every indicator
 
 ## Manual install
-Clone the repository, rename the cloned folder to `extend-panel-menu@julio641742` and move it to `~/.local/share/gnome-shell/extensions/`. Enable it with Gnome Tweak Tool
+To install, simply download as zip and unzip contents in `~/.local/share/gnome-shell/extensions/extend-panel-menu@julio641742`. Enable it with Gnome Tweak Tool
 
 ## One-click install
 It's on [Gnome Shell Extensions](https://extensions.gnome.org/extension/1201/extend-panel-menu/)
