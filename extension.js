@@ -152,8 +152,6 @@ const NetworkIndicator = new Lang.Class({
     },
 });
 
-
-// Rename
 const NightLightIndicator = new Lang.Class({
     Name: 'NightLightIndicator',
     Extends: CustomButton,
@@ -310,12 +308,12 @@ const UserIndicator = new Lang.Class({
 
         //////////////
         // INCONCLUSIVE
-        this.orientation = new PopupMenu.PopupMenuItem(_('Orientation Lock'));
-        this.orientation.connect('activate', Lang.bind(this, this._system._onOrientationLockClicked));
-        this.menu.addMenuItem(this.orientation);
-        if (!this._system._orientationLockAction.visible) {
-            this.orientation.actor.hide();
-        }
+        //this.orientation = new PopupMenu.PopupMenuItem(_('Orientation Lock'));
+        //this.orientation.connect('activate', Lang.bind(this, this._system._onOrientationLockClicked));
+        //this.menu.addMenuItem(this.orientation);
+        //if (!this._system._orientationLockAction.visible) {
+        //    this.orientation.actor.hide();
+        //}
         ///////////////
 
         let suspend = new PopupMenu.PopupMenuItem(_('Suspend'));
@@ -403,7 +401,6 @@ const VolumeIndicator = new Lang.Class({
         Main.panel.statusArea.aggregateMenu._indicators.remove_actor(this._volume_panel.indicators);
         this.box.add_child(this._volume_panel.indicators);
 
-
         this.menu.addMenuItem(this._volume.menu);
 
         /*
@@ -484,23 +481,6 @@ const CalendarIndicator = new Lang.Class({
         this._calendar.connect('selected-date-changed', Lang.bind(this, function(calendar, date) {
             this._eventList.setDate(date);
         }));
-
-        /*
-        this.displaysBox = new St.BoxLayout({
-        	style_class: 'datemenu-displays-box',
-        	vertical: true,
-        });
-
-        this.menu.box.add_actor(this._date.actor);
-        this.menu.box.add_actor(this._calendar.actor);
-        this.displaysBox.add_actor(this._eventList.actor);
-        this.displaysBox.add_actor(this._clocksItem.actor);
-        if (this._weatherItem) {
-        	this.displaysBox.add(this._weatherItem.actor);
-        }
-        this.menu.box.add_child(this.displaysBox);
-
-        */
 
         let boxLayout;
         let vbox;
@@ -587,7 +567,6 @@ let order;
 let nightlight;
 
 function enable() {
-    //let children = Main.panel._rightBox.get_children();
     Main.panel.statusArea.aggregateMenu.container.hide();
     Main.panel.statusArea.dateMenu.container.hide();
 
@@ -653,7 +632,6 @@ function applySettings() {
         user.usernamelabel.set_text(username);
     }
 }
-//https://github.com/l300lvl/XES-Settings-Center-Extension/blob/master/SettingsCenter%40xesnet.fr/extension.js
 
 function destroyIndicators() {
     if (power) power.destroy();
@@ -673,11 +651,9 @@ function destroyIndicators() {
 }
 
 function disable() {
-    settings = null;
     settingsChanged = null;
-
+    settings = null;
     destroyIndicators();
-
     Main.panel.statusArea.aggregateMenu.container.show();
     Main.panel.statusArea.dateMenu.container.show();
 }
