@@ -22,7 +22,7 @@ All help is welcomed
 - Separate every indicator
 
 ## Manual install
-To install, simply download and execute "make all && make install". Enable it with Gnome Tweak Tool
+To install, simply download and execute `make all` and  `make install`. Enable it with Gnome Tweak Tool
 
 ## One-click install
 It's on [Gnome Shell Extensions](https://extensions.gnome.org/extension/1201/extend-panel-menu/)
