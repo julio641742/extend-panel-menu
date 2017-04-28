@@ -116,7 +116,7 @@ msgid "Set to empty to show real user name."
 msgstr ""
 
 
-msgid "Notification Indicators"
+msgid "Indicators"
 msgstr ""
 
 

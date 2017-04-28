@@ -90,7 +90,7 @@ const PrefsWidget = new GObject.Class({
             spacing: 6
         });
         vbox.add(new Gtk.Label({
-            label: '<b>' + _("Notification Indicators") + '</b>',
+            label: '<b>' + _("Indicators") + '</b>',
             use_markup: true,
             hexpand: true,
             halign: 1
