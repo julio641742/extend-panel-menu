@@ -7,7 +7,7 @@
         </key>
 
         <key name="items" type="s">
-            <default>'Volume Indicator;1;volume|Network Indicator;1;network|Power Indicator;1;power|Calendar Indicator;1;calendar|Notification Indicator;1;notification|User Indicator;1;user'</default>
+            <default>'Night Light Indicator [GNOME Shell>=3.24];1;nightlight|Volume Indicator;1;volume|Network Indicator;1;network|Power Indicator;1;power|Calendar Indicator;1;calendar|User Indicator;1;user|Notification Indicator;1;notification'</default>
             <summary>Indicators</summary>
             <description/>
         </key>

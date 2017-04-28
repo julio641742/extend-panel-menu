@@ -99,8 +99,9 @@ const PrefsWidget = new GObject.Class({
             spacing: 12,
             margin_left: 12
         });
-        this.vboxList = new Gtk.VBox({
+        this.vboxList = new Gtk.Box({
             orientation: Gtk.Orientation.VERTICAL,
+            spacing: 6
         });
         this.buildList();
         box.add(this.vboxList);
@@ -110,9 +111,18 @@ const PrefsWidget = new GObject.Class({
             margin_left: 12
         });
         box.add(new Gtk.Label({
+            label: _('Top to bottom = Left to right'),
+            hexpand: true
+        }));
+        vbox.add(box);
+        box = new Gtk.Box({
+            spacing: 12,
+            margin_left: 12
+        });
+        box.add(new Gtk.Label({
             label: _('Reset Position'),
             hexpand: true,
-            halign: 1
+            halign: 2
         }));
         let button = new Gtk.Button({
             visible: true,
@@ -144,7 +154,7 @@ const PrefsWidget = new GObject.Class({
             margin_left: 12
         });
         box.add(new Gtk.Label({
-            label: _('If something breaks, don\'t heasisate to leave a comment at '),
+            label: _('If something breaks, don\'t heasitate to leave a comment at '),
             hexpand: true,
             halign: 1
         }));
@@ -154,6 +164,15 @@ const PrefsWidget = new GObject.Class({
             uri:  'https://github.com/julio641742/extend-panel-menu',
             hexpand: true,
             halign: 1
+        }));
+        vbox.add(box);
+        box = new Gtk.Box({
+            spacing: 12,
+            margin_left: 12
+        });
+        box.add(new Gtk.Label({
+            label: _('Made with love by #julio641742#'),
+            hexpand: true,
         }));
         vbox.add(box);
         this.add(vbox);

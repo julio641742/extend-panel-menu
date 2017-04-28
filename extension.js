@@ -26,6 +26,7 @@ const PopupMenu = imports.ui.popupMenu;
 const Lang = imports.lang;
 const Config = imports.misc.config;
 const GLib = imports.gi.GLib;
+const Gio = imports.gi.Gio;
 const Gtk = imports.gi.Gtk;
 const GObject = imports.gi.GObject;
 const GnomeDesktop = imports.gi.GnomeDesktop;
@@ -56,7 +57,6 @@ const CustomButton = new Lang.Class({
         });;
         this.actor.set_style('-natural-hpadding: 6px; -minimum-hpadding: 6px;');
         this.actor.add_child(this.box);
-        //this.box.add_child(PopupMenu.arrowIcon(St.Side.BOTTOM));
     },
     _openApp: function(a, b, app) {
         Shell.AppSystem.get_default().lookup_app(app).activate();
@@ -152,6 +152,83 @@ const NetworkIndicator = new Lang.Class({
     },
 });
 
+
+// Rename
+const NightLightIndicator = new Lang.Class({
+    Name: 'NightLightIndicator',
+    Extends: CustomButton,
+
+    _init: function() {
+        this.parent('NightLightIndicator');
+
+        let BUS_NAME = 'org.gnome.SettingsDaemon.Color';
+        let OBJECT_PATH = '/org/gnome/SettingsDaemon/Color';
+
+        let ColorInterface = '<node> \
+        <interface name="org.gnome.SettingsDaemon.Color"> \
+          <property name="DisabledUntilTomorrow" type="b" access="readwrite"/> \
+          <property name="NightLightActive" type="b" access="read"/> \
+        </interface> \
+        </node>';
+
+        let ColorProxy = Gio.DBusProxy.makeProxyWrapper(ColorInterface);
+        this._indicator = new St.Icon({
+            style_class: 'system-status-icon',
+            icon_name: 'night-light-symbolic'
+        });
+        this.box.add_child(this._indicator);
+        this._proxy = new ColorProxy(Gio.DBus.session, BUS_NAME, OBJECT_PATH,
+            (proxy, error) => {
+                if (error) {
+                    log(error.message);
+                    return;
+                }
+                this._proxy.connect('g-properties-changed',
+                    Lang.bind(this, this._sync));
+                this._sync();
+            });
+        this.label = new St.Label({
+            style_class: 'label-menu'
+        });
+        this.menu.box.add_child(this.label);
+
+        //this._item = new PopupMenu.PopupSubMenuMenuItem("", true);
+        //this._item.icon.icon_name = 'night-light-symbolic';
+        this._disableItem = this.menu.addAction('', () => {
+            this._proxy.DisabledUntilTomorrow = !this._proxy.DisabledUntilTomorrow;
+        });
+        this.menu.addAction(_("Turn Off"), () => {
+            let settings = new Gio.Settings({
+                schema_id: 'org.gnome.settings-daemon.plugins.color'
+            });
+            settings.set_boolean('night-light-enabled', false);
+        });
+        this.menu.addSettingsAction(_("Display Settings"), 'gnome-display-panel.desktop');
+
+        //this.menu.actor.add_style_class_name('aggregate-menu');
+        this.menu.box.set_width(270);
+        Main.sessionMode.connect('updated', Lang.bind(this, this._sessionUpdated));
+        this._sessionUpdated();
+        this._sync();
+    },
+    _sessionUpdated: function() {
+        let sensitive = !Main.sessionMode.isLocked && !Main.sessionMode.isGreeter;
+        this.menu.setSensitive(sensitive);
+    },
+    _sync: function() {
+        let visible = this._proxy.NightLightActive;
+        let disabled = this._proxy.DisabledUntilTomorrow;
+
+        this.label.set_text(disabled ? _("Night Light Disabled") :
+            _("Night Light On"));
+
+        this._disableItem.label.text = disabled ? _("Resume") :
+            _("Disable Until Tomorrow");
+        /*this._item.actor.visible = */
+        this._indicator.visible = visible;
+    }
+});
+
 const UserIndicator = new Lang.Class({
     Name: 'UserIndicator',
     Extends: CustomButton,
@@ -162,10 +239,6 @@ const UserIndicator = new Lang.Class({
         this._system = new imports.ui.status.system.Indicator();
         this._screencast = new imports.ui.status.screencast.Indicator();
 
-        try {
-            this._nightLight = new imports.ui.status.nightLight.Indicator(); // ONLY FOR 3.24 AND UP
-        } catch (e) {}
-
         let username = GLib.get_real_name();
         this.usernamelabel = new St.Label({
             text: username,
@@ -173,15 +246,10 @@ const UserIndicator = new Lang.Class({
             style_class: 'panel-status-menu-box'
         });
 
-
         Main.panel.statusArea.aggregateMenu.menu.box.remove_actor(Main.panel.statusArea.aggregateMenu._system.menu.actor);
 
         this.box.add_child(this._screencast.indicators);
-        if (this._nightLight) {
-            this.box.add_child(this._nightLight.indicators);
-        }
         this.box.add_child(this.usernamelabel);
-
 
         this._session = this._system._session;
         this._loginManager = this._system._loginManager;
@@ -208,9 +276,6 @@ const UserIndicator = new Lang.Class({
         extsettings.connect('activate', Lang.bind(this, this._openSettings));
         this.menu.addMenuItem(extsettings);
 
-        if (this._nightLight) {
-            this.menu.addMenuItem(this._nightLight.menu);
-        }
 
         this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem()); // SEPARATOR
 
@@ -332,7 +397,13 @@ const VolumeIndicator = new Lang.Class({
 
         this.menu.actor.add_style_class_name('aggregate-menu');
         this._volume = new imports.ui.status.volume.Indicator();
-        this.box.add_child(this._volume.indicators);
+
+        this._volume_panel = Main.panel.statusArea.aggregateMenu._volume;
+        //this.box.add_child(this._volume.indicators); // Indicator not showing properly
+        Main.panel.statusArea.aggregateMenu._indicators.remove_actor(this._volume_panel.indicators);
+        this.box.add_child(this._volume_panel.indicators);
+
+
         this.menu.addMenuItem(this._volume.menu);
 
         /*
@@ -342,6 +413,11 @@ const VolumeIndicator = new Lang.Class({
         this.menu.addMenuItem(volume);
         */
     },
+    destroy: function() {
+        this.box.remove_child(this._volume_panel.indicators);
+        Main.panel.statusArea.aggregateMenu._indicators.add_actor(this._volume_panel.indicators);
+        this.parent();
+    }
 });
 
 const NotificationIndicator = new Lang.Class({
@@ -508,27 +584,13 @@ let settings;
 let settingsChanged;
 let menuItems;
 let order;
+let nightlight;
 
 function enable() {
     //let children = Main.panel._rightBox.get_children();
     Main.panel.statusArea.aggregateMenu.container.hide();
     Main.panel.statusArea.dateMenu.container.hide();
 
-    /*
-            power = new PowerIndicator;
-            user = new UserIndicator;
-            volume = new VolumeIndicator;
-            network = new NetworkIndicator;
-            notification = new NotificationIndicator;
-            calendar = new CalendarIndicator;
-
-            Main.panel.addToStatusArea('NotificationIndicator', notification, children.length, 'right');
-            Main.panel.addToStatusArea('UserIndicator', user, children.length, 'right');
-            Main.panel.addToStatusArea('CalendarIndicator', calendar, children.length, 'right');
-            Main.panel.addToStatusArea('PowerIndicator', power, children.length, 'right');
-            Main.panel.addToStatusArea('NetworkIndicator', network, children.length, 'right');
-            Main.panel.addToStatusArea('VolumeIndicator', volume, children.length, 'right');
-    */
     // Load Settings
     order = "";
     settings = Convenience.getSettings();
@@ -542,8 +604,6 @@ function applySettings() {
     let items = menuItems.getEnableItems();
     // If the order in which the indicators are displayed is changed
     if (order != items.toString()) {
-
-
         destroyIndicators();
         let children = Main.panel._rightBox.get_children();
 
@@ -571,7 +631,15 @@ function applySettings() {
             calendar = new CalendarIndicator;
             Main.panel.addToStatusArea('CalendarIndicator', calendar, (items.indexOf('calendar') + children.length), 'right');
         }
-
+        if (items.indexOf('nightlight') != -1) {
+            try {
+                nightlight = new NightLightIndicator;
+                Main.panel.addToStatusArea('NightLightIndicator', nightlight, (items.indexOf('nightlight') + children.length), 'right');
+            }
+            catch(e) {
+                // Only Works for GNOME Shell >= 3.24
+            }
+        }
         // Save state
         order = items.toString();
     }
@@ -587,8 +655,6 @@ function applySettings() {
 }
 //https://github.com/l300lvl/XES-Settings-Center-Extension/blob/master/SettingsCenter%40xesnet.fr/extension.js
 
-
-
 function destroyIndicators() {
     if (power) power.destroy();
     if (network) network.destroy();
@@ -596,12 +662,14 @@ function destroyIndicators() {
     if (notification) notification.destroy();
     if (calendar) calendar.destroy();
     if (user) user.destroy();
+    if (nightlight) nightlight.destroy();
     power = null;
     network = null;
     volume = null;
     notification = null;
     calendar = null;
     user = null;
+    nightlight = null;
 }
 
 function disable() {

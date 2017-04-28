@@ -1,0 +1,137 @@
+# Tranlation Files for Extend Panel Menu
+# Copyright (C) 2017
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-05-01 22:16+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#############################################
+#: Scheme file
+msgid "'Night Light Indicator [GNOME Shell>=3.24]"
+msgstr ""
+
+msgid "Volume Indicator"
+msgstr ""
+
+msgid "Network Indicator"
+msgstr ""
+
+msgid "Power Indicator"
+msgstr ""
+
+msgid "Calendar Indicator"
+msgstr ""
+
+msgid "User Indicator"
+msgstr ""
+
+msgid "Notification Indicator"
+msgstr ""
+
+msgid "Username Label"
+msgstr ""
+
+#############################################
+#: extension.js
+msgid "Network Settings"
+msgstr ""
+
+msgid "About This Computer"
+msgstr ""
+
+msgid "GNOME Help"
+msgstr ""
+
+msgid "System Settings"
+msgstr ""
+
+msgid "Extension Settings"
+msgstr ""
+
+msgid "Lock"
+msgstr ""
+
+msgid "Switch User"
+msgstr ""
+
+msgid "Log Out"
+msgstr ""
+
+msgid "Account Settings"
+msgstr ""
+
+msgid "Orientation Lock"
+msgstr ""
+
+msgid "Suspend"
+msgstr ""
+
+msgid "Power Off"
+msgstr ""
+
+msgid "Power Settings"
+msgstr ""
+
+msgid "Turn Off"
+msgstr ""
+
+msgid "Display Settings"
+msgstr ""
+
+msgid "Night Light Disabled"
+msgstr ""
+
+msgid "Night Light On"
+msgstr ""
+
+msgid "Resume"
+msgstr ""
+
+msgid "Disable Until Tomorrow"
+msgstr ""
+
+
+#############################################
+#: prefs.js
+msgid "Settings"
+msgstr ""
+
+msgid "Username Label"
+msgstr ""
+
+msgid "Set to empty to show real user name."
+msgstr ""
+
+
+msgid "Notification Indicators"
+msgstr ""
+
+
+msgid "Top to bottom = Left to right"
+msgstr ""
+
+msgid "Reset Position"
+msgstr ""
+
+msgid "Reset"
+msgstr ""
+
+msgid "Help"
+msgstr ""
+
+msgid "If something breaks, don\'t heasitate to leave a comment at "
+msgstr ""
+

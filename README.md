@@ -1,12 +1,10 @@
 # Extend Panel Menu
 
-See for yourself!
-
 All help is welcomed
 
 ## Screenshots
 ### New
-![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/settings.png)
+![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/settings-2.png)
 
 > Rearrange the position of your indicators (Still debugging, but works)
 
@@ -29,16 +27,12 @@ To install, simply download and execute "make all && make install". Enable it wi
 ## One-click install
 It's on [Gnome Shell Extensions](https://extensions.gnome.org/extension/1201/extend-panel-menu/)
 
-## Theme and Icons (used in screenshots)
- - [macOS-Sierra]( https://github.com/B00merang-Project/macOS-Sierra) GTK Theme
- - [Capitaine-cursors](https://github.com/keeferrourke/capitaine-cursors)
- - [La-capitaine-icon-theme](https://github.com/keeferrourke/la-capitaine-icon-theme)
- 
+
 ## Known Issues
 > This extension may not work properly in some distros
 
 ## Credits
-
+Not yet
 
 ## Changes
 
@@ -50,15 +44,17 @@ It's on [Gnome Shell Extensions](https://extensions.gnome.org/extension/1201/ext
 - New user menu
 - New power menu
 - Menus optimized
-- Nighshift/Weather support (GNOME Shell >= 3.26)
+- Nighshift/Weather support (GNOME Shell >= 3.24)
 
 ### v3
 - New network menu
-- Calendar menu with Weather indicator (GNOME Shell >= 3.26)
+- Calendar menu with Weather indicator (GNOME Shell >= 3.24)
 - Fixed some bugs
 
-### v3.5 [Still debugging]
+### v3.8 [Still debugging]
+- New Settings Windows
 - Now you can rearrange your indicators
 - Now you can set a custom string in the User Indicator
+- New nighshift indicator (GNOME Shell >=3.24)
+- Added a Makefile
 - Still working fixing some bugs and adding new features
-

@@ -1,3 +1,21 @@
+/*
+    This file is part of Extend Panel Menu
+
+    Extend Panel Menu is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Extend Panel Menu is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Extend Panel Menu.  If not, see <http://www.gnu.org/licenses/>.
+
+    Copyright 2017 Julio Galvan
+*/
 const Lang = imports.lang;
 const MenuItems = new Lang.Class({
     Name: "MenuItems",
@@ -68,28 +86,4 @@ const MenuItems = new Lang.Class({
         }
         return itemsEnable;
     },
-
-    /*
-        getItem: function(index) {
-            let items = this.getItems();
-
-            if (index >= 0 && index < items.length)
-                return items[index];
-            else
-                return null;
-        },
-
-        isEnable: function(index) {
-            let item = this.getItem(index);
-
-            if (item != null)
-                return item["enable"];
-            else
-                return null;
-        },
-    */
-
-
-
-
 });
