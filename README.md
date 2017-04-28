@@ -5,7 +5,11 @@ See for yourself!
 All help is welcomed
 
 ## Screenshots
-![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/full-2.png)
+### New
+![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/settings.png)
+
+> Rearrange the position of your indicators (Still debugging, but works)
+
 ![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-2.png)
 ![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-shell-theme-2.png)
 ![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-volume-2.png)
@@ -20,7 +24,7 @@ All help is welcomed
 - Separate every indicator
 
 ## Manual install
-To install, simply download as zip and unzip contents in `~/.local/share/gnome-shell/extensions/extend-panel-menu@julio641742`. Enable it with Gnome Tweak Tool
+To install, simply download and execute "make all && make install". Enable it with Gnome Tweak Tool
 
 ## One-click install
 It's on [Gnome Shell Extensions](https://extensions.gnome.org/extension/1201/extend-panel-menu/)
@@ -52,4 +56,9 @@ It's on [Gnome Shell Extensions](https://extensions.gnome.org/extension/1201/ext
 - New network menu
 - Calendar menu with Weather indicator (GNOME Shell >= 3.26)
 - Fixed some bugs
+
+### v3.5 [Still debugging]
+- Now you can rearrange your indicators
+- Now you can set a custom string in the User Indicator
+- Still working fixing some bugs and adding new features
 

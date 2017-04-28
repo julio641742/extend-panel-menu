@@ -1,0 +1,15 @@
+<schemalist gettext-domain="gnome-shell-extensions">
+    <schema id="org.gnome.shell.extensions.extend-panel-menu" path="/org/gnome/shell/extensions/extend-panel-menu/">
+        <key name="username-text" type="s">
+            <default>''</default>
+            <summary>Username Label</summary>
+            <description/>
+        </key>
+
+        <key name="items" type="s">
+            <default>'Volume Indicator;1;volume|Network Indicator;1;network|Power Indicator;1;power|Calendar Indicator;1;calendar|Notification Indicator;1;notification|User Indicator;1;user'</default>
+            <summary>Indicators</summary>
+            <description/>
+        </key>
+    </schema>
+</schemalist>
