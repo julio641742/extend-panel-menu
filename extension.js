@@ -51,6 +51,7 @@ const CustomButton = new Lang.Class({
 
     _init: function(name) {
         this.parent(0.0, name, false);
+        this.name = name;
         this.box = new St.BoxLayout({
             vertical: false,
             style_class: 'panel-status-menu-box'
@@ -354,10 +355,12 @@ const PowerIndicator = new Lang.Class({
 
         this.menu.addMenuItem(this._brightness.menu);
 
+        let powertype = Main.panel.statusArea.aggregateMenu._power._proxy.IsPresent;
+        log(powertype);
         //let powertype = this._power._proxy.IsPresent; // NOT WORKING!!
-        let powertype = this._power._indicator.icon_name == 'system-shutdown-symbolic'; // NOT A GREAT SOLUTION! :(
+        //let powertype = this._power._indicator.icon_name == 'system-shutdown-symbolic'; // NOT A GREAT SOLUTION! :(
         // Do we have batteries or a UPS?
-        if (powertype) {
+        if (!powertype) {
             // If there's no battery, then we use the brightness icon.
             this.iconpanel = new St.Icon({
                 icon_name: 'display-brightness-symbolic',
@@ -553,25 +556,24 @@ const CalendarIndicator = new Lang.Class({
     },
 });
 
-
-let power;
-let user;
-let volume;
-let network;
-let notification;
-let calendar;
 let settings;
 let settingsChanged;
 let menuItems;
 let order;
-let nightlight;
+let indicators;
+let user;
+
+const VERSION = Config.PACKAGE_VERSION;
+const VERSION_NIGHLIGHT = '3.24.1';
 
 function enable() {
     Main.panel.statusArea.aggregateMenu.container.hide();
     Main.panel.statusArea.dateMenu.container.hide();
 
     // Load Settings
-    order = "";
+    order = null;
+    indicators = null;
+    user = -1
     settings = Convenience.getSettings();
     menuItems = new MenuItems.MenuItems(settings);
     settingsChanged = settings.connect('changed', Lang.bind(this, applySettings));
@@ -579,50 +581,41 @@ function enable() {
 }
 
 function applySettings() {
-
     let items = menuItems.getEnableItems();
     // If the order in which the indicators are displayed is changed
     if (order != items.toString()) {
         destroyIndicators();
-        let children = Main.panel._rightBox.get_children();
+        indicators = new Array(items.length);
 
         if (items.indexOf('power') != -1) {
-            power = new PowerIndicator;
-            Main.panel.addToStatusArea('PowerIndicator', power, (items.indexOf('power') + children.length), 'right');
+            indicators[items.indexOf('power')] = new PowerIndicator;
         }
-        if (items.indexOf('user') != -1) {
-            user = new UserIndicator;
-            Main.panel.addToStatusArea('UserIndicator', user, (items.indexOf('user') + children.length), 'right');
+        if (items.indexOf('user')) {
+            user = indicators[items.indexOf('user')] = new UserIndicator;
         }
         if (items.indexOf('volume') != -1) {
-            volume = new VolumeIndicator;
-            Main.panel.addToStatusArea('VolumeIndicator', volume, (items.indexOf('volume') + children.length), 'right');
+            indicators[items.indexOf('volume')] = new VolumeIndicator;
         }
         if (items.indexOf('network') != -1) {
-            network = new NetworkIndicator;
-            Main.panel.addToStatusArea('NetworkIndicator', network, (items.indexOf('network') + children.length), 'right');
+            indicators[items.indexOf('network')] = new NetworkIndicator;
         }
         if (items.indexOf('notification') != -1) {
-            notification = new NotificationIndicator;
-            Main.panel.addToStatusArea('NotificationIndicator', notification, (items.indexOf('notification') + children.length), 'right');
+            indicators[items.indexOf('notification')] = new NotificationIndicator;
         }
         if (items.indexOf('calendar') != -1) {
-            calendar = new CalendarIndicator;
-            Main.panel.addToStatusArea('CalendarIndicator', calendar, (items.indexOf('calendar') + children.length), 'right');
+            indicators[items.indexOf('calendar')] = new CalendarIndicator;
         }
-        if (items.indexOf('nightlight') != -1) {
-            try {
-                nightlight = new NightLightIndicator;
-                Main.panel.addToStatusArea('NightLightIndicator', nightlight, (items.indexOf('nightlight') + children.length), 'right');
-            }
-            catch(e) {
-                // Only Works for GNOME Shell >= 3.24
-            }
+        if (items.indexOf('nightlight') != -1 && ExtensionUtils.versionCheck([VERSION], VERSION_NIGHLIGHT)) {
+            indicators[items.indexOf('nightlight')] = new NightLightIndicator;
         }
+
+        let children = Main.panel._rightBox.get_children();
+        indicators.reverse().forEach(function(item) {
+            Main.panel.addToStatusArea(item.name, item, children.length, 'right');
+        });
         // Save state
         order = items.toString();
     }
-
 
     let username = settings.get_string('username-text');
     if (username == "") {
@@ -634,20 +627,13 @@ function applySettings() {
 }
 
 function destroyIndicators() {
-    if (power) power.destroy();
-    if (network) network.destroy();
-    if (volume) volume.destroy();
-    if (notification) notification.destroy();
-    if (calendar) calendar.destroy();
-    if (user) user.destroy();
-    if (nightlight) nightlight.destroy();
-    power = null;
-    network = null;
-    volume = null;
-    notification = null;
-    calendar = null;
+    if (indicators) {
+        indicators.forEach(function(item) {
+            item.destroy();
+        });
+    }
+    indicators = null;
     user = null;
-    nightlight = null;
 }
 
 function disable() {
