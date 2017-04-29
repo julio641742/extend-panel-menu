@@ -3,6 +3,8 @@
   "description": "Move the Power/Network/Volume/User/Date/Notifications menus to the status area", 
   "name": "Extend Panel Menu", 
   "shell-version": [
+	"3.18",
+	"3.20",
     "3.22", 
     "3.24"
   ],
