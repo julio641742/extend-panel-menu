@@ -4,18 +4,18 @@ All help is welcomed
 
 ## Screenshots
 ### New
-![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/settings-2.png)
+![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/settings-4.png)
+![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-nightlight-4.png)
+> Rearrange the position of your indicators and new nightlight indicator (GNOME Shell v3.24 and up)
 
-> Rearrange the position of your indicators (Still debugging, but works)
-
-![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-2.png)
-![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-shell-theme-2.png)
-![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-volume-2.png)
-![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-network-2.png)
-![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-power-2.png)
-![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-calendar-2.png)
-![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-notifications-2.png)
-![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-user-2.png)
+![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-4.png)
+![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-shell-theme-4.png)
+![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-volume-4.png)
+![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-network-4.png)
+![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-power-4.png)
+![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-calendar-4.png)
+![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-notifications-4.png)
+![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-user-4.png)
 
 
 ## Features
@@ -36,8 +36,18 @@ Not yet
 
 ## Changes
 
-### v1
-- First version
+### v4
+- New Settings Windows
+- Now you can rearrange your indicators
+- Now you can set a custom string in the User Indicator
+- New nighshift indicator (GNOME Shell >=3.24)
+- Added a Makefile
+- Support for GNOME Shell 3.18 and 3.20
+
+### v3
+- New network menu
+- Calendar menu with Weather indicator (GNOME Shell >= 3.24)
+- Fixed some bugs
 
 ### v2
 - Cosmetics bugfixes
@@ -46,15 +56,5 @@ Not yet
 - Menus optimized
 - Nighshift/Weather support (GNOME Shell >= 3.24)
 
-### v3
-- New network menu
-- Calendar menu with Weather indicator (GNOME Shell >= 3.24)
-- Fixed some bugs
-
-### v3.8 [Still debugging]
-- New Settings Windows
-- Now you can rearrange your indicators
-- Now you can set a custom string in the User Indicator
-- New nighshift indicator (GNOME Shell >=3.24)
-- Added a Makefile
-- Still working fixing some bugs and adding new features
+### v1
+- First version

@@ -569,7 +569,7 @@ let indicators;
 let user;
 
 const VERSION = Config.PACKAGE_VERSION;
-const VERSION_NIGHLIGHT = '3.24.0';
+const VERSION_NIGHLIGHT = '3.24';
 
 function enable() {
     Main.panel.statusArea.aggregateMenu.container.hide();
@@ -610,7 +610,7 @@ function applySettings() {
         if (items.indexOf('calendar') != -1) {
             indicators[items.indexOf('calendar')] = new CalendarIndicator;
         }
-        if (items.indexOf('nightlight') != -1 && ExtensionUtils.versionCheck([VERSION], VERSION_NIGHLIGHT)) {
+        if (items.indexOf('nightlight') != -1 && ExtensionUtils.versionCheck([VERSION_NIGHLIGHT], VERSION)) {
             indicators[items.indexOf('nightlight')] = new NightLightIndicator;
         }
 
