@@ -428,7 +428,12 @@ const NotificationIndicator = new Lang.Class({
         this.parent('NotificationIndicator');
 
         this.icon = new imports.ui.dateMenu.MessagesIndicator();
-        this._messageList = new imports.ui.calendar.CalendarMessageList();
+        this._messageList = null;
+        try {
+            this._messageList = new imports.ui.calendar.CalendarMessageList();
+        } catch (e) {
+            this._messageList = new imports.ui.calendar.MessageList(); // For GNOME Shell 3.18
+        }
         this.iconpanel = new St.Icon({
             icon_name: 'preferences-system-notifications-symbolic',
             style_class: 'system-status-icon'
@@ -564,7 +569,7 @@ let indicators;
 let user;
 
 const VERSION = Config.PACKAGE_VERSION;
-const VERSION_NIGHLIGHT = '3.24.1';
+const VERSION_NIGHLIGHT = '3.24.0';
 
 function enable() {
     Main.panel.statusArea.aggregateMenu.container.hide();
