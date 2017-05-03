@@ -20,7 +20,7 @@ const GLib = imports.gi.GLib;
 const GObject = imports.gi.GObject;
 const Gio = imports.gi.Gio;
 const Gtk = imports.gi.Gtk;
-const Gettext = imports.gettext.domain('extend-panel-menu');
+const Gettext = imports.gettext.domain("extend-panel-menu");
 const _ = Gettext.gettext;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
@@ -31,12 +31,12 @@ const Extension = imports.misc.extensionUtils.getCurrentExtension();
 const MenuItems = Extension.imports.menuItems;
 
 function init() {
-    Convenience.initTranslations('extend-panel-menu');
+    Convenience.initTranslations("extend-panel-menu");
 }
 
 const PrefsWidget = new GObject.Class({
-    Name: 'Prefs.Widget',
-    GTypeName: 'PrefsWidget',
+    Name: "Prefs.Widget",
+    GTypeName: "PrefsWidget",
     Extends: Gtk.Grid,
 
     _init: function(params) {
@@ -57,7 +57,7 @@ const PrefsWidget = new GObject.Class({
             spacing: 6
         });
         vbox.add(new Gtk.Label({
-            label: '<b>' + _("Settings") + '</b>',
+            label: "<b>" + _("Settings") + "</b>",
             use_markup: true,
             hexpand: true,
             halign: 1
@@ -67,17 +67,17 @@ const PrefsWidget = new GObject.Class({
             margin_left: 12
         });
         box.add(new Gtk.Label({
-            label: _('Username Label'),
+            label: _("Username Label"),
             hexpand: true,
             halign: 1
         }));
         let valueUser = new Gtk.Entry({
             hexpand: true
         });
-        this.settings.bind('username-text', valueUser, 'text', Gio.SettingsBindFlags.DEFAULT);
+        this.settings.bind("username-text", valueUser, "text", Gio.SettingsBindFlags.DEFAULT);
         box.add(valueUser);
         box.add(new Gtk.Label({
-            label: _('Set to empty to show real user name.'),
+            label: _("Set to empty to show real user name."),
             hexpand: true,
             halign: 1
         }));
@@ -90,7 +90,7 @@ const PrefsWidget = new GObject.Class({
             spacing: 6
         });
         vbox.add(new Gtk.Label({
-            label: '<b>' + _("Indicators") + '</b>',
+            label: "<b>" + _("Indicators") + "</b>",
             use_markup: true,
             hexpand: true,
             halign: 1
@@ -111,7 +111,7 @@ const PrefsWidget = new GObject.Class({
             margin_left: 12
         });
         box.add(new Gtk.Label({
-            label: _('Top to bottom = Left to right'),
+            label: _("Top to bottom = Left to right"),
             hexpand: true
         }));
         vbox.add(box);
@@ -120,17 +120,17 @@ const PrefsWidget = new GObject.Class({
             margin_left: 12
         });
         box.add(new Gtk.Label({
-            label: _('Reset Position'),
+            label: _("Reset Position"),
             hexpand: true,
             halign: 2
         }));
         let button = new Gtk.Button({
             visible: true,
-            label: _('Reset'),
+            label: _("Reset"),
             can_focus: true
         });
         button.get_style_context().add_class(Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
-        button.connect('clicked', Lang.bind(this, this.resetPosition));
+        button.connect("clicked", Lang.bind(this, this.resetPosition));
         box.add(button);
 
 
@@ -144,7 +144,7 @@ const PrefsWidget = new GObject.Class({
             spacing: 6
         });
         vbox.add(new Gtk.Label({
-            label: '<b>' + _("Help") + '</b>',
+            label: "<b>" + _("Help") + "</b>",
             use_markup: true,
             hexpand: true,
             halign: 1
@@ -154,14 +154,14 @@ const PrefsWidget = new GObject.Class({
             margin_left: 12
         });
         box.add(new Gtk.Label({
-            label: _('If something breaks, don\'t heasitate to leave a comment at '),
+            label: _("If something breaks, don\"t heasitate to leave a comment at "),
             hexpand: true,
             halign: 1
         }));
 
         box.add(new Gtk.LinkButton({
-            label: _('Github repo'),
-            uri:  'https://github.com/julio641742/extend-panel-menu',
+            label: _("Github repo"),
+            uri:  "https://github.com/julio641742/extend-panel-menu",
             hexpand: true,
             halign: 1
         }));
@@ -171,7 +171,7 @@ const PrefsWidget = new GObject.Class({
             margin_left: 12
         });
         box.add(new Gtk.Label({
-            label: _('Made with love by #julio641742#'),
+            label: _("Made with love by #julio641742#"),
             hexpand: true,
         }));
         vbox.add(box);
@@ -194,23 +194,23 @@ const PrefsWidget = new GObject.Class({
             });
 
             let buttonUp = new Gtk.Button({
-                label: _('Up')
+                label: _("Up")
             })
             if(indexItem > 0) {
-                buttonUp.connect('clicked', Lang.bind(this, this.changeOrder, indexItem, -1));
+                buttonUp.connect("clicked", Lang.bind(this, this.changeOrder, indexItem, -1));
             }
 
             let buttonDown = new Gtk.Button({
-                label: _('Down')
+                label: _("Down")
             });
             if(indexItem < items.length - 1) {
-                buttonDown.connect('clicked', Lang.bind(this, this.changeOrder, indexItem, 1));
+                buttonDown.connect("clicked", Lang.bind(this, this.changeOrder, indexItem, 1));
             }
 
             let valueList = new Gtk.Switch({
-                active: (item['enable'] == '1')
+                active: (item["enable"] == "1")
             });
-            valueList.connect('notify', Lang.bind(this, this.changeEnable, indexItem));
+            valueList.connect("notify", Lang.bind(this, this.changeEnable, indexItem));
 
 
             hboxList.add(new Gtk.Label({
@@ -239,7 +239,7 @@ const PrefsWidget = new GObject.Class({
         this.menuItems.changeEnable(index, object.active)
     },
     resetPosition: function() {
-        this.settings.set_value('items', this.settings.get_default_value('items'));
+        this.settings.set_value("items", this.settings.get_default_value("items"));
         this.buildList();
     },
 });

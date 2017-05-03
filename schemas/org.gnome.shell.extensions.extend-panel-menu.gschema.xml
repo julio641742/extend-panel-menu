@@ -1,13 +1,13 @@
 <schemalist gettext-domain="gnome-shell-extensions">
     <schema id="org.gnome.shell.extensions.extend-panel-menu" path="/org/gnome/shell/extensions/extend-panel-menu/">
         <key name="username-text" type="s">
-            <default>''</default>
+            <default>""</default>
             <summary>Username Label</summary>
             <description/>
         </key>
 
         <key name="items" type="s">
-            <default>'Night Light Indicator [GNOME Shell>=3.24];1;nightlight|Volume Indicator;1;volume|Network Indicator;1;network|Power(Brightness) Indicator;1;power|Calendar Indicator;1;calendar|User Indicator;1;user|Notification Indicator;1;notification'</default>
+            <default>"Night Light Indicator [GNOME Shell>=3.24];1;nightlight|Volume Indicator;1;volume|Network Indicator;1;network|Power(Brightness) Indicator;1;power|Calendar Indicator;1;calendar|User Indicator;1;user|Notification Indicator;1;notification"</default>
             <summary>Indicators</summary>
             <description/>
         </key>
