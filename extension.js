@@ -77,17 +77,22 @@ const NetworkIndicator = new Lang.Class({
 
         this._network = null;
         this._bluetooth = null;
+        this._rfkill = new imports.ui.status.rfkill.Indicator();
         if (Config.HAVE_NETWORKMANAGER) {
             this._network = new imports.ui.status.network.NMApplet();
         }
         if (Config.HAVE_BLUETOOTH) {
             this._bluetooth = new imports.ui.status.bluetooth.Indicator();
         }
-        this._rfkill = new imports.ui.status.rfkill.Indicator();
 
-        //this._location = new imports.ui.status.location.Indicator();
+        ////////
+        //this._location = new imports.ui.status.location.Indicator(); // exception Gio.IOErrorEnum
+        this._location = Main.panel.statusArea.aggregateMenu._location;
+        //this.box.add_child(this._location._indicator);
+        Main.panel.statusArea.aggregateMenu._indicators.remove_actor(this._location.indicators); // WORKAROUND!! NOT PRETTY :(
+        this.box.add_child(this._location.indicators); // NOT PRETTY
+        ////////
 
-        //this.box.add_child(this._location.indicators);
         if (this._network) {
             this.box.add_child(this._network.indicators);
         }
@@ -95,10 +100,8 @@ const NetworkIndicator = new Lang.Class({
             this.box.add_child(this._bluetooth.indicators);
         }
         this.box.add_child(this._rfkill.indicators);
-
         this._arrowIcon = PopupMenu.arrowIcon(St.Side.BOTTOM);
         this.box.add_child(this._arrowIcon);
-
 
         if (this._network) {
             this.menu.addMenuItem(this._network.menu);
@@ -106,7 +109,13 @@ const NetworkIndicator = new Lang.Class({
         if (this._bluetooth) {
             this.menu.addMenuItem(this._bluetooth.menu);
         }
+
+        ////////
         //this.menu.addMenuItem(this._location.menu);
+        Main.panel.statusArea.aggregateMenu.menu.box.remove_actor(this._location.menu.actor);
+        this.menu.box.add_actor(this._location.menu.actor);
+        ////////
+
         this.menu.addMenuItem(this._rfkill.menu);
 
         this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
@@ -114,10 +123,7 @@ const NetworkIndicator = new Lang.Class({
         network.connect("activate", Lang.bind(this, this._openApp, "gnome-network-panel.desktop"));
         this.menu.addMenuItem(network);
 
-
-        //https://github.com/GNOME/gnome-shell/blob/master/js/ui/status/location.js
         this._rfkill._manager._proxy.connect('g-properties-changed', Lang.bind(this, this._sync));
-
         if (this._network) {
             this._network._primaryIndicator.connect('notify', Lang.bind(this, this._sync))
         }
@@ -127,19 +133,23 @@ const NetworkIndicator = new Lang.Class({
         this._sync();
 
         this._rfkill._sync();
-        //this._client = this._network._client;
         if (this._bluetooth) {
             this._bluetooth._sync();
         }
-        //this._network._syncConnectivity();
-        //this._location._syncIndicator();
     },
     _sync: function() {
         this._arrowIcon.hide();
         if (this.box.get_width() == 0) {
             this._arrowIcon.show();
         }
-    }
+    },
+    destroy: function() {
+        this.box.remove_child(this._location.indicators);
+        Main.panel.statusArea.aggregateMenu._indicators.add_actor(this._location.indicators);
+        this.menu.box.remove_actor(this._location.menu.actor);
+        Main.panel.statusArea.aggregateMenu.menu.box.add_actor(this._location.menu.actor);
+        this.parent();
+    },
 });
 
 const UserIndicator = new Lang.Class({
@@ -350,14 +360,13 @@ const VolumeIndicator = new Lang.Class({
     _init: function() {
         this.parent("VolumeIndicator");
         this.menu.actor.add_style_class_name("aggregate-menu");
-        this.menu.actor.add_style_class_name("music-box");
-        this.menu.box.set_width(250);
         this._volume = new imports.ui.status.volume.Indicator();
 
         this.box.add_child(this._volume.indicators);
         this.menu.addMenuItem(this._volume.menu);
         try {
             this._mediaSection = new imports.ui.mpris.MediaSection();
+            this._mediaSection.actor.set_style("music-box");
             this.menu.box.add_actor(this._mediaSection.actor);
         } catch (e) {}
         this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
@@ -510,20 +519,45 @@ let settings;
 let settingsChanged;
 let menuItems;
 let order;
-let indicators;
+
+let nightlight;
+let volume;
+let network;
+let power;
+let calendar;
 let user;
+let notification;
+
 
 const VERSION = Config.PACKAGE_VERSION;
 const VERSION_NIGHLIGHT = "3.24";
 
 function enable() {
+    let children = Main.panel._rightBox.get_children();
+
     Main.panel.statusArea.aggregateMenu.container.hide();
     Main.panel.statusArea.dateMenu.container.hide();
 
+    nightlight = new NightLightIndicator();
+    volume = new VolumeIndicator();
+    network = new NetworkIndicator();
+    power = new PowerIndicator();
+    calendar = new CalendarIndicator();
+    user = new UserIndicator();
+    notification = new NotificationIndicator();
+
+    Main.panel.addToStatusArea(notification.name, notification, children.length, "right");
+    Main.panel.addToStatusArea(user.name, user, children.length, "right");
+    Main.panel.addToStatusArea(calendar.name, calendar, children.length, "right");
+    Main.panel.addToStatusArea(power.name, power, children.length, "right");
+    Main.panel.addToStatusArea(network.name, network, children.length, "right");
+    Main.panel.addToStatusArea(volume.name, volume, children.length, "right");
+    if (ExtensionUtils.versionCheck([VERSION_NIGHLIGHT], VERSION)) {
+        Main.panel.addToStatusArea(nightlight.name, nightlight, children.length, "right");
+    }
+
     // Load Settings
     order = null;
-    indicators = null;
-    user = -1
     settings = Convenience.getSettings();
     menuItems = new MenuItems.MenuItems(settings);
     settingsChanged = settings.connect("changed", Lang.bind(this, applySettings));
@@ -534,34 +568,41 @@ function applySettings() {
     let items = menuItems.getEnableItems();
     // If the order in which the indicators are displayed is changed
     if (order != items.toString()) {
-        destroyIndicators();
+        hideAndRemoveAll();
         indicators = new Array(items.length);
 
         if (items.indexOf("power") != -1) {
-            indicators[items.indexOf("power")] = new PowerIndicator;
+            power.actor.show();
+            indicators[items.indexOf("power")] = power;
         }
-        if (items.indexOf("user")) {
-            user = indicators[items.indexOf("user")] = new UserIndicator;
+        if (items.indexOf("user") != -1) {
+            user.actor.show();
+            indicators[items.indexOf("user")] = user;
         }
         if (items.indexOf("volume") != -1) {
-            indicators[items.indexOf("volume")] = new VolumeIndicator;
+            volume.actor.show();
+            indicators[items.indexOf("volume")] = volume;
         }
         if (items.indexOf("network") != -1) {
-            indicators[items.indexOf("network")] = new NetworkIndicator;
+            network.actor.show();
+            indicators[items.indexOf("network")] = network;
         }
         if (items.indexOf("notification") != -1) {
-            indicators[items.indexOf("notification")] = new NotificationIndicator;
+            notification.actor.show();
+            indicators[items.indexOf("notification")] = notification;
         }
         if (items.indexOf("calendar") != -1) {
-            indicators[items.indexOf("calendar")] = new CalendarIndicator;
+            calendar.actor.show();
+            indicators[items.indexOf("calendar")] = calendar;
         }
         if (items.indexOf("nightlight") != -1 && ExtensionUtils.versionCheck([VERSION_NIGHLIGHT], VERSION)) {
-            indicators[items.indexOf("nightlight")] = new NightLightIndicator;
+            nightlight.actor.show();
+            indicators[items.indexOf("nightlight")] = nightlight;
         }
 
         let children = Main.panel._rightBox.get_children();
         indicators.reverse().forEach(function(item) {
-            Main.panel.addToStatusArea(item.name, item, children.length, "right");
+            Main.panel._rightBox.insert_child_at_index(item.container, children.length);
         });
         // Save state
         order = items.toString();
@@ -576,20 +617,38 @@ function applySettings() {
     }
 }
 
-function destroyIndicators() {
-    if (indicators) {
-        indicators.forEach(function(item) {
-            item.destroy();
-        });
+function hideAndRemoveAll() {
+    if (nightlight) {
+        nightlight.actor.hide();
+        Main.panel._rightBox.remove_child(nightlight.container);
     }
-    indicators = null;
-    user = null;
+    volume.actor.hide();
+    Main.panel._rightBox.remove_child(volume.container);
+    network.actor.hide();
+    Main.panel._rightBox.remove_child(network.container);
+    power.actor.hide();
+    Main.panel._rightBox.remove_child(power.container);
+    calendar.actor.hide();
+    Main.panel._rightBox.remove_child(calendar.container);
+    user.actor.hide();
+    Main.panel._rightBox.remove_child(user.container);
+    notification.actor.hide();
+    Main.panel._rightBox.remove_child(notification.container);
 }
 
 function disable() {
     settingsChanged = null;
     settings = null;
-    destroyIndicators();
+    if (nightlight) {
+        nightlight.destroy();
+    }
+    volume.destroy();
+    network.destroy();
+    power.destroy();
+    calendar.destroy();
+    user.destroy();
+    notification.destroy();
+
     Main.panel.statusArea.aggregateMenu.container.show();
     Main.panel.statusArea.dateMenu.container.show();
 }
