@@ -115,21 +115,28 @@ const NetworkIndicator = new Lang.Class({
         this.menu.addMenuItem(network);
 
 
-//https://github.com/GNOME/gnome-shell/blob/master/js/ui/status/location.js
+        //https://github.com/GNOME/gnome-shell/blob/master/js/ui/status/location.js
         this._rfkill._manager._proxy.connect('g-properties-changed', Lang.bind(this, this._sync));
 
         if (this._network) {
-            //this._network._client.connect('notify::state', Lang.bind(this, this._sync));
             this._network._primaryIndicator.connect('notify', Lang.bind(this, this._sync))
         }
         if (this._bluetooth) {
             this._bluetooth._proxy.connect('g-properties-changed', Lang.bind(this, this._sync));
         }
         this._sync();
+
+        this._rfkill._sync();
+        //this._client = this._network._client;
+        if (this._bluetooth) {
+            this._bluetooth._sync();
+        }
+        //this._network._syncConnectivity();
+        //this._location._syncIndicator();
     },
     _sync: function() {
         this._arrowIcon.hide();
-        if(this.box.get_width() == 0) {
+        if (this.box.get_width() == 0) {
             this._arrowIcon.show();
         }
     }
