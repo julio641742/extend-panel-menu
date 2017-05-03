@@ -75,82 +75,64 @@ const NetworkIndicator = new Lang.Class({
         this.parent("NetworkIndicator");
         this.menu.actor.add_style_class_name("aggregate-menu");
 
-        this._rfkill = Main.panel.statusArea.aggregateMenu._rfkill;
-        //new imports.ui.status.rfkill.Indicator();
+        this._network = null;
+        this._bluetooth = null;
+        if (Config.HAVE_NETWORKMANAGER) {
+            this._network = new imports.ui.status.network.NMApplet();
+        }
+        if (Config.HAVE_BLUETOOTH) {
+            this._bluetooth = new imports.ui.status.bluetooth.Indicator();
+        }
+        this._rfkill = new imports.ui.status.rfkill.Indicator();
 
-        this._location = Main.panel.statusArea.aggregateMenu._location;
-        // new imports.ui.status.location.Indicator(); // ERROR INTERFACE
+        //this._location = new imports.ui.status.location.Indicator();
 
-        //this.box.add_child(this._location._indicator);
-        Main.panel.statusArea.aggregateMenu._indicators.remove_actor(this._location.indicators); // WORKAROUND!! NOT PRETTY :(
-        this.box.add_child(this._location.indicators); // NOT PRETTY
-
-        //this.box.add_child(this._rfkill.indicators);
-        Main.panel.statusArea.aggregateMenu._indicators.remove_actor(this._rfkill.indicators);
+        //this.box.add_child(this._location.indicators);
+        if (this._network) {
+            this.box.add_child(this._network.indicators);
+        }
+        if (this._bluetooth) {
+            this.box.add_child(this._bluetooth.indicators);
+        }
         this.box.add_child(this._rfkill.indicators);
 
-        if (Config.HAVE_NETWORKMANAGER) {
-            this._network = Main.panel.statusArea.aggregateMenu._network;
-            //new imports.ui.status.network.NMApplet();
+        this._arrowIcon = PopupMenu.arrowIcon(St.Side.BOTTOM);
+        this.box.add_child(this._arrowIcon);
 
-            //this.box.add_child(this._network.indicators);
-            Main.panel.statusArea.aggregateMenu._indicators.remove_actor(this._network.indicators);
-            this.box.add_child(this._network.indicators);
 
-            //this.menu.addMenuItem(this._network.menu); // NOT SHOWING MENU
-            Main.panel.statusArea.aggregateMenu.menu.box.remove_actor(this._network.menu.actor);
-            this.menu.box.add_actor(this._network.menu.actor);
+        if (this._network) {
+            this.menu.addMenuItem(this._network.menu);
         }
-
-        if (Config.HAVE_BLUETOOTH) {
-            this._bluetooth = Main.panel.statusArea.aggregateMenu._bluetooth;
-            //new imports.ui.status.bluetooth.Indicator();
-
-            //this.box.add_child(this._bluetooth.indicators);
-            Main.panel.statusArea.aggregateMenu._indicators.remove_actor(this._bluetooth.indicators);
-            this.box.add_child(this._bluetooth.indicators);
-
-            //this.menu.addMenuItem(this._bluetooth.menu);
-            Main.panel.statusArea.aggregateMenu.menu.box.remove_actor(this._bluetooth.menu.actor);
-            this.menu.box.add_actor(this._bluetooth.menu.actor);
+        if (this._bluetooth) {
+            this.menu.addMenuItem(this._bluetooth.menu);
         }
-
         //this.menu.addMenuItem(this._location.menu);
-        Main.panel.statusArea.aggregateMenu.menu.box.remove_actor(this._location.menu.actor);
-        this.menu.box.add_actor(this._location.menu.actor);
-
-        //this.menu.addMenuItem(this._rfkill.menu);
-        Main.panel.statusArea.aggregateMenu.menu.box.remove_actor(this._rfkill.menu.actor);
-        this.menu.box.add_actor(this._rfkill.menu.actor);
+        this.menu.addMenuItem(this._rfkill.menu);
 
         this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
         let network = new PopupMenu.PopupMenuItem(_("Network Settings"));
         network.connect("activate", Lang.bind(this, this._openApp, "gnome-network-panel.desktop"));
         this.menu.addMenuItem(network);
-    },
-    destroy: function() {
-        this.box.remove_child(this._location.indicators);
-        Main.panel.statusArea.aggregateMenu._indicators.add_actor(this._location.indicators);
-        this.box.remove_child(this._rfkill.indicators);
-        Main.panel.statusArea.aggregateMenu._indicators.add_actor(this._rfkill.indicators);
-        if (Config.HAVE_NETWORKMANAGER) {
-            this.box.remove_child(this._network.indicators);
-            Main.panel.statusArea.aggregateMenu._indicators.add_actor(this._network.indicators);
-            this.menu.box.remove_actor(this._network.menu.actor);
-            Main.panel.statusArea.aggregateMenu.menu.box.add_actor(this._network.menu.actor);
+
+
+//https://github.com/GNOME/gnome-shell/blob/master/js/ui/status/location.js
+        this._rfkill._manager._proxy.connect('g-properties-changed', Lang.bind(this, this._sync));
+
+        if (this._network) {
+            //this._network._client.connect('notify::state', Lang.bind(this, this._sync));
+            this._network._primaryIndicator.connect('notify', Lang.bind(this, this._sync))
         }
-        if (Config.HAVE_BLUETOOTH) {
-            this.box.remove_child(this._bluetooth.indicators);
-            Main.panel.statusArea.aggregateMenu._indicators.add_actor(this._bluetooth.indicators);
-            this.menu.box.remove_actor(this._bluetooth.menu.actor);
-            Main.panel.statusArea.aggregateMenu.menu.box.add_actor(this._bluetooth.menu.actor);
+        if (this._bluetooth) {
+            this._bluetooth._proxy.connect('g-properties-changed', Lang.bind(this, this._sync));
         }
-        this.menu.box.remove_actor(this._location.menu.actor);
-        Main.panel.statusArea.aggregateMenu.menu.box.add_actor(this._location.menu.actor);
-        this.menu.box.remove_actor(this._rfkill.menu.actor);
-        Main.panel.statusArea.aggregateMenu.menu.box.add_actor(this._rfkill.menu.actor);
-        this.parent();
+        this._sync();
     },
+    _sync: function() {
+        this._arrowIcon.hide();
+        if(this.box.get_width() == 0) {
+            this._arrowIcon.show();
+        }
+    }
 });
 
 const UserIndicator = new Lang.Class({
