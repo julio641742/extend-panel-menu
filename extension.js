@@ -123,12 +123,12 @@ const NetworkIndicator = new Lang.Class({
         network.connect("activate", Lang.bind(this, this._openApp, "gnome-network-panel.desktop"));
         this.menu.addMenuItem(network);
 
-        this._rfkill._manager._proxy.connect('g-properties-changed', Lang.bind(this, this._sync));
+        this._rfkill._manager._proxy.connect("g-properties-changed", Lang.bind(this, this._sync));
         if (this._network) {
-            this._network._primaryIndicator.connect('notify', Lang.bind(this, this._sync))
+            this._network._primaryIndicator.connect("notify", Lang.bind(this, this._sync))
         }
         if (this._bluetooth) {
-            this._bluetooth._proxy.connect('g-properties-changed', Lang.bind(this, this._sync));
+            this._bluetooth._proxy.connect("g-properties-changed", Lang.bind(this, this._sync));
         }
         this._sync();
 
@@ -162,13 +162,18 @@ const UserIndicator = new Lang.Class({
         this._screencast = new imports.ui.status.screencast.Indicator();
 
         let username = GLib.get_real_name();
-        this.usernamelabel = new St.Label({
+        this._nameLabel = new St.Label({
             text: username,
             y_align: Clutter.ActorAlign.CENTER,
             style_class: "panel-status-menu-box"
         });
+        this._userIcon = new St.Icon({
+            icon_name: "avatar-default-symbolic",
+            style_class: "system-status-icon"
+        });
         this.box.add_child(this._screencast.indicators);
-        this.box.add_child(this.usernamelabel);
+        this.box.add_child(this._userIcon);
+        this.box.add_child(this._nameLabel);
 
         this._session = this._system._session;
         this._loginManager = this._system._loginManager;
@@ -279,7 +284,7 @@ const NightLightIndicator = new Lang.Class({
         let nightSettings = new PopupMenu.PopupMenuItem(_("Display Settings"));
         nightSettings.connect("activate", Lang.bind(this, this._openApp, "gnome-display-panel.desktop"));
         this.menu.addMenuItem(nightSettings);
-        this._nightLight._proxy.connect('g-properties-changed', Lang.bind(this, this._sync));
+        this._nightLight._proxy.connect("g-properties-changed", Lang.bind(this, this._sync));
         this._sync();
     },
     _change: function() {
@@ -287,9 +292,9 @@ const NightLightIndicator = new Lang.Class({
     },
     _turnOff: function() {
         let settings = new Gio.Settings({
-            schema_id: 'org.gnome.settings-daemon.plugins.color'
+            schema_id: "org.gnome.settings-daemon.plugins.color"
         });
-        settings.set_boolean('night-light-enabled', false);
+        settings.set_boolean("night-light-enabled", false);
     },
     _sync: function() {
         let visible = this._nightLight._proxy.NightLightActive;
@@ -329,7 +334,7 @@ const PowerIndicator = new Lang.Class({
         this._settings = new PopupMenu.PopupMenuItem(_("Power Settings"));
         this._settings.connect("activate", Lang.bind(this, this._openApp, "gnome-power-panel.desktop"));
         this.menu.addMenuItem(this._settings);
-        this._power._proxy.connect('g-properties-changed', Lang.bind(this, this._sync));
+        this._power._proxy.connect("g-properties-changed", Lang.bind(this, this._sync));
         this._sync();
     },
     _sync: function() {
@@ -491,11 +496,24 @@ const CalendarIndicator = new Lang.Class({
         this._calendar.connect("selected-date-changed", Lang.bind(this, function(calendar, date) {
             this._eventsSection.setDate(date);
         }));
-        this._clock.bind_property("clock", this._clockIndicator, "text", GObject.BindingFlags.SYNC_CREATE);
+        //this._clock.bind_property("clock", this._clockIndicator, "text", GObject.BindingFlags.SYNC_CREATE, this._dateTimeFormat);
         Main.sessionMode.connect("updated", Lang.bind(this, this._sessionUpdated));
         this._sessionUpdated();
-    },
 
+        this._dateFormat = null;
+        let that = this;
+        this._formatChanged = GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, 1, function() {
+            that._dateTimeFormat();
+            return true;
+        });
+    },
+    _dateTimeFormat: function() {
+        if (this._dateFormat && (new Date().toLocaleFormat(this._dateFormat))) {
+            this._clockIndicator.set_text(new Date().toLocaleFormat(this._dateFormat));
+        } else {
+            this._clockIndicator.set_text(this._clock.clock);
+        }
+    },
     _setEventSource: function(eventSource) {
         if (this._eventSource)
             this._eventSource.destroy();
@@ -514,6 +532,13 @@ const CalendarIndicator = new Lang.Class({
         }
         this._setEventSource(eventSource);
     },
+    destroy: function() {
+        if (this._formatChanged) {
+            GLib.source_remove(this._formatChanged);
+            this._formatChanged = null;
+        }
+        this.parent();
+    }
 });
 
 let settings;
@@ -607,8 +632,22 @@ function applySettings() {
         username = GLib.get_real_name();
     }
     if (user) {
-        user.usernamelabel.set_text(username);
+        user._nameLabel.set_text(username);
     }
+    let enableUserIcon = settings.get_boolean("user-icon");
+    if (enableUserIcon) {
+        user._userIcon.show();
+        user._nameLabel.hide();
+    } else {
+        user._userIcon.hide();
+        user._nameLabel.show();
+    }
+
+    let dateFormat = settings.get_string("date-format");
+    if (calendar) {
+        calendar._dateFormat = dateFormat;
+    }
+
 }
 
 function hideAndRemoveAll() {
@@ -624,10 +663,10 @@ function hideAndRemoveAll() {
 }
 
 function disable() {
-    settings = null;
     if (settingsChanged) {
         settings.disconnect(settingsChanged);
     }
+    settings = null;
     if (nightlight) {
         nightlight.destroy();
     }

@@ -40,6 +40,7 @@ Not yet
 - Music controls under the volume indicator
 - Now works with "Status Area Horizontal Spacing"
 - Improved performance when moving indicators
+- Change format of date in the calendar indicator
 
 ### v4
 - New Settings Windows

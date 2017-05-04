@@ -67,7 +67,7 @@ const PrefsWidget = new GObject.Class({
             margin_left: 12
         });
         box.add(new Gtk.Label({
-            label: _("Username Label"),
+            label: _("Name label (Empty to show real user name)"),
             hexpand: true,
             halign: 1
         }));
@@ -76,11 +76,40 @@ const PrefsWidget = new GObject.Class({
         });
         this.settings.bind("username-text", valueUser, "text", Gio.SettingsBindFlags.DEFAULT);
         box.add(valueUser);
+        vbox.add(box);
+        box = new Gtk.Box({
+            spacing: 12,
+            margin_left: 12
+        });
         box.add(new Gtk.Label({
-            label: _("Set to empty to show real user name."),
+            label: _("Show an icon instead of name"),
             hexpand: true,
             halign: 1
         }));
+        let enableUserIcon = new Gtk.Switch();
+        this.settings.bind("user-icon", enableUserIcon, "active", Gio.SettingsBindFlags.DEFAULT);
+        box.add(enableUserIcon);
+        vbox.add(box);
+        box = new Gtk.Box({
+            spacing: 12,
+            margin_left: 12
+        });
+        box.add(new Gtk.Label({
+            label: _("Change format of date (Empty to system default)"),
+            hexpand: true,
+            halign: 1
+        }));
+        box.add(new Gtk.LinkButton({
+            label: _("wiki"),
+            uri: "https://help.gnome.org/users/gthumb/unstable/gthumb-date-formats.html.en",
+            hexpand: true,
+            halign: 1
+        }));
+        let valueDate = new Gtk.Entry({
+            hexpand: true
+        });
+        this.settings.bind("date-format", valueDate, "text", Gio.SettingsBindFlags.DEFAULT);
+        box.add(valueDate);
         vbox.add(box);
         this.add(vbox);
 
@@ -111,7 +140,7 @@ const PrefsWidget = new GObject.Class({
             margin_left: 12
         });
         box.add(new Gtk.Label({
-            label: _("Top to bottom = Left to right"),
+            label: _("Top to bottom -> Left to right"),
             hexpand: true
         }));
         vbox.add(box);
@@ -120,7 +149,7 @@ const PrefsWidget = new GObject.Class({
             margin_left: 12
         });
         box.add(new Gtk.Label({
-            label: _("Reset Position"),
+            label: _("Reset Indicators"),
             hexpand: true,
             halign: 2
         }));
@@ -161,7 +190,7 @@ const PrefsWidget = new GObject.Class({
 
         box.add(new Gtk.LinkButton({
             label: _("Github repo"),
-            uri:  "https://github.com/julio641742/extend-panel-menu",
+            uri: "https://github.com/julio641742/extend-panel-menu",
             hexpand: true,
             halign: 1
         }));
@@ -179,14 +208,14 @@ const PrefsWidget = new GObject.Class({
 
     },
     buildList: function() {
-        for(let indexHboxList in this.hboxsList) {
+        for (let indexHboxList in this.hboxsList) {
             this.vboxList.remove(this.hboxsList[indexHboxList]);
         }
         this.hboxsList = new Array();
 
         let items = this.menuItems.getItems();
 
-        for(let indexItem in items) {
+        for (let indexItem in items) {
             let item = items[indexItem];
 
             let hboxList = new Gtk.Box({
@@ -196,14 +225,14 @@ const PrefsWidget = new GObject.Class({
             let buttonUp = new Gtk.Button({
                 label: _("Up")
             })
-            if(indexItem > 0) {
+            if (indexItem > 0) {
                 buttonUp.connect("clicked", Lang.bind(this, this.changeOrder, indexItem, -1));
             }
 
             let buttonDown = new Gtk.Button({
                 label: _("Down")
             });
-            if(indexItem < items.length - 1) {
+            if (indexItem < items.length - 1) {
                 buttonDown.connect("clicked", Lang.bind(this, this.changeOrder, indexItem, 1));
             }
 
