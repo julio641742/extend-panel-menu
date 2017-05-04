@@ -35,13 +35,14 @@ Not yet
 
 ## Changes
 
-### v4.9
+### v5
 - Music controls under the volume indicator
 - Now works with "Status Area Horizontal Spacing" extension
 - Improved performance when moving indicators
 - Change format of date in the calendar indicator
 - Switch between user icon/name
 - Translation ready (Looking for translators)
+- Fixed some bugs
 
 ### v4
 - New Settings Windows
