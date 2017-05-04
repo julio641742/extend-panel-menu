@@ -4,13 +4,12 @@ All help is welcomed
 
 ## Screenshots
 ### New
-![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/settings-4.png)
+![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/settings-5.png)
+![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-volume-5.png)
+> New settings and music player under volume indicator
 ![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-nightlight-4.png)
-> Rearrange the position of your indicators and new nightlight indicator (GNOME Shell v3.24 and up)
-
 ![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-4.png)
 ![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-shell-theme-4.png)
-![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-volume-4.png)
 ![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-network-4.png)
 ![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-power-4.png)
 ![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-calendar-4.png)
@@ -36,11 +35,13 @@ Not yet
 
 ## Changes
 
-### v4.7
+### v4.9
 - Music controls under the volume indicator
-- Now works with "Status Area Horizontal Spacing"
+- Now works with "Status Area Horizontal Spacing" extension
 - Improved performance when moving indicators
 - Change format of date in the calendar indicator
+- Switch between user icon/name
+- Translation ready (Looking for translators)
 
 ### v4
 - New Settings Windows

@@ -19,7 +19,6 @@
 const Lang = imports.lang;
 const MenuItems = new Lang.Class({
     Name: "MenuItems",
-
     _init: function(settings) {
         this.settings = settings;
     },
