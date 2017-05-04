@@ -23,5 +23,10 @@
 }
 
 .music-box {
-	max-width: 40em;
+	max-width: 400px;
+}
+
+.horizontal-spacing {
+	-natural-hpadding: 6px;
+	-minimum-hpadding: 6px;
 }

@@ -56,7 +56,7 @@ const CustomButton = new Lang.Class({
             vertical: false,
             style_class: "panel-status-menu-box"
         });;
-        this.actor.set_style("-natural-hpadding: 6px; -minimum-hpadding: 6px;");
+        this.actor.add_style_class_name("horizontal-spacing");
         this.actor.add_child(this.box);
     },
     _openApp: function(a, b, app) {
@@ -366,7 +366,8 @@ const VolumeIndicator = new Lang.Class({
         this.menu.addMenuItem(this._volume.menu);
         try {
             this._mediaSection = new imports.ui.mpris.MediaSection();
-            this._mediaSection.actor.set_style("music-box");
+            //this._mediaSection.actor.set_style();
+            this._mediaSection.actor.add_style_class_name("music-box");
             this.menu.box.add_actor(this._mediaSection.actor);
         } catch (e) {}
         this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
@@ -572,31 +573,24 @@ function applySettings() {
         indicators = new Array(items.length);
 
         if (items.indexOf("power") != -1) {
-            power.actor.show();
             indicators[items.indexOf("power")] = power;
         }
         if (items.indexOf("user") != -1) {
-            user.actor.show();
             indicators[items.indexOf("user")] = user;
         }
         if (items.indexOf("volume") != -1) {
-            volume.actor.show();
             indicators[items.indexOf("volume")] = volume;
         }
         if (items.indexOf("network") != -1) {
-            network.actor.show();
             indicators[items.indexOf("network")] = network;
         }
         if (items.indexOf("notification") != -1) {
-            notification.actor.show();
             indicators[items.indexOf("notification")] = notification;
         }
         if (items.indexOf("calendar") != -1) {
-            calendar.actor.show();
             indicators[items.indexOf("calendar")] = calendar;
         }
         if (items.indexOf("nightlight") != -1 && ExtensionUtils.versionCheck([VERSION_NIGHLIGHT], VERSION)) {
-            nightlight.actor.show();
             indicators[items.indexOf("nightlight")] = nightlight;
         }
 
@@ -619,26 +613,21 @@ function applySettings() {
 
 function hideAndRemoveAll() {
     if (nightlight) {
-        nightlight.actor.hide();
         Main.panel._rightBox.remove_child(nightlight.container);
     }
-    volume.actor.hide();
     Main.panel._rightBox.remove_child(volume.container);
-    network.actor.hide();
     Main.panel._rightBox.remove_child(network.container);
-    power.actor.hide();
     Main.panel._rightBox.remove_child(power.container);
-    calendar.actor.hide();
     Main.panel._rightBox.remove_child(calendar.container);
-    user.actor.hide();
     Main.panel._rightBox.remove_child(user.container);
-    notification.actor.hide();
     Main.panel._rightBox.remove_child(notification.container);
 }
 
 function disable() {
-    settingsChanged = null;
     settings = null;
+    if (settingsChanged) {
+        settings.disconnect(settingsChanged);
+    }
     if (nightlight) {
         nightlight.destroy();
     }

@@ -36,6 +36,11 @@ Not yet
 
 ## Changes
 
+### v4.7
+- Music controls under the volume indicator
+- Now works with "Status Area Horizontal Spacing"
+- Improved performance when moving indicators
+
 ### v4
 - New Settings Windows
 - Now you can rearrange your indicators
