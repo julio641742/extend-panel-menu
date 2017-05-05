@@ -1,15 +1,15 @@
 # Spanish translations for PACKAGE package.
 # Copyright (C) 2017 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Julio Galvan <julio@linux.localdomain>, 2017.
+# Julio Galvan <mail@mail.com>, 2017.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-04 00:15-0700\n"
-"PO-Revision-Date: 2017-05-04 00:23-0700\n"
-"Last-Translator: Julio Galvan <julio@linux.localdomain>\n"
+"PO-Revision-Date: 2017-05-04 18:14-0700\n"
+"Last-Translator: Julio Galvan <mail@mail.com>\n"
 "Language-Team: Spanish\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -19,136 +19,158 @@ msgstr ""
 
 #: extension.js:122
 msgid "Network Settings"
-msgstr ""
+msgstr "Ajustes de Red"
 
 #: extension.js:185
 msgid "About This Computer"
-msgstr ""
+msgstr "Acerca del equipo"
 
 #: extension.js:189
 msgid "GNOME Help"
-msgstr ""
+msgstr "Ayuda GNOME"
 
 #: extension.js:195
 msgid "System Settings"
-msgstr ""
+msgstr "Ajustes del Sistema"
 
 #: extension.js:199
 msgid "Extension Settings"
-msgstr ""
+msgstr "Ajustes de Extension"
 
 #: extension.js:206
 msgid "Lock"
-msgstr ""
+msgstr "Bloquear"
 
 #: extension.js:213
 msgid "Switch User"
-msgstr ""
+msgstr "Cambiar Usuario"
 
 #: extension.js:222
 msgid "Log Out"
-msgstr ""
+msgstr "Cerrar Sesion"
 
 #: extension.js:229
 msgid "Account Settings"
-msgstr ""
+msgstr "Ajustes de la Cuenta"
 
 #: extension.js:245
 msgid "Suspend"
-msgstr ""
+msgstr "Suspender"
 
 #: extension.js:252
 msgid "Power Off"
-msgstr ""
+msgstr "Apagar el equipo"
 
 #: extension.js:278 extension.js:303
 msgid "Resume"
-msgstr ""
+msgstr "Resumir"
 
 #: extension.js:281
 msgid "Turn Off"
-msgstr ""
+msgstr "Apagar"
 
 #: extension.js:284
 msgid "Display Settings"
-msgstr ""
+msgstr "Ajustes de Pantalla"
 
 #: extension.js:302
 msgid "Night Light Disabled"
-msgstr ""
+msgstr "Night Light desabilitado"
 
 #: extension.js:302
 msgid "Night Light On"
-msgstr ""
+msgstr "Night Light habilitado"
 
 #: extension.js:303
 msgid "Disable Until Tomorrow"
-msgstr ""
+msgstr "Desabilitar hasta manana"
 
 #: extension.js:334
 msgid "Power Settings"
-msgstr ""
+msgstr "Ajustes de Energia"
 
 #: extension.js:379
 msgid "Volume Settings"
-msgstr ""
+msgstr "Ajustes de Volumen"
 
 #: prefs.js:60
 msgid "Settings"
-msgstr ""
+msgstr "Ajustes"
 
 #: prefs.js:70
 msgid "Name label (Empty to show real user name)"
-msgstr ""
+msgstr "Nombre (Vacio para mostrar nombre real)"
 
 #: prefs.js:85
 msgid "Show an icon instead of name"
-msgstr ""
+msgstr "Mostrar un icono en vez de el nombre"
 
 #: prefs.js:98
 msgid "Change format of date (Empty to system default)"
-msgstr ""
+msgstr "Cambiar el formado de fecha (Vacio para defectos del sistema)"
 
 #: prefs.js:103
 msgid "wiki"
-msgstr ""
+msgstr "ayuda"
 
 #: prefs.js:122
 msgid "Indicators"
-msgstr ""
+msgstr "Indicadores"
 
 #: prefs.js:143
 msgid "Top to bottom -> Left to right"
-msgstr ""
+msgstr "Arriba a abajo -> Izquierda a derecha"
 
 #: prefs.js:152
 msgid "Reset Indicators"
-msgstr ""
+msgstr "Valores por defecto"
 
 #: prefs.js:158
 msgid "Reset"
-msgstr ""
+msgstr "Resetear"
 
 #: prefs.js:176
 msgid "Help"
-msgstr ""
+msgstr "Ayuda"
 
 #: prefs.js:186
 msgid "If something breaks, don't heasitate to leave a comment at "
-msgstr ""
+msgstr "Si algo deja de funcionar, escribe un reporte a "
 
 #: prefs.js:192
 msgid "Github repo"
-msgstr ""
+msgstr "Repo Github"
 
 #: prefs.js:203
 msgid "Made with love by #julio641742#"
-msgstr ""
+msgstr "Hecho con amor por #julio641742#"
 
 #: prefs.js:226
 msgid "Up"
-msgstr ""
+msgstr "Subir"
 
 #: prefs.js:233
 msgid "Down"
-msgstr ""
+msgstr "Bajar"
+
+#: schemas.xml
+msgid "Night Light Indicator [GNOME Shell>=3.24]"
+msgstr "Indicador Night Light [Shell>=3.24]"
+
+msgid "Volume Indicator"
+msgstr "Indicador de Volumen"
+
+msgid "Network Indicator"
+msgstr "Indicador de Red"
+
+msgid "Power(Brightness) Indicator"
+msgstr "Indicador de Energia(Brillo)"
+
+msgid "Calendar Indicator"
+msgstr "Indicador de Calendario"
+
+msgid "User Indicator"
+msgstr "Indicador de Usuario"
+
+msgid "Notification Indicator"
+msgstr "Indicador de Notificaciones"

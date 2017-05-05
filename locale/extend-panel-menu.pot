@@ -153,3 +153,25 @@ msgstr ""
 #: prefs.js:233
 msgid "Down"
 msgstr ""
+
+#: schemas.xml
+msgid "Night Light Indicator [GNOME Shell>=3.24]"
+msgstr ""
+
+msgid "Volume Indicator"
+msgstr ""
+
+msgid "Network Indicator"
+msgstr ""
+
+msgid "Power(Brightness) Indicator"
+msgstr ""
+
+msgid "Calendar Indicator"
+msgstr ""
+
+msgid "User Indicator"
+msgstr ""
+
+msgid "Notification Indicator"
+msgstr ""

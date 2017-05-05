@@ -1,15 +1,15 @@
 # French translations for PACKAGE package.
 # Copyright (C) 2017 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Julio Galvan <julio@linux.localdomain>, 2017.
+# Julio Galvan <mail@mail.com>, 2017.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-04 00:15-0700\n"
-"PO-Revision-Date: 2017-05-04 00:24-0700\n"
-"Last-Translator: Julio Galvan <julio@linux.localdomain>\n"
+"PO-Revision-Date: 2017-05-04 18:14-0700\n"
+"Last-Translator: Julio Galvan <mail@mail.com>\n"
 "Language-Team: French\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -151,4 +151,26 @@ msgstr ""
 
 #: prefs.js:233
 msgid "Down"
+msgstr ""
+
+#: schemas.xml
+msgid "Night Light Indicator [GNOME Shell>=3.24]"
+msgstr ""
+
+msgid "Volume Indicator"
+msgstr ""
+
+msgid "Network Indicator"
+msgstr ""
+
+msgid "Power(Brightness) Indicator"
+msgstr ""
+
+msgid "Calendar Indicator"
+msgstr ""
+
+msgid "User Indicator"
+msgstr ""
+
+msgid "Notification Indicator"
 msgstr ""
