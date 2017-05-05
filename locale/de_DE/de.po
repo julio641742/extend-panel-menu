@@ -75,11 +75,11 @@ msgstr "Bildschirm Einstellungen"
 
 #: extension.js:302
 msgid "Night Light Disabled"
-msgstr "Nachtmodus aus"
+msgstr "Nachtmodus Aus"
 
 #: extension.js:302
 msgid "Night Light On"
-msgstr "Nachtmodus ein"
+msgstr "Nachtmodus Ein"
 
 #: extension.js:303
 msgid "Disable Until Tomorrow"
@@ -163,8 +163,8 @@ msgstr "Lautstärke Indikator"
 msgid "Network Indicator"
 msgstr "Netzwerk Indikator"
 
-msgid "Power(Brightness) Indicator"
-msgstr "Energie Indikator"
+msgid "Power (Brightness) Indicator"
+msgstr "Energie (Helligkeits) Indikator"
 
 msgid "Calendar Indicator"
 msgstr "Kalender Indikator"
