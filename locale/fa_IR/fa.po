@@ -1,0 +1,177 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-05-06 13:09+0430\n"
+"PO-Revision-Date: 2017-05-06 13:24+0430\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.1\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: fa\n"
+
+#: extension.js:122
+msgid "Network Settings"
+msgstr "تنظیمات شبکه"
+
+#: extension.js:185
+msgid "About This Computer"
+msgstr "درباره‌ی این رایانه"
+
+#: extension.js:189
+msgid "GNOME Help"
+msgstr "راهنمایی نوم"
+
+#: extension.js:195
+msgid "System Settings"
+msgstr "تنظیمات سیستم"
+
+#: extension.js:199
+msgid "Extension Settings"
+msgstr "تنظیمات افزونه‌ها"
+
+#: extension.js:206
+msgid "Lock"
+msgstr "قفل"
+
+#: extension.js:213
+msgid "Switch User"
+msgstr "تغییر کاربر"
+
+#: extension.js:222
+msgid "Log Out"
+msgstr "خروج از حساب کاربری"
+
+#: extension.js:229
+msgid "Account Settings"
+msgstr "تنظیمات حساب کاربری"
+
+#: extension.js:245
+msgid "Suspend"
+msgstr "تعلیق سیستم"
+
+#: extension.js:252
+msgid "Power Off"
+msgstr "خاموش"
+
+#: extension.js:278 extension.js:303
+msgid "Resume"
+msgstr "ادامه"
+
+#: extension.js:281
+msgid "Turn Off"
+msgstr "خاموش"
+
+#: extension.js:284
+msgid "Display Settings"
+msgstr "تنظیمات نمایش"
+
+#: extension.js:302
+msgid "Night Light Disabled"
+msgstr "حالت شب، غیرفعال"
+
+#: extension.js:302
+msgid "Night Light On"
+msgstr "فعال‌سازی حالت شب"
+
+#: extension.js:303
+msgid "Disable Until Tomorrow"
+msgstr "غیرفعال‌سازی تا فردا"
+
+#: extension.js:334
+msgid "Power Settings"
+msgstr "تنظیمات نیرو"
+
+#: extension.js:379
+msgid "Volume Settings"
+msgstr "تنظیمات صدا"
+
+#: prefs.js:60
+msgid "Settings"
+msgstr "تنظیمات"
+
+#: prefs.js:70
+msgid "Name label (Empty to show real user name)"
+msgstr "نوشته‌ی برچسب (برای پیش‌فرض سیستم، خالی بگذارید)"
+
+#: prefs.js:85
+msgid "Show an icon instead of name"
+msgstr "نمایش آیکون به جای نوشتار"
+
+#: prefs.js:98
+msgid "Change format of date (Empty to system default)"
+msgstr "تغییر فرمت نمایش تاریخ (برای پیش‌فرض سیستم، خالی بگذارید)"
+
+#: prefs.js:103
+msgid "wiki"
+msgstr "ویکی"
+
+#: prefs.js:122
+msgid "Indicators"
+msgstr "نمایه‌ها"
+
+#: prefs.js:143
+msgid "Top to bottom -> Left to right"
+msgstr "بالا به پایین -> چپ به راست"
+
+#: prefs.js:152
+msgid "Reset Indicators"
+msgstr "بازنشانی نمایه‌ها"
+
+#: prefs.js:158
+msgid "Reset"
+msgstr "بازنشانی"
+
+#: prefs.js:176
+msgid "Help"
+msgstr "راهنمایی"
+
+#: prefs.js:186
+msgid "If something breaks, don't heasitate to leave a comment at "
+msgstr "اگر مشکلی به وجود آمد، از ثبت کردن نظر خود، خودداری نکنید"
+
+#: prefs.js:192
+msgid "Github repo"
+msgstr "مخزن گیت‌هاب"
+
+#: prefs.js:203
+msgid "Made with love by #julio641742#"
+msgstr "ساخته‌شده با عشق توسط #julio641742#"
+
+#: prefs.js:226
+msgid "Up"
+msgstr "بالا"
+
+#: prefs.js:233
+msgid "Down"
+msgstr "پایین"
+
+#: schemas.xml
+msgid "Night Light Indicator [GNOME Shell>=3.24]"
+msgstr "نمایه‌ی حالت شب (شل نوم >= 3.24)"
+
+msgid "Volume Indicator"
+msgstr "نمایه‌ی صدا"
+
+msgid "Network Indicator"
+msgstr "نمایه‌ی شبکه"
+
+msgid "Power(Brightness) Indicator"
+msgstr "نمایه‌ی نیرو (روشنایی)"
+
+msgid "Calendar Indicator"
+msgstr "نمایه‌ی تقویم"
+
+msgid "User Indicator"
+msgstr "نمایه‌ی کاربری"
+
+msgid "Notification Indicator"
+msgstr "نمایه‌ی اعلان"
