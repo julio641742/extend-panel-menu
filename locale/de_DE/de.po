@@ -19,158 +19,158 @@ msgstr ""
 
 #: extension.js:122
 msgid "Network Settings"
-msgstr ""
+msgstr "Netzwerk Einstellungen"
 
 #: extension.js:185
 msgid "About This Computer"
-msgstr ""
+msgstr "Über diesen Rechner"
 
 #: extension.js:189
 msgid "GNOME Help"
-msgstr ""
+msgstr "GNOME Hilfe"
 
 #: extension.js:195
 msgid "System Settings"
-msgstr ""
+msgstr "System Einstellungen"
 
 #: extension.js:199
 msgid "Extension Settings"
-msgstr ""
+msgstr "Extension Einstellungen"
 
 #: extension.js:206
 msgid "Lock"
-msgstr ""
+msgstr "Sperren"
 
 #: extension.js:213
 msgid "Switch User"
-msgstr ""
+msgstr "Benutzer wechseln"
 
 #: extension.js:222
 msgid "Log Out"
-msgstr ""
+msgstr "Abmelden"
 
 #: extension.js:229
 msgid "Account Settings"
-msgstr ""
+msgstr "Konto Einstellungen"
 
 #: extension.js:245
 msgid "Suspend"
-msgstr ""
+msgstr "Bereitschaft"
 
 #: extension.js:252
 msgid "Power Off"
-msgstr ""
+msgstr "Herunterfahren"
 
 #: extension.js:278 extension.js:303
 msgid "Resume"
-msgstr ""
+msgstr "Fortsetzen"
 
 #: extension.js:281
 msgid "Turn Off"
-msgstr ""
+msgstr "Ausschalten"
 
 #: extension.js:284
 msgid "Display Settings"
-msgstr ""
+msgstr "Bildschirm Einstellungen"
 
 #: extension.js:302
 msgid "Night Light Disabled"
-msgstr ""
+msgstr "Nachtmodus Aus"
 
 #: extension.js:302
 msgid "Night Light On"
-msgstr ""
+msgstr "Nachtmodus Ein"
 
 #: extension.js:303
 msgid "Disable Until Tomorrow"
-msgstr ""
+msgstr "Bis morgen deaktivieren"
 
 #: extension.js:334
 msgid "Power Settings"
-msgstr ""
+msgstr "Energie Einstellungen"
 
 #: extension.js:379
 msgid "Volume Settings"
-msgstr ""
+msgstr "Lautstärke Einstellungen"
 
 #: prefs.js:60
 msgid "Settings"
-msgstr ""
+msgstr "Einstellungen"
 
 #: prefs.js:70
 msgid "Name label (Empty to show real user name)"
-msgstr ""
+msgstr "Namensetikett (Leer für Benutzernamen)"
 
 #: prefs.js:85
 msgid "Show an icon instead of name"
-msgstr ""
+msgstr "Icon anstatt Name anzeigen"
 
 #: prefs.js:98
 msgid "Change format of date (Empty to system default)"
-msgstr ""
+msgstr "Datumsformat ändern (Leer für Standardeinstellung)"
 
 #: prefs.js:103
 msgid "wiki"
-msgstr ""
+msgstr "Wiki"
 
 #: prefs.js:122
 msgid "Indicators"
-msgstr ""
+msgstr "Indikatoren"
 
 #: prefs.js:143
 msgid "Top to bottom -> Left to right"
-msgstr ""
+msgstr "Oben nach unten -> Links nach rechts"
 
 #: prefs.js:152
 msgid "Reset Indicators"
-msgstr ""
+msgstr "Indikatoren zurücksetzen"
 
 #: prefs.js:158
 msgid "Reset"
-msgstr ""
+msgstr "Zurücksetzen"
 
 #: prefs.js:176
 msgid "Help"
-msgstr ""
+msgstr "Hilfe"
 
 #: prefs.js:186
-msgid "If something breaks, don't heasitate to leave a comment at "
-msgstr ""
+msgid "If something breaks, don't hesitate to leave a comment at "
+msgstr "Sollte etwas nicht funktionieren, hinterlasst ein Kommentar unter "
 
 #: prefs.js:192
 msgid "Github repo"
-msgstr ""
+msgstr "Github Repo"
 
 #: prefs.js:203
 msgid "Made with love by #julio641742#"
-msgstr ""
+msgstr "Mit Liebe gemacht von #julio641742#"
 
 #: prefs.js:226
 msgid "Up"
-msgstr ""
+msgstr "Rauf"
 
 #: prefs.js:233
 msgid "Down"
-msgstr ""
+msgstr "Runter"
 
 #: schemas.xml
 msgid "Night Light Indicator [GNOME Shell>=3.24]"
-msgstr ""
+msgstr "Nachtmodus Indikator"
 
 msgid "Volume Indicator"
-msgstr ""
+msgstr "Lautstärke Indikator"
 
 msgid "Network Indicator"
-msgstr ""
+msgstr "Netzwerk Indikator"
 
-msgid "Power(Brightness) Indicator"
-msgstr ""
+msgid "Power (Brightness) Indicator"
+msgstr "Energie (Helligkeits) Indikator"
 
 msgid "Calendar Indicator"
-msgstr ""
+msgstr "Kalender Indikator"
 
 msgid "User Indicator"
-msgstr ""
+msgstr "Benutzer Indikator"
 
 msgid "Notification Indicator"
-msgstr ""
+msgstr "Benachrichtigungen Indikator"
