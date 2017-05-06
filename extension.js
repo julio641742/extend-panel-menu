@@ -564,7 +564,9 @@ function enable() {
     Main.panel.statusArea.aggregateMenu.container.hide();
     Main.panel.statusArea.dateMenu.container.hide();
 
-    nightlight = new NightLightIndicator();
+    if (ExtensionUtils.versionCheck([VERSION_NIGHLIGHT], VERSION)) {
+        nightlight = new NightLightIndicator();
+    }
     volume = new VolumeIndicator();
     network = new NetworkIndicator();
     power = new PowerIndicator();
