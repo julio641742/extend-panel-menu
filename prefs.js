@@ -183,7 +183,7 @@ const PrefsWidget = new GObject.Class({
             margin_left: 12
         });
         box.add(new Gtk.Label({
-            label: _("If something breaks, don\'t heasitate to leave a comment at "),
+            label: _("If something breaks, don\'t hesitate to leave a comment at "),
             hexpand: true,
             halign: 1
         }));
