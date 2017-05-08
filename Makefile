@@ -31,4 +31,4 @@ build: all
 	cp schemas/*.xml _build/schemas/
 	cp schemas/gschemas.compiled _build/schemas/
 	mkdir -p _build/locale
-	cp locale/* _build/locale/
+	cp -r locale/* _build/locale/

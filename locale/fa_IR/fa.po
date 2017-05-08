@@ -135,7 +135,7 @@ msgid "Help"
 msgstr "راهنمایی"
 
 #: prefs.js:186
-msgid "If something breaks, don't heasitate to leave a comment at "
+msgid "If something breaks, don't hesitate to leave a comment at "
 msgstr "اگر مشکلی به وجود آمد، از ثبت کردن نظر خود، خودداری نکنید"
 
 #: prefs.js:192

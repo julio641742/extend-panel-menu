@@ -134,7 +134,7 @@ msgid "Help"
 msgstr "Ayuda"
 
 #: prefs.js:186
-msgid "If something breaks, don't heasitate to leave a comment at "
+msgid "If something breaks, don't hesitate to leave a comment at "
 msgstr "Si algo deja de funcionar, escribe un reporte a "
 
 #: prefs.js:192

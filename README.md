@@ -34,13 +34,14 @@ It's on [Gnome Shell Extensions](https://extensions.gnome.org/extension/1201/ext
 
 ## Credits
 Thanks to
+- @mortezaPRK (Persian translation)
 - @matteotanca (Italian translation)
 - @mrprobot (Geman translation)
 
 ## Changes
 
 ### v5.1
-- Italian/German/Spanish translation complete
+- Italian/German/Spanish/Persia translation complete
 
 ### v5
 - Music controls under the volume indicator
