@@ -197,7 +197,7 @@ const UserIndicator = new Lang.Class({
         this.menu.addMenuItem(settings);
 
         let extsettings = new PopupMenu.PopupMenuItem(_("Extension Settings"));
-        extsettings.connect("activate", Lang.bind(this, this._openSettings));
+        extsettings.connect("activate", Lang.bind(this, this._openApp, "gnome-shell-extension-prefs.desktop"));
         this.menu.addMenuItem(extsettings);
 
 
@@ -256,9 +256,6 @@ const UserIndicator = new Lang.Class({
             power.actor.hide();
         }
 
-    },
-    _openSettings: function() {
-        Util.spawn(["gnome-shell-extension-prefs", Me.uuid]);
     }
 });
 
