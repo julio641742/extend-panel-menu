@@ -1,0 +1,177 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Khaled Hosny <khaledhosny@eglug.org>, 2017.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-05-04 00:15-0700\n"
+"PO-Revision-Date: 2017-05-20 17:13+0200\n"
+"Last-Translator: Khaled Hosny <khaledhosny@eglug.org>\n"
+"Language-Team: Arabic <doc@arabeyes.org>\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
+"X-Generator: Virtaal 1.0.0-beta1\n"
+
+#: extension.js:122
+msgid "Network Settings"
+msgstr "إعدادات الشّبكة"
+
+#: extension.js:185
+msgid "About This Computer"
+msgstr "عن هذا الحاسوب"
+
+#: extension.js:189
+msgid "GNOME Help"
+msgstr "مساعدة جنوم"
+
+#: extension.js:195
+msgid "System Settings"
+msgstr "إعدادات النظام"
+
+#: extension.js:199
+msgid "Extension Settings"
+msgstr "إعدادات الامتداد"
+
+#: extension.js:206
+msgid "Lock"
+msgstr "أوصِد"
+
+#: extension.js:213
+msgid "Switch User"
+msgstr "غيّر المستخدم"
+
+#: extension.js:222
+msgid "Log Out"
+msgstr "اخرج"
+
+#: extension.js:229
+msgid "Account Settings"
+msgstr "إعدادات الحساب"
+
+#: extension.js:245
+msgid "Suspend"
+msgstr "علِّق"
+
+#: extension.js:252
+msgid "Power Off"
+msgstr "أطفئ"
+
+#: extension.js:278 extension.js:303
+msgid "Resume"
+msgstr "استكمل"
+
+#: extension.js:281
+msgid "Turn Off"
+msgstr "عطّل"
+
+#: extension.js:284
+msgid "Display Settings"
+msgstr "إعدادات العرض"
+
+#: extension.js:302
+msgid "Night Light Disabled"
+msgstr "الإضاءة الليلية موقفة"
+
+#: extension.js:302
+msgid "Night Light On"
+msgstr "الإضاءة الليلية مفعّلة"
+
+#: extension.js:303
+msgid "Disable Until Tomorrow"
+msgstr "أوقف حتى الغد"
+
+#: extension.js:334
+msgid "Power Settings"
+msgstr "إعدادات الطاقة"
+
+#: extension.js:379
+msgid "Volume Settings"
+msgstr "إعدادات الصوت"
+
+#: prefs.js:60
+msgid "Settings"
+msgstr "الإعدادات"
+
+#: prefs.js:70
+msgid "Name label (Empty to show real user name)"
+msgstr "الاسم (إذا كان خاليًا سيُعرض اسم المستخدم الحقيقي)"
+
+#: prefs.js:85
+msgid "Show an icon instead of name"
+msgstr "اعرض أيقونة بدل الاسم"
+
+#: prefs.js:98
+msgid "Change format of date (Empty to system default)"
+msgstr "غيّر تنسيق الوقت (إذا كان خاليًا سيُستخدم إعداد النظام المبدئي)"
+
+#: prefs.js:103
+msgid "wiki"
+msgstr "الويكي"
+
+#: prefs.js:122
+msgid "Indicators"
+msgstr "المؤشرات"
+
+#: prefs.js:143
+msgid "Top to bottom -> Left to right"
+msgstr "من أعلى إلى أسفل ← من اليسار إلى اليمين"
+
+#: prefs.js:152
+msgid "Reset Indicators"
+msgstr "صفّر المؤشرات"
+
+#: prefs.js:158
+msgid "Reset"
+msgstr "صفّر"
+
+#: prefs.js:176
+msgid "Help"
+msgstr "مساعدة"
+
+#: prefs.js:186
+msgid "If something breaks, don't hesitate to leave a comment at "
+msgstr "إذا تعطل شيء ما فلا تترد في التواصل معنا على "
+
+#: prefs.js:192
+msgid "Github repo"
+msgstr "مستودع جتهب"
+
+#: prefs.js:203
+msgid "Made with love by #julio641742#"
+msgstr "صنعه ‪#julio641742#‬"
+
+#: prefs.js:226
+msgid "Up"
+msgstr "أعلى"
+
+#: prefs.js:233
+msgid "Down"
+msgstr "أسفل"
+
+#: schemas.xml
+msgid "Night Light Indicator [GNOME Shell>=3.24]"
+msgstr "مؤشر الإضاءة الليلية"
+
+msgid "Volume Indicator"
+msgstr "مؤشر الصوت"
+
+msgid "Network Indicator"
+msgstr "مؤشر الشبكة"
+
+msgid "Power(Brightness) Indicator"
+msgstr "مؤشر الطاقة (السطوع)"
+
+msgid "Calendar Indicator"
+msgstr "مؤشر التقويم"
+
+msgid "User Indicator"
+msgstr "مؤشر المستخدم"
+
+msgid "Notification Indicator"
+msgstr "مؤشر التنبيهات"
