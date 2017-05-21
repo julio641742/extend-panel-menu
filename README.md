@@ -37,11 +37,12 @@ Thanks to
 - @mortezaPRK (Persian translation)
 - @matteotanca (Italian translation)
 - @mrprobot (Geman translation)
+- @khaledhosny (Arabic translation)
 
 ## Changes
 
 ### v5.1
-- Italian/German/Spanish/Persia translation complete
+- Italian/German/Spanish/Persian/Arabic translation complete
 
 ### v5
 - Music controls under the volume indicator
