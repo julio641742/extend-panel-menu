@@ -49,7 +49,7 @@ const CustomButton = new Lang.Class({
     Name: "Button",
     Extends: PanelMenu.Button,
 
-    _init: function(name) {
+    _init: function (name) {
         this.parent(0.0, name, false);
         this.name = name;
         this.box = new St.BoxLayout({
@@ -59,10 +59,10 @@ const CustomButton = new Lang.Class({
         this.actor.add_style_class_name("horizontal-spacing");
         this.actor.add_child(this.box);
     },
-    _openApp: function(a, b, app) {
+    _openApp: function (a, b, app) {
         Shell.AppSystem.get_default().lookup_app(app).activate();
     },
-    destroy: function() {
+    destroy: function () {
         this.parent();
     }
 });
@@ -71,7 +71,7 @@ const NetworkIndicator = new Lang.Class({
     Name: "NetworkIndicator",
     Extends: CustomButton,
 
-    _init: function() {
+    _init: function () {
         this.parent("NetworkIndicator");
         this.menu.actor.add_style_class_name("aggregate-menu");
 
@@ -137,13 +137,13 @@ const NetworkIndicator = new Lang.Class({
             this._bluetooth._sync();
         }
     },
-    _sync: function() {
+    _sync: function () {
         this._arrowIcon.hide();
         if (this.box.get_width() == 0) {
             this._arrowIcon.show();
         }
     },
-    destroy: function() {
+    destroy: function () {
         this.box.remove_child(this._location.indicators);
         Main.panel.statusArea.aggregateMenu._indicators.add_actor(this._location.indicators);
         this.menu.box.remove_actor(this._location.menu.actor);
@@ -156,7 +156,7 @@ const UserIndicator = new Lang.Class({
     Name: "UserIndicator",
     Extends: CustomButton,
 
-    _init: function() {
+    _init: function () {
         this.parent("UserIndicator");
         this._system = new imports.ui.status.system.Indicator();
         this._screencast = new imports.ui.status.screencast.Indicator();
@@ -263,7 +263,7 @@ const NightLightIndicator = new Lang.Class({
     Name: "NightLightIndicator",
     Extends: CustomButton,
 
-    _init: function() {
+    _init: function () {
         this.parent("NightLightIndicator");
         this._nightLight = new imports.ui.status.nightLight.Indicator();
         this.menu.box.set_width(250);
@@ -284,16 +284,16 @@ const NightLightIndicator = new Lang.Class({
         this._nightLight._proxy.connect("g-properties-changed", Lang.bind(this, this._sync));
         this._sync();
     },
-    _change: function() {
+    _change: function () {
         this._nightLight._proxy.DisabledUntilTomorrow = !this._nightLight._proxy.DisabledUntilTomorrow;
     },
-    _turnOff: function() {
+    _turnOff: function () {
         let settings = new Gio.Settings({
             schema_id: "org.gnome.settings-daemon.plugins.color"
         });
         settings.set_boolean("night-light-enabled", false);
     },
-    _sync: function() {
+    _sync: function () {
         let visible = this._nightLight._proxy.NightLightActive;
         let disabled = this._nightLight._proxy.DisabledUntilTomorrow;
         this._label.set_text(disabled ? _("Night Light Disabled") : _("Night Light On"));
@@ -310,7 +310,7 @@ const PowerIndicator = new Lang.Class({
     Name: "PowerIndicator",
     Extends: CustomButton,
 
-    _init: function() {
+    _init: function () {
         this.parent("PowerIndicator");
         this.menu.actor.add_style_class_name("aggregate-menu");
         this._power = new imports.ui.status.power.Indicator();
@@ -334,7 +334,7 @@ const PowerIndicator = new Lang.Class({
         this._power._proxy.connect("g-properties-changed", Lang.bind(this, this._sync));
         this._sync();
     },
-    _sync: function() {
+    _sync: function () {
         let powertype = this._power._proxy.IsPresent;
         // Do we have batteries or a UPS?
         if (!powertype) {
@@ -359,23 +359,35 @@ const VolumeIndicator = new Lang.Class({
     Name: "VolumeIndicator",
     Extends: CustomButton,
 
-    _init: function() {
+    _init: function () {
         this.parent("VolumeIndicator");
         this.menu.actor.add_style_class_name("aggregate-menu");
-        this._volume = new imports.ui.status.volume.Indicator();
-
+        //this._volume = new imports.ui.status.volume.Indicator();
+        //this.box.add_child(this._volume.indicators);
+        //this.menu.addMenuItem(this._volume.menu);
+        this._volume = Main.panel.statusArea.aggregateMenu._volume;
+        Main.panel.statusArea.aggregateMenu._indicators.remove_actor(this._volume.indicators);
         this.box.add_child(this._volume.indicators);
-        this.menu.addMenuItem(this._volume.menu);
+        Main.panel.statusArea.aggregateMenu.menu.box.remove_actor(this._volume.menu.actor);
+        this.menu.box.add_actor(this._volume.menu.actor);
         try {
             this._mediaSection = new imports.ui.mpris.MediaSection();
             //this._mediaSection.actor.set_style();
             this._mediaSection.actor.add_style_class_name("music-box");
             this.menu.box.add_actor(this._mediaSection.actor);
         } catch (e) {}
-        this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
+        //this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
         let settings = new PopupMenu.PopupMenuItem(_("Volume Settings"));
         settings.connect("activate", Lang.bind(this, this._openApp, "gnome-sound-panel.desktop"));
         this.menu.addMenuItem(settings);
+    },
+    destroy: function () {
+        this.box.remove_child(this._volume.indicators);
+        this.menu.box.remove_actor(this._volume.menu.actor);
+        Main.panel.statusArea.aggregateMenu._indicators.add_actor(this._volume.indicators);
+        Main.panel.statusArea.aggregateMenu.menu.box.add_actor(this._volume.menu.actor);
+
+        this.parent();
     }
 });
 
@@ -383,9 +395,9 @@ const NotificationIndicator = new Lang.Class({
     Name: "NotificationIndicator",
     Extends: CustomButton,
 
-    _init: function() {
+    _init: function () {
         this.parent("NotificationIndicator");
-
+        Gtk.IconTheme.get_default().append_search_path(Me.dir.get_child('icons').get_path());
         this._messageIndicator = new imports.ui.dateMenu.MessagesIndicator();
         this._messageList = null;
         try {
@@ -393,12 +405,26 @@ const NotificationIndicator = new Lang.Class({
         } catch (e) {
             this._messageList = new imports.ui.calendar.MessageList(); // For GNOME Shell 3.18
         }
-        this._indicator = new St.Icon({
-            icon_name: "preferences-system-notifications-symbolic",
+        this._new_indicator = new St.Icon({
+            icon_name: "notification-new-symbolic",
             style_class: "system-status-icon"
         });
+        this._indicator = new St.Icon({
+            icon_name: "notifications-symbolic",
+            style_class: "system-status-icon"
+        });
+        this._new_indicator.hide();
+        this._messageIndicator.actor.connect('notify::visible', Lang.bind(this, function () {
+            if (this._messageIndicator.actor.visible) {
+                this._new_indicator.show();
+                this._indicator.hide();
+            } else {
+                this._indicator.show();
+                this._new_indicator.hide();
+            }
 
-        this.box.add_child(this._messageIndicator.actor);
+        }));
+        this.box.add_child(this._new_indicator);
         this.box.add_child(this._indicator);
 
         let vbox = new St.BoxLayout({
@@ -417,7 +443,7 @@ const NotificationIndicator = new Lang.Class({
 const CalendarIndicator = new Lang.Class({
     Name: "CalendarIndicator",
     Extends: CustomButton,
-    _init: function() {
+    _init: function () {
         this.parent("CalendarIndicator");
 
 
@@ -481,7 +507,7 @@ const CalendarIndicator = new Lang.Class({
         vbox.add_actor(displaySection);
         this.menu.box.add(vbox);
 
-        this.menu.connect("open-state-changed", Lang.bind(this, function(menu, isOpen) {
+        this.menu.connect("open-state-changed", Lang.bind(this, function (menu, isOpen) {
             // Whenever the menu is opened, select today
             if (isOpen) {
                 let now = new Date();
@@ -490,7 +516,7 @@ const CalendarIndicator = new Lang.Class({
                 this._date.setDate(now);
             }
         }));
-        this._calendar.connect("selected-date-changed", Lang.bind(this, function(calendar, date) {
+        this._calendar.connect("selected-date-changed", Lang.bind(this, function (calendar, date) {
             this._eventsSection.setDate(date);
         }));
         //this._clock.bind_property("clock", this._clockIndicator, "text", GObject.BindingFlags.SYNC_CREATE, this._dateTimeFormat);
@@ -499,19 +525,19 @@ const CalendarIndicator = new Lang.Class({
 
         this._dateFormat = null;
         let that = this;
-        this._formatChanged = GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, 1, function() {
+        this._formatChanged = GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, 1, function () {
             that._dateTimeFormat();
             return true;
         });
     },
-    _dateTimeFormat: function() {
+    _dateTimeFormat: function () {
         if (this._dateFormat && (new Date().toLocaleFormat(this._dateFormat))) {
             this._clockIndicator.set_text(new Date().toLocaleFormat(this._dateFormat));
         } else {
             this._clockIndicator.set_text(this._clock.clock);
         }
     },
-    _setEventSource: function(eventSource) {
+    _setEventSource: function (eventSource) {
         if (this._eventSource)
             this._eventSource.destroy();
         this._calendar.setEventSource(eventSource);
@@ -519,7 +545,7 @@ const CalendarIndicator = new Lang.Class({
         this._eventSource = eventSource;
     },
 
-    _sessionUpdated: function() {
+    _sessionUpdated: function () {
         let eventSource;
         let showEvents = Main.sessionMode.showCalendarEvents;
         if (showEvents) {
@@ -529,7 +555,7 @@ const CalendarIndicator = new Lang.Class({
         }
         this._setEventSource(eventSource);
     },
-    destroy: function() {
+    destroy: function () {
         if (this._formatChanged) {
             GLib.source_remove(this._formatChanged);
             this._formatChanged = null;
@@ -557,7 +583,6 @@ const VERSION_NIGHLIGHT = "3.24";
 
 function enable() {
     let children = Main.panel._rightBox.get_children();
-
     Main.panel.statusArea.aggregateMenu.container.hide();
     Main.panel.statusArea.dateMenu.container.hide();
 
@@ -619,7 +644,7 @@ function applySettings() {
         }
 
         let children = Main.panel._rightBox.get_children();
-        indicators.reverse().forEach(function(item) {
+        indicators.reverse().forEach(function (item) {
             Main.panel._rightBox.insert_child_at_index(item.container, children.length);
         });
         // Save state

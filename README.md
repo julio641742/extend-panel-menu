@@ -41,8 +41,10 @@ Thanks to
 
 ## Changes
 
-### v5.1
+### v5.3
 - Italian/German/Spanish/Persian/Arabic translation complete
+- Now works with "Sound Output Device Chooser" extension
+- New Notification Icon animation
 
 ### v5
 - Music controls under the volume indicator
