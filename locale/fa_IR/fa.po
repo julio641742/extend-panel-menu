@@ -36,11 +36,11 @@ msgstr "تنظیمات سیستم"
 
 #: extension.js:199
 msgid "Extension Settings"
-msgstr "تنظیمات افزونه‌ها"
+msgstr "تنظیمات افزونه"
 
 #: extension.js:206
 msgid "Lock"
-msgstr "قفل"
+msgstr "قفل کردن"
 
 #: extension.js:213
 msgid "Switch User"
@@ -76,7 +76,7 @@ msgstr "تنظیمات نمایش"
 
 #: extension.js:302
 msgid "Night Light Disabled"
-msgstr "حالت شب، غیرفعال"
+msgstr " حالت شب، غیرفعال شد"
 
 #: extension.js:302
 msgid "Night Light On"
@@ -156,7 +156,7 @@ msgstr "پایین"
 
 #: schemas.xml
 msgid "Night Light Indicator [GNOME Shell>=3.24]"
-msgstr "نمایه‌ی حالت شب (شل نوم >= 3.24)"
+msgstr "نمایه‌ی حالت شب (گنوم شل >= 3.24)"
 
 msgid "Volume Indicator"
 msgstr "نمایه‌ی صدا"
