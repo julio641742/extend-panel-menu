@@ -426,7 +426,7 @@ const NotificationIndicator = new Lang.Class({
             icon_name: "notifications-symbolic",
             style_class: "system-status-icon"
         });
-        this._new_indicator.hide();
+        //this._new_indicator.hide();
         this._messageIndicator.actor.connect('notify::visible', Lang.bind(this, function () {
             if (this._messageIndicator.actor.visible) {
                 this._new_indicator.show();
@@ -597,7 +597,8 @@ const VERSION_NIGHLIGHT = "3.24";
 function enable() {
     let children = Main.panel._rightBox.get_children();
     Main.panel.statusArea.aggregateMenu.container.hide();
-    Main.panel.statusArea.dateMenu.destroy();//container.hide();
+    //Main.panel.statusArea.dateMenu.destroy();//container.hide();
+    Main.panel._centerBox.remove_child(Main.panel.statusArea.dateMenu.container);
 
     if (ExtensionUtils.versionCheck([VERSION_NIGHLIGHT], VERSION)) {
         nightlight = new NightLightIndicator();
@@ -716,6 +717,7 @@ function disable() {
 
     Main.panel.statusArea.aggregateMenu.container.show();
     //Main.panel.statusArea.dateMenu.container.show();
-    let dateMenu = new imports.ui.dateMenu.DateMenuButton();
-    Main.panel.addToStatusArea('dateMenu', dateMenu, 0, 'center');
+    //let dateMenu = new imports.ui.dateMenu.DateMenuButton();
+    //Main.panel.addToStatusArea('dateMenu', dateMenu, 0, 'center');
+    Main.panel._centerBox.add_child(Main.panel.statusArea.dateMenu.container);
 }
