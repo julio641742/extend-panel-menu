@@ -44,6 +44,7 @@ Thanks to
 ### v5.3
 - Italian/German/Spanish/Persian/Arabic translation complete
 - Now works with "Sound Output Device Chooser" extension
+- Now works with "Dash to panel" extension
 - New Notification Icon animation
 
 ### v5

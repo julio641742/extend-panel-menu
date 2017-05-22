@@ -597,7 +597,7 @@ const VERSION_NIGHLIGHT = "3.24";
 function enable() {
     let children = Main.panel._rightBox.get_children();
     Main.panel.statusArea.aggregateMenu.container.hide();
-    Main.panel.statusArea.dateMenu.container.hide();
+    Main.panel.statusArea.dateMenu.destroy();//container.hide();
 
     if (ExtensionUtils.versionCheck([VERSION_NIGHLIGHT], VERSION)) {
         nightlight = new NightLightIndicator();
@@ -715,5 +715,7 @@ function disable() {
     notification.destroy();
 
     Main.panel.statusArea.aggregateMenu.container.show();
-    Main.panel.statusArea.dateMenu.container.show();
+    //Main.panel.statusArea.dateMenu.container.show();
+    let dateMenu = new imports.ui.dateMenu.DateMenuButton();
+    Main.panel.addToStatusArea('dateMenu', dateMenu, 0, 'center');
 }
