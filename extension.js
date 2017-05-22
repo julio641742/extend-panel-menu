@@ -77,45 +77,46 @@ const NetworkIndicator = new Lang.Class({
 
         this._network = null;
         this._bluetooth = null;
-        this._rfkill = new imports.ui.status.rfkill.Indicator();
+        this._rfkill = Main.panel.statusArea.aggregateMenu._rfkill;
         if (Config.HAVE_NETWORKMANAGER) {
-            this._network = new imports.ui.status.network.NMApplet();
+            this._network = Main.panel.statusArea.aggregateMenu._network;
         }
         if (Config.HAVE_BLUETOOTH) {
-            this._bluetooth = new imports.ui.status.bluetooth.Indicator();
+            this._bluetooth = Main.panel.statusArea.aggregateMenu._bluetooth;
         }
-
-        ////////
-        //this._location = new imports.ui.status.location.Indicator(); // exception Gio.IOErrorEnum
         this._location = Main.panel.statusArea.aggregateMenu._location;
-        //this.box.add_child(this._location._indicator);
-        Main.panel.statusArea.aggregateMenu._indicators.remove_actor(this._location.indicators); // WORKAROUND!! NOT PRETTY :(
-        this.box.add_child(this._location.indicators); // NOT PRETTY
+
+        Main.panel.statusArea.aggregateMenu._indicators.remove_actor(this._location.indicators);
+        this.box.add_child(this._location.indicators);
         ////////
 
         if (this._network) {
+            Main.panel.statusArea.aggregateMenu._indicators.remove_actor(this._network.indicators);
             this.box.add_child(this._network.indicators);
         }
         if (this._bluetooth) {
+            Main.panel.statusArea.aggregateMenu._indicators.remove_actor(this._bluetooth.indicators);
             this.box.add_child(this._bluetooth.indicators);
         }
+        Main.panel.statusArea.aggregateMenu._indicators.remove_actor(this._rfkill.indicators);
         this.box.add_child(this._rfkill.indicators);
         this._arrowIcon = PopupMenu.arrowIcon(St.Side.BOTTOM);
         this.box.add_child(this._arrowIcon);
 
         if (this._network) {
+            Main.panel.statusArea.aggregateMenu.menu.box.remove_actor(this._network.menu.actor);
             this.menu.addMenuItem(this._network.menu);
         }
         if (this._bluetooth) {
+            Main.panel.statusArea.aggregateMenu.menu.box.remove_actor(this._bluetooth.menu.actor);
             this.menu.addMenuItem(this._bluetooth.menu);
         }
 
-        ////////
-        //this.menu.addMenuItem(this._location.menu);
+        
         Main.panel.statusArea.aggregateMenu.menu.box.remove_actor(this._location.menu.actor);
         this.menu.box.add_actor(this._location.menu.actor);
-        ////////
-
+        
+        Main.panel.statusArea.aggregateMenu.menu.box.remove_actor(this._rfkill.menu.actor);
         this.menu.addMenuItem(this._rfkill.menu);
 
         this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
@@ -145,9 +146,21 @@ const NetworkIndicator = new Lang.Class({
     },
     destroy: function () {
         this.box.remove_child(this._location.indicators);
-        Main.panel.statusArea.aggregateMenu._indicators.add_actor(this._location.indicators);
         this.menu.box.remove_actor(this._location.menu.actor);
+        Main.panel.statusArea.aggregateMenu._indicators.add_actor(this._location.indicators);
         Main.panel.statusArea.aggregateMenu.menu.box.add_actor(this._location.menu.actor);
+        this.box.remove_child(this._rfkill.indicators);
+        this.menu.box.remove_actor(this._rfkill.menu.actor);
+        Main.panel.statusArea.aggregateMenu._indicators.add_actor(this._rfkill.indicators);
+        Main.panel.statusArea.aggregateMenu.menu.box.add_actor(this._rfkill.menu.actor);
+        this.box.remove_child(this._network.indicators);
+        this.menu.box.remove_actor(this._network.menu.actor);
+        Main.panel.statusArea.aggregateMenu._indicators.add_actor(this._network.indicators);
+        Main.panel.statusArea.aggregateMenu.menu.box.add_actor(this._network.menu.actor);
+        this.box.remove_child(this._bluetooth.indicators);
+        this.menu.box.remove_actor(this._bluetooth.menu.actor);
+        Main.panel.statusArea.aggregateMenu._indicators.add_actor(this._bluetooth.indicators);
+        Main.panel.statusArea.aggregateMenu.menu.box.add_actor(this._bluetooth.menu.actor);
         this.parent();
     },
 });
