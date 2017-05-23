@@ -34,7 +34,7 @@ It's on [Gnome Shell Extensions](https://extensions.gnome.org/extension/1201/ext
 
 ## Credits
 Thanks to
-- @mortezaPRK (Persian translation)
+- @mortezaPRK and @Arch-Lover (Persian translation)
 - @matteotanca (Italian translation)
 - @mrprobot (Geman translation)
 - @khaledhosny (Arabic translation)
