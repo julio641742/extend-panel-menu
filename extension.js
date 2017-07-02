@@ -437,7 +437,7 @@ const NotificationIndicator = new Lang.Class({
             }
 
         }));
-        this.box.add_child(this._new_indicator);
+        //this.box.add_child(this._new_indicator);
         this.box.add_child(this._indicator);
 
         let vbox = new St.BoxLayout({
