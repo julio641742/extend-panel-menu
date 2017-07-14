@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-04 00:15-0700\n"
+"POT-Creation-Date: 2017-07-13 21:06-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,79 +17,79 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: extension.js:122
+#: extension.js:123
 msgid "Network Settings"
 msgstr ""
 
-#: extension.js:185
+#: extension.js:198
 msgid "About This Computer"
 msgstr ""
 
-#: extension.js:189
+#: extension.js:202
 msgid "GNOME Help"
 msgstr ""
 
-#: extension.js:195
+#: extension.js:208
 msgid "System Settings"
 msgstr ""
 
-#: extension.js:199
+#: extension.js:212
 msgid "Extension Settings"
 msgstr ""
 
-#: extension.js:206
+#: extension.js:219
 msgid "Lock"
 msgstr ""
 
-#: extension.js:213
+#: extension.js:226
 msgid "Switch User"
 msgstr ""
 
-#: extension.js:222
+#: extension.js:235
 msgid "Log Out"
 msgstr ""
 
-#: extension.js:229
+#: extension.js:242
 msgid "Account Settings"
 msgstr ""
 
-#: extension.js:245
+#: extension.js:258
 msgid "Suspend"
 msgstr ""
 
-#: extension.js:252
+#: extension.js:265
 msgid "Power Off"
 msgstr ""
 
-#: extension.js:278 extension.js:303
+#: extension.js:288 extension.js:313
 msgid "Resume"
 msgstr ""
 
-#: extension.js:281
+#: extension.js:291
 msgid "Turn Off"
 msgstr ""
 
-#: extension.js:284
+#: extension.js:294
 msgid "Display Settings"
 msgstr ""
 
-#: extension.js:302
+#: extension.js:312
 msgid "Night Light Disabled"
 msgstr ""
 
-#: extension.js:302
+#: extension.js:312
 msgid "Night Light On"
 msgstr ""
 
-#: extension.js:303
+#: extension.js:313
 msgid "Disable Until Tomorrow"
 msgstr ""
 
-#: extension.js:334
+#: extension.js:344
 msgid "Power Settings"
 msgstr ""
 
-#: extension.js:379
+#: extension.js:396
 msgid "Volume Settings"
 msgstr ""
 
@@ -107,52 +107,57 @@ msgid "Show an icon instead of name"
 msgstr ""
 
 #: prefs.js:98
-msgid "Change format of date (Empty to system default)"
+msgid "Tray offset (1 for Dash to panel compartibility)"
 msgstr ""
 
-#: prefs.js:103
-msgid "wiki"
+#: prefs.js:116
+msgid "Spacing between icons"
 msgstr ""
 
-#: prefs.js:122
-msgid "Indicators"
-msgstr ""
-
-#: prefs.js:143
-msgid "Top to bottom -> Left to right"
+#: prefs.js:136
+msgid "Autohide the Notification Indicator"
 msgstr ""
 
 #: prefs.js:152
+msgid "Indicators"
+msgstr ""
+
+#: prefs.js:173
+msgid "Top to bottom -> Left to right"
+msgstr ""
+
+#: prefs.js:182
 msgid "Reset Indicators"
 msgstr ""
 
-#: prefs.js:158
+#: prefs.js:188
 msgid "Reset"
 msgstr ""
 
-#: prefs.js:176
+#: prefs.js:206
 msgid "Help"
 msgstr ""
 
-#: prefs.js:186
+#: prefs.js:216
 msgid "If something breaks, don't hesitate to leave a comment at "
 msgstr ""
 
-#: prefs.js:192
+#: prefs.js:222
 msgid "Github repo"
 msgstr ""
 
-#: prefs.js:203
+#: prefs.js:233
 msgid "Made with love by #julio641742#"
 msgstr ""
 
-#: prefs.js:226
+#: prefs.js:256
 msgid "Up"
 msgstr ""
 
-#: prefs.js:233
+#: prefs.js:263
 msgid "Down"
 msgstr ""
+
 
 #: schemas.xml
 msgid "Night Light Indicator [GNOME Shell>=3.24]"
