@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Khaled Hosny <khaledhosny@eglug.org>, 2017.
+# Alex Gluck <alexgluck@bk.ru>, 2017.
 msgid ""
 msgstr ""
 "Project-Id-Version: extend-panel-menu\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-07-14 12:16+0300\n"
 "PO-Revision-Date: 2017-07-14 12:18+0300\n"
-"Last-Translator: Khaled Hosny <khaledhosny@eglug.org>\n"
+"Last-Translator: Alex Gluck <alexgluck@bk.ru>\n"
 "Language-Team: Alex Gluck <alexgluck@bk.ru>\n"
 "Language: ru_RU\n"
 "MIME-Version: 1.0\n"
