@@ -128,6 +128,19 @@ const PrefsWidget = new GObject.Class({
         }));
         box.add(valueSpacing);
         vbox.add(box);
+        box = new Gtk.Box({
+            spacing: 12,
+            margin_left: 12
+        });
+        box.add(new Gtk.Label({
+            label: _("Autohide the Notification Indicator"),
+            hexpand: true,
+            halign: 1
+        }));
+        let autoHide = new Gtk.Switch();
+        this.settings.bind("autohide-notification", autoHide, "active", Gio.SettingsBindFlags.DEFAULT);
+        box.add(autoHide);
+        vbox.add(box);
         this.add(vbox);
 
         /*****       SUBMENU         ****/

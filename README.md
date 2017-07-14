@@ -31,6 +31,7 @@ It's on [Gnome Shell Extensions](https://extensions.gnome.org/extension/1201/ext
 
 ## Known Issues
 > This extension may not work properly in some distros
+- Sound Inidicator is known to dissapear, just adjust your volume to recover it (No solution found yet)
 
 ## Credits
 Thanks to
@@ -42,6 +43,7 @@ Thanks to
 ## Changes
 
 ### v5.6
+- Auto Hide the Notification Indicator now implemented
 - Tray offset option now implemented
 - Horizontal Spacing option now implemented
 - Italian/German/Spanish/Persian/Arabic translation complete

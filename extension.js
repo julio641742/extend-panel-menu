@@ -464,13 +464,31 @@ const NotificationIndicator = new Lang.Class({
         this._newMessage = this._newMessageIndicator.actor.connect('notify::visible', Lang.bind(this, function (obj) {
             if (obj)
                 this._messageIndicator.visible = !obj.visible;
-        }))
+        }));
 
 
+        this._hideIndicator = this._messageList._clearButton.connect("notify::visible", Lang.bind(this, function (obj) {
+            if (this._autoHide) {
+                if (obj.visible) {
+                    this.actor.show();
+                } else {
+                    this.actor.hide();
+                }
+            }
+        }));
 
+    },
+    setHide: function (value) {
+        this._autoHide = value
+        if (!value) {
+            this.actor.show();
+        } else if (this._newMessageIndicator._sources == "") {
+            this.actor.hide();
+        }
     },
     destroy: function () {
         this._newMessageIndicator.actor.disconnect(this._newMessage);
+        this._messageList._clearButton.disconnect(this._hideIndicator);
         this.box.remove_child(this._newMessageIndicator.actor);
         this._messageIndicatorParent.add_child(this._newMessageIndicator.actor);
         this._vbox.remove_child(this._messageList.actor)
@@ -712,10 +730,10 @@ function applySettings() {
     }
 
 
-    //let autoHideNotifications = settings.get_boolean("hide-notification");
-    //if(autoHideNotifications) {
-    //Main.panel.statusArea.dateMenu._indicator._sources.connect("changed", Lang.bind(this, function() { log("add -someting") }))
-    //}
+    let autoHideNotification = settings.get_boolean("autohide-notification");
+    if (notification) {
+        notification.setHide(autoHideNotification);
+    }
 
 }
 
