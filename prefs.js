@@ -39,7 +39,7 @@ const PrefsWidget = new GObject.Class({
     GTypeName: "PrefsWidget",
     Extends: Gtk.Grid,
 
-    _init: function(params) {
+    _init: function (params) {
         this.parent(params);
         this.expand = true;
         this.settings = Convenience.getSettings();
@@ -95,21 +95,18 @@ const PrefsWidget = new GObject.Class({
             margin_left: 12
         });
         box.add(new Gtk.Label({
-            label: _("Change format of date (Empty to system default)"),
+            label: _("Tray offset (1 for Dash to panel compartibility)"),
             hexpand: true,
             halign: 1
         }));
-        box.add(new Gtk.LinkButton({
-            label: _("wiki"),
-            uri: "https://help.gnome.org/users/gthumb/unstable/gthumb-date-formats.html.en",
-            hexpand: true,
-            halign: 1
-        }));
-        let valueDate = new Gtk.Entry({
+        let valueOffset = new Gtk.SpinButton({
             hexpand: true
         });
-        this.settings.bind("date-format", valueDate, "text", Gio.SettingsBindFlags.DEFAULT);
-        box.add(valueDate);
+        valueOffset.set_sensitive(true);
+        valueOffset.set_range(0, 10);
+        valueOffset.set_increments(1, 2);
+        this.settings.bind("tray-offset", valueOffset, "value", Gio.SettingsBindFlags.DEFAULT);
+        box.add(valueOffset);
         vbox.add(box);
         this.add(vbox);
 
@@ -207,7 +204,7 @@ const PrefsWidget = new GObject.Class({
         this.add(vbox);
 
     },
-    buildList: function() {
+    buildList: function () {
         for (let indexHboxList in this.hboxsList) {
             this.vboxList.remove(this.hboxsList[indexHboxList]);
         }
@@ -260,14 +257,14 @@ const PrefsWidget = new GObject.Class({
 
 
     },
-    changeOrder: function(o, index, order) {
+    changeOrder: function (o, index, order) {
         this.menuItems.changeOrder(index, order);
         this.buildList();
     },
-    changeEnable: function(object, p, index) {
+    changeEnable: function (object, p, index) {
         this.menuItems.changeEnable(index, object.active)
     },
-    resetPosition: function() {
+    resetPosition: function () {
         this.settings.set_value("items", this.settings.get_default_value("items"));
         this.buildList();
     },
