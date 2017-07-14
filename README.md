@@ -4,7 +4,7 @@ All help is welcomed
 
 ## Screenshots
 ### New
-![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/settings-5.png)
+![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/settings-6.png)
 ![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-volume-5.png)
 
 > New settings and music player under volume indicator
