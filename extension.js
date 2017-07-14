@@ -664,10 +664,10 @@ function applySettings() {
             indicators[items.indexOf("nightlight")] = nightlight;
         }
 
-        let offset = settings.get_value("tray-offset") || 0;
-        let children = Main.panel._rightBox.get_children() - offset;
+        let offset = settings.get_int("tray-offset") || 0
+        let children = Main.panel._rightBox.get_children();
         indicators.reverse().forEach(function (item) {
-            Main.panel._rightBox.insert_child_at_index(item.container, children.length);
+            Main.panel._rightBox.insert_child_at_index(item.container, children.length - offset);
         });
         // Save state
         order = items.toString();
