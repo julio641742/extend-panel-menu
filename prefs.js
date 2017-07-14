@@ -108,6 +108,26 @@ const PrefsWidget = new GObject.Class({
         this.settings.bind("tray-offset", valueOffset, "value", Gio.SettingsBindFlags.DEFAULT);
         box.add(valueOffset);
         vbox.add(box);
+        box = new Gtk.Box({
+            spacing: 12,
+            margin_left: 12
+        });
+        box.add(new Gtk.Label({
+            label: _("Spacing between icons"),
+            hexpand: true,
+            halign: 1
+        }));
+        let valueSpacing = Gtk.Scale.new_with_range(Gtk.Orientation.HORIZONTAL, 0, 12, 1);
+        valueSpacing.set_value(this.settings.get_int("spacing"));
+        valueSpacing.set_digits(0);
+        valueSpacing.set_hexpand(true);
+        //this.settings.bind("spacing", valueSpacing, "value", Gio.SettingsBindFlags.DEFAULT);
+        valueSpacing.connect("value-changed", Lang.bind(this, function(obj) {
+            //log(value)
+            this.settings.set_int("spacing", obj.get_value());
+        }));
+        box.add(valueSpacing);
+        vbox.add(box);
         this.add(vbox);
 
         /*****       SUBMENU         ****/

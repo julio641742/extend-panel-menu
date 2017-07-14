@@ -13,6 +13,11 @@
             <summary>Tray Offset</summary>
             <range min="0" max="10"/>
         </key>
+        <key name="spacing" type="i">
+            <default>6</default>
+            <summary>Horizontal Spacing</summary>
+            <range min="0" max="12"/>
+        </key>
         <key name="items" type="s">
             <default>"Night Light Indicator [GNOME Shell>=3.24];1;nightlight|Volume Indicator;1;volume|Network Indicator;1;network|Power(Brightness) Indicator;1;power|Calendar Indicator;1;calendar|User Indicator;1;user|Notification Indicator;1;notification"</default>
             <summary>Indicators</summary>

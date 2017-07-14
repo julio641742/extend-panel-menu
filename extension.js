@@ -56,7 +56,7 @@ const CustomButton = new Lang.Class({
             vertical: false,
             style_class: "panel-status-menu-box"
         });;
-        this.actor.add_style_class_name("horizontal-spacing");
+        //this.actor.add_style_class_name("horizontal-spacing");
         this.actor.add_child(this.box);
     },
     _openApp: function (a, b, app) {
@@ -466,7 +466,7 @@ const NotificationIndicator = new Lang.Class({
                 this._messageIndicator.visible = !obj.visible;
         }))
 
-        
+
 
     },
     destroy: function () {
@@ -587,6 +587,8 @@ let settings;
 let settingsChanged;
 let menuItems;
 let order;
+let offset;
+let spacing;
 
 let nightlight;
 let volume;
@@ -631,16 +633,31 @@ function enable() {
     order = null;
     settings = Convenience.getSettings();
     menuItems = new MenuItems.MenuItems(settings);
+    offset = settings.get_int("tray-offset");
+    spacing = settings.get_int("spacing");
     settingsChanged = settings.connect("changed", Lang.bind(this, applySettings));
     applySettings();
 }
 
 function applySettings() {
     let items = menuItems.getEnableItems();
+    indicators = new Array(items.length);
+
+    let newoffset = settings.get_int("tray-offset");
+    if (newoffset != offset) {
+        order = "";
+        offset = newoffset
+    }
+
+    let newspacing = settings.get_int("spacing");
+    if (spacing != newspacing) {
+        order = "";
+        spacing = newspacing;
+    }
+
     // If the order in which the indicators are displayed is changed
     if (order != items.toString()) {
         removeAll();
-        indicators = new Array(items.length);
 
         if (items.indexOf("power") != -1) {
             indicators[items.indexOf("power")] = power;
@@ -664,9 +681,14 @@ function applySettings() {
             indicators[items.indexOf("nightlight")] = nightlight;
         }
 
-        let offset = settings.get_int("tray-offset") || 0
+
         let children = Main.panel._rightBox.get_children();
+        let styleLine = '-natural-hpadding: %dpx'.format(spacing);
+        if (spacing < 6) {
+            styleLine += '; -minimum-hpadding: %dpx'.format(spacing);
+        }
         indicators.reverse().forEach(function (item) {
+            item.actor.set_style(styleLine);
             Main.panel._rightBox.insert_child_at_index(item.container, children.length - offset);
         });
         // Save state

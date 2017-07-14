@@ -41,7 +41,9 @@ Thanks to
 
 ## Changes
 
-### v5.3
+### v5.6
+- Tray offset option now implemented
+- Horizontal Spacing option now implemented
 - Italian/German/Spanish/Persian/Arabic translation complete
 - Now works with "Sound Output Device Chooser" extension
 - Now works with "Dash to panel" extension
@@ -49,9 +51,9 @@ Thanks to
 
 ### v5
 - Music controls under the volume indicator
-- Now works with "Status Area Horizontal Spacing" extension
+- ~~Now works with "Status Area Horizontal Spacing" extension~~
 - Improved performance when moving indicators
-- Change format of date in the calendar indicator
+- ~~Change format of date in the calendar indicator~~
 - Switch between user icon/name
 - Translation ready (Looking for translators)
 - Fixed some bugs
@@ -62,7 +64,7 @@ Thanks to
 - Now you can set a custom string in the User Indicator
 - New nighshift indicator (GNOME Shell >=3.24)
 - Added a Makefile
-- Support for GNOME Shell 3.18 and 3.20
+- Support for GNOME Shell ~~3.18~~ and 3.20
 
 ### v3
 - New network menu
