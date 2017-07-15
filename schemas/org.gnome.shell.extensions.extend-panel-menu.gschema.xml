@@ -8,6 +8,10 @@
             <default>false</default>
             <summary>Show an icon instead of name</summary>
         </key>
+        <key name="date-format" type="s">
+            <default>"%a %B %e, %I:%M %p"</default>
+            <summary>Date format</summary>
+        </key>
         <key name="autohide-notification" type="b">
             <default>false</default>
             <summary>Auto hide the notification indicator</summary>
@@ -23,7 +27,7 @@
             <range min="0" max="12"/>
         </key>
         <key name="items" type="s">
-            <default>"Night Light Indicator [GNOME Shell>=3.24];1;nightlight|Volume Indicator;1;volume|Network Indicator;1;network|Power(Brightness) Indicator;1;power|Calendar Indicator;1;calendar|User Indicator;1;user|Notification Indicator;1;notification"</default>
+            <default>"Night Light Indicator [GNOME Shell>=3.24];1;0;nightlight|Volume Indicator;1;0;volume|Network Indicator;1;0;network|Power(Brightness) Indicator;1;0;power|Calendar Indicator;1;0;calendar|User Indicator;1;0;user|Notification Indicator;1;0;notification"</default>
             <summary>Indicators</summary>
         </key>
     </schema>

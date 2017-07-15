@@ -52,6 +52,7 @@ const CustomButton = new Lang.Class({
     _init: function (name) {
         this.parent(0.0, name, false);
         this.name = name;
+        this.centered = false;
         this.box = new St.BoxLayout({
             vertical: false,
             style_class: "panel-status-menu-box"
@@ -509,6 +510,10 @@ const CalendarIndicator = new Lang.Class({
         this._eventsSection = new imports.ui.calendar.EventsSection();
         this._clocksSection = Main.panel.statusArea.dateMenu._clocksItem;
         this._clockIndicator = Main.panel.statusArea.dateMenu._clockDisplay;
+        this._clockIndicatorFormat = new St.Label({
+            visible: false,
+            y_align: Clutter.ActorAlign.CENTER
+        });;
 
         this._indicatorParent = this._clockIndicator.get_parent();
         this._calendarParent = this._calendar.actor.get_parent();
@@ -525,6 +530,7 @@ const CalendarIndicator = new Lang.Class({
 
         // ADD THE INDICATOR TO PANEL
         this.box.add_actor(this._clockIndicator);
+        this.box.add_actor(this._clockIndicatorFormat);
 
         let boxLayout;
         let vbox;
@@ -580,8 +586,35 @@ const CalendarIndicator = new Lang.Class({
         this._calendar.connect("selected-date-changed", Lang.bind(this, function (calendar, date) {
             this._eventsSection.setDate(date);
         }));
+
+        this._formatChanged = this._clock.connect('notify::clock', Lang.bind(this, this.changeFormat));
+    },
+    override: function (format) {
+        if (format == "") {
+            this.resetFormat();
+            return
+        }
+        this._clockIndicator.hide();
+        this._clockIndicatorFormat.show();
+        this._dateFormat = format;
+        this.changeFormat();
+    },
+    changeFormat: function () {
+        if (this._dateFormat != "") {
+            let date = new Date();
+            this._clockIndicatorFormat.set_text(date.toLocaleFormat(this._dateFormat));
+        }
+    },
+    resetFormat: function () {
+        if (this._formatChanged) {
+            this._clock.disconnect(this._formatChanged);
+            this._formatChanged = null;
+        }
+        this._clockIndicator.show();
+        this._clockIndicatorFormat.hide();
     },
     destroy: function () {
+        this.resetFormat();
         this.box.remove_child(this._clockIndicator);
         this._calendar.actor.get_parent().remove_child(this._calendar.actor)
         this._date.actor.get_parent().remove_child(this._date.actor)
@@ -605,6 +638,7 @@ let settings;
 let settingsChanged;
 let menuItems;
 let order;
+let orderc;
 let offset;
 let spacing;
 
@@ -623,7 +657,7 @@ const VERSION_NIGHLIGHT = "3.24";
 function enable() {
     let children = Main.panel._rightBox.get_children();
     Main.panel.statusArea.aggregateMenu.container.hide();
-    //Main.panel.statusArea.dateMenu.destroy();//container.hide();
+    Main.panel.statusArea.dateMenu.container.hide();
     Main.panel._centerBox.remove_child(Main.panel.statusArea.dateMenu.container);
 
     if (ExtensionUtils.versionCheck([VERSION_NIGHLIGHT], VERSION)) {
@@ -649,6 +683,7 @@ function enable() {
 
     // Load Settings
     order = null;
+    orderc = null;
     settings = Convenience.getSettings();
     menuItems = new MenuItems.MenuItems(settings);
     offset = settings.get_int("tray-offset");
@@ -659,8 +694,9 @@ function enable() {
 
 function applySettings() {
     let items = menuItems.getEnableItems();
-    indicators = new Array(items.length);
+    let centered = menuItems.getCenteredItems();
 
+    let indicators = new Array(items.length);
     let newoffset = settings.get_int("tray-offset");
     if (newoffset != offset) {
         order = "";
@@ -674,52 +710,78 @@ function applySettings() {
     }
 
     // If the order in which the indicators are displayed is changed
-    if (order != items.toString()) {
+    if (order != items.toString() || orderc != centered.toString()) {
         removeAll();
 
         if (items.indexOf("power") != -1) {
             indicators[items.indexOf("power")] = power;
+            if (centered.indexOf("power") != -1) {
+                power.centered = true
+            }
         }
         if (items.indexOf("user") != -1) {
             indicators[items.indexOf("user")] = user;
+            if (centered.indexOf("user") != -1) {
+                user.centered = true
+            }
         }
         if (items.indexOf("volume") != -1) {
             indicators[items.indexOf("volume")] = volume;
+            if (centered.indexOf("volume") != -1) {
+                volume.centered = true
+            }
         }
         if (items.indexOf("network") != -1) {
             indicators[items.indexOf("network")] = network;
+            if (centered.indexOf("network") != -1) {
+                network.centered = true
+            }
         }
         if (items.indexOf("notification") != -1) {
             indicators[items.indexOf("notification")] = notification;
+            if (centered.indexOf("notification") != -1) {
+                notification.centered = true
+            }
         }
         if (items.indexOf("calendar") != -1) {
             indicators[items.indexOf("calendar")] = calendar;
+            if (centered.indexOf("calendar") != -1) {
+                calendar.centered = true
+            }
         }
         if (items.indexOf("nightlight") != -1 && ExtensionUtils.versionCheck([VERSION_NIGHLIGHT], VERSION)) {
             indicators[items.indexOf("nightlight")] = nightlight;
+            if (centered.indexOf("nightlight") != -1) {
+                nightlight.centered = true
+            }
         }
 
 
         let children = Main.panel._rightBox.get_children();
+        let centerchildren = Main.panel._centerBox.get_children();
         let styleLine = '-natural-hpadding: %dpx'.format(spacing);
         if (spacing < 6) {
             styleLine += '; -minimum-hpadding: %dpx'.format(spacing);
         }
         indicators.reverse().forEach(function (item) {
             item.actor.set_style(styleLine);
-            Main.panel._rightBox.insert_child_at_index(item.container, children.length - offset);
+            if (item.centered) {
+                Main.panel._centerBox.insert_child_at_index(item.container, centerchildren.length);
+            } else {
+                Main.panel._rightBox.insert_child_at_index(item.container, children.length - offset);
+            }
         });
         // Save state
         order = items.toString();
+        orderc = centered.toString();
     }
 
     let username = settings.get_string("username-text");
     if (username == "") {
         username = GLib.get_real_name();
     }
-    if (user) {
-        user._nameLabel.set_text(username);
-    }
+    user._nameLabel.set_text(username);
+
     let enableUserIcon = settings.get_boolean("user-icon");
     if (enableUserIcon) {
         user._userIcon.show();
@@ -729,24 +791,33 @@ function applySettings() {
         user._nameLabel.show();
     }
 
+    let dateformat = settings.get_string("date-format");
+    calendar.override(dateformat);
 
     let autoHideNotification = settings.get_boolean("autohide-notification");
-    if (notification) {
-        notification.setHide(autoHideNotification);
-    }
+    notification.setHide(autoHideNotification);
 
 }
 
 function removeAll() {
     if (nightlight) {
-        Main.panel._rightBox.remove_child(nightlight.container);
+        removeContainer(nightlight);
     }
-    Main.panel._rightBox.remove_child(volume.container);
-    Main.panel._rightBox.remove_child(network.container);
-    Main.panel._rightBox.remove_child(power.container);
-    Main.panel._rightBox.remove_child(calendar.container);
-    Main.panel._rightBox.remove_child(user.container);
-    Main.panel._rightBox.remove_child(notification.container);
+    removeContainer(volume);
+    removeContainer(network);
+    removeContainer(power);
+    removeContainer(calendar);
+    removeContainer(user);
+    removeContainer(notification);
+}
+
+function removeContainer(item) {
+    if (item.centered) {
+        Main.panel._centerBox.remove_child(item.container)
+    } else {
+        Main.panel._rightBox.remove_child(item.container);
+    }
+    item.centered = false;
 }
 
 function disable() {
@@ -766,5 +837,6 @@ function disable() {
 
 
     Main.panel.statusArea.aggregateMenu.container.show();
+    Main.panel.statusArea.dateMenu.container.show();
     Main.panel._centerBox.add_child(Main.panel.statusArea.dateMenu.container);
 }

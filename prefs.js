@@ -122,7 +122,7 @@ const PrefsWidget = new GObject.Class({
         valueSpacing.set_digits(0);
         valueSpacing.set_hexpand(true);
         //this.settings.bind("spacing", valueSpacing, "value", Gio.SettingsBindFlags.DEFAULT);
-        valueSpacing.connect("value-changed", Lang.bind(this, function(obj) {
+        valueSpacing.connect("value-changed", Lang.bind(this, function (obj) {
             //log(value)
             this.settings.set_int("spacing", obj.get_value());
         }));
@@ -141,6 +141,27 @@ const PrefsWidget = new GObject.Class({
         this.settings.bind("autohide-notification", autoHide, "active", Gio.SettingsBindFlags.DEFAULT);
         box.add(autoHide);
         vbox.add(box);
+        box = new Gtk.Box({
+            spacing: 12,
+            margin_left: 12
+        });
+        box.add(new Gtk.Label({
+            label: _("Change format of date (Empty to system default)"),
+            hexpand: true,
+            halign: 1
+        }));
+        box.add(new Gtk.LinkButton({
+            label: _("wiki"),
+            uri: "https://help.gnome.org/users/gthumb/unstable/gthumb-date-formats.html.en",
+            hexpand: true,
+            halign: 1
+        }));
+        let valueDate = new Gtk.Entry({
+            hexpand: true
+        });
+        this.settings.bind("date-format", valueDate, "text", Gio.SettingsBindFlags.DEFAULT);
+        box.add(valueDate);
+        vbox.add(box);
         this.add(vbox);
 
         /*****       SUBMENU         ****/
@@ -148,12 +169,26 @@ const PrefsWidget = new GObject.Class({
         vbox = new Gtk.VBox({
             spacing: 6
         });
-        vbox.add(new Gtk.Label({
+        hbox = new Gtk.HBox({
+            spacing: 6
+        });
+        hbox.add(new Gtk.Label({
             label: "<b>" + _("Indicators") + "</b>",
-            use_markup: true,
-            hexpand: true,
-            halign: 1
+            use_markup: true
         }));
+        hbox.add(new Gtk.Label({
+            label: "",
+            use_markup: true
+        }));
+        hbox.add(new Gtk.Label({
+            label: "<b>" + _("Center") + "</b>",
+            use_markup: true
+        }));
+        hbox.add(new Gtk.Label({
+            label: "<b>" + _("Position") + "</b>",
+            use_markup: true
+        }));
+        vbox.add(hbox);
         box = new Gtk.Box({
             spacing: 12,
             margin_left: 12
@@ -271,6 +306,11 @@ const PrefsWidget = new GObject.Class({
             });
             valueList.connect("notify", Lang.bind(this, this.changeEnable, indexItem));
 
+            let centerList = new Gtk.Switch({
+                active: (item["position"] == "1")
+            });
+            centerList.connect("notify::active", Lang.bind(this, this.enableCenter, indexItem));
+
 
             hboxList.add(new Gtk.Label({
                 label: _(item["label"]),
@@ -278,7 +318,19 @@ const PrefsWidget = new GObject.Class({
                 hexpand: true,
                 halign: 1
             }));
+
+            let empty = new Gtk.Label({
+                label: "    ",
+                //hexpand: true,
+                halign: 1
+            });
+
+
+            hboxList.add(centerList);
+            hboxList.add(empty)
             hboxList.add(valueList);
+
+
             hboxList.add(buttonUp);
             hboxList.add(buttonDown);
 
@@ -296,6 +348,10 @@ const PrefsWidget = new GObject.Class({
     },
     changeEnable: function (object, p, index) {
         this.menuItems.changeEnable(index, object.active)
+    },
+    enableCenter: function (object, p, index) {
+        this.menuItems.changePosition(index, object.active)
+        this.changeOrder(null, index, -index);
     },
     resetPosition: function () {
         this.settings.set_value("items", this.settings.get_default_value("items"));
