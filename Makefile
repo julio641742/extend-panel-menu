@@ -32,3 +32,5 @@ build: all
 	cp schemas/gschemas.compiled _build/schemas/
 	mkdir -p _build/locale
 	cp -r locale/* _build/locale/
+	mkdir -p _build/indicators
+	cp -r indicators/* _build/indicators

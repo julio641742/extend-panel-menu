@@ -95,7 +95,7 @@ const MenuItems = new Lang.Class({
         }
         return itemsEnable;
     },
-    getCenteredItems: function() {
+    getCenterItems: function() {
      let items = this.getItems();
         let indexItem;
         let itemsEnable = new Array();
