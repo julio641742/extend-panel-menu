@@ -85,8 +85,17 @@ const NotificationIndicator = new Lang.Class({
                 this._messageIndicator.visible = !obj.visible;
         }));
 
+        this._closeButton = null;
+        if(this._messageList._notificationSection._closeButton) {
+            // GNOME Shell 3.20 and 3.22
+            this._closeButton = this._messageList._notificationSection._closeButton;
+        } else {
+            // GNOME Shell 3.24
+            this._closeButton = this._messageList._clearButton;
+        }
 
-        this._hideIndicator = this._messageList._clearButton.connect("notify::visible", Lang.bind(this, function (obj) {
+
+        this._hideIndicator = this._closeButton.connect("notify::visible", Lang.bind(this, function (obj) {
             if (this._autoHide) {
                 if (obj.visible) {
                     this.actor.show();
@@ -107,7 +116,7 @@ const NotificationIndicator = new Lang.Class({
     },
     destroy: function () {
         this._newMessageIndicator.actor.disconnect(this._newMessage);
-        this._messageList._clearButton.disconnect(this._hideIndicator);
+        this._closeButton.disconnect(this._hideIndicator);
         this.box.remove_child(this._newMessageIndicator.actor);
         this._messageIndicatorParent.add_child(this._newMessageIndicator.actor);
         this._vbox.remove_child(this._messageList.actor)
