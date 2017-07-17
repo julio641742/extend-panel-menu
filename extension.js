@@ -39,8 +39,9 @@ function init() {
 }
 
 let settings;
-let settingsChanged;
 let menuItems;
+let indicators;
+let settingsChanged;
 
 let nightlight;
 let volume;
@@ -71,7 +72,7 @@ function enable() {
         nightlight = new NightLightIndicator();
     }
 
-    
+
     Main.panel.addToStatusArea(notification.name, notification, 0, "right");
     Main.panel.addToStatusArea(user.name, user, 0, "right");
     Main.panel.addToStatusArea(calendar.name, calendar, 0, "right");
@@ -85,14 +86,49 @@ function enable() {
     // Load Settings
     settings = Convenience.getSettings();
     menuItems = new MenuItems(settings);
-    settingsChanged = settings.connect("changed", Lang.bind(this, applySettings));
+    settingsChanged = new Array(7);
+    settingsChanged[0] = settings.connect("changed::items", Lang.bind(this, applySettings));
+    settingsChanged[1] = settings.connect("changed::tray-offset", Lang.bind(this, applySettings));
+    settingsChanged[2] = settings.connect("changed::spacing", Lang.bind(this, changeSpacing));
+    settingsChanged[3] = settings.connect("changed::username-text", Lang.bind(this, changeUsername));
+    settingsChanged[4] = settings.connect("changed::user-icon", Lang.bind(this, changeUsericon));
+    settingsChanged[5] = settings.connect("changed::date-format", Lang.bind(this, changeDateformat));
+    settingsChanged[6] = settings.connect("changed::autohide-notification", Lang.bind(this, changeAutohide));
     applySettings();
+    changeSpacing();
+    changeUsername();
+    changeUsericon();
+    changeDateformat();
+    changeAutohide();
+}
+
+function changeSpacing() {
+    let spacing = settings.get_int("spacing");
+    indicators.forEach(function (item) {
+        item.set_spacing(spacing);
+    });
+}
+function changeUsername() {
+    let username = settings.get_string("username-text");
+    user.changeLabel(username);
+}
+function changeUsericon() {
+    let enableUserIcon = settings.get_boolean("user-icon");
+    user.changeIcon(enableUserIcon);
+}
+function changeDateformat() {
+    let dateformat = settings.get_string("date-format");
+    calendar.override(dateformat);
+}
+function changeAutohide() {
+    let autoHideNotification = settings.get_boolean("autohide-notification");
+    notification.setHide(autoHideNotification);
 }
 
 function applySettings() {
     let enabled = menuItems.getEnableItems();
     let center = menuItems.getCenterItems();
-    let indicators = new Array(enabled.length);
+    indicators = new Array(enabled.length);
 
     removeAll();
     setup(enabled, center, indicators, "power", power);
@@ -105,39 +141,20 @@ function applySettings() {
         setup(enabled, center, indicators, "nightlight", nightlight);
     }
 
-    
-    let spacing = settings.get_int("spacing");
-    let styleLine = '-natural-hpadding: %dpx'.format(spacing);
-    if (spacing < 6) {
-        styleLine += '; -minimum-hpadding: %dpx'.format(spacing);
-    }
-
     let rightchildren = RIGHT_BOX.get_children().length;
     let centerchildren = CENTER_BOX.get_children().length;
 
+    let spacing = settings.get_int("spacing");
     let offset = settings.get_int("tray-offset");
 
     indicators.reverse().forEach(function (item) {
-        item.actor.set_style(styleLine);
+        item.set_spacing(spacing);
         if (item._center) {
             CENTER_BOX.insert_child_at_index(item.container, centerchildren);
         } else {
             RIGHT_BOX.insert_child_at_index(item.container, rightchildren - offset);
         }
     });
-
-
-    let username = settings.get_string("username-text");
-    user.changeLabel(username);
-
-    let enableUserIcon = settings.get_boolean("user-icon");
-    user.changeIcon(enableUserIcon);
-
-    let dateformat = settings.get_string("date-format");
-    calendar.override(dateformat);
-
-    let autoHideNotification = settings.get_boolean("autohide-notification");
-    notification.setHide(autoHideNotification);
 
 }
 
@@ -172,19 +189,21 @@ function removeContainer(item) {
 }
 
 function disable() {
-    if (settingsChanged) {
-        settings.disconnect(settingsChanged);
-    }
+    settingsChanged.forEach(function (item) {
+        settings.disconnect(item);
+    });
+    settingsChanged = null;
     settings = null;
     if (nightlight) {
         nightlight.destroy();
     }
+
     volume.destroy();
-    network.destroy();
     power.destroy();
+    network.destroy();
+    user.destroy();
     notification.destroy();
     calendar.destroy();
-    user.destroy();
     Main.panel.statusArea.aggregateMenu.container.show();
     Main.panel.statusArea.dateMenu.container.show();
     Main.panel._centerBox.add_child(Main.panel.statusArea.dateMenu.container);

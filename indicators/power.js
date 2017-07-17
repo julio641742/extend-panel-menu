@@ -18,8 +18,9 @@
 */
 
 const St = imports.gi.St;
-const PopupMenu = imports.ui.popupMenu;
 const Lang = imports.lang;
+const Main = imports.ui.main;
+const PopupMenu = imports.ui.popupMenu;
 const Gettext = imports.gettext.domain("extend-panel-menu");
 const _ = Gettext.gettext;
 const Extension = imports.misc.extensionUtils.getCurrentExtension();
@@ -32,15 +33,17 @@ const PowerIndicator = new Lang.Class({
     _init: function () {
         this.parent("PowerIndicator");
         this.menu.actor.add_style_class_name("aggregate-menu");
-        this._power = new imports.ui.status.power.Indicator();
-        this._brightness = new imports.ui.status.brightness.Indicator();
+        this._power = Main.panel.statusArea.aggregateMenu._power;
+        this._power.indicators.remove_actor(this._power._indicator);
+        this._brightness = Main.panel.statusArea.aggregateMenu._brightness;
         this._brightnessIcon = new St.Icon({
             icon_name: "display-brightness-symbolic",
             style_class: "system-status-icon"
         });
         this.box.add_child(this._brightnessIcon);
-        this.box.add_child(this._power.indicators);
-        this.menu.addMenuItem(this._brightness.menu);
+        this.box.add_child(this._power._indicator);
+        Main.panel.statusArea.aggregateMenu.menu.box.remove_actor(this._brightness.menu.actor);
+        this.menu.box.add_actor(this._brightness.menu.actor);
         this._separator = new PopupMenu.PopupSeparatorMenuItem();
         this.menu.addMenuItem(this._separator);
         this._label = new St.Label({
@@ -57,13 +60,13 @@ const PowerIndicator = new Lang.Class({
         let powertype = this._power._proxy.IsPresent;
         if (!powertype) {
             this._brightnessIcon.show();
-            this._power.indicators.hide();
+            this._power._indicator.hide();
             this._separator.actor.hide();
             this._label.hide();
             this._settings.actor.hide();
         } else {
             this._brightnessIcon.hide();
-            this._power.indicators.show();
+            this._power._indicator.show();
             this._separator.actor.show();
             this._label.show();
             this._settings.actor.show();
@@ -71,7 +74,11 @@ const PowerIndicator = new Lang.Class({
         this._label.set_text(this._power._getStatus());
     },
     destroy: function () {
-        this._power._proxy.disconnect(this._properties_changed)
+        this._power._proxy.disconnect(this._properties_changed);
+        this.box.remove_child(this._power._indicator);
+        this.menu.box.remove_actor(this._brightness.menu.actor);
+        this._power.indicators.add_actor(this._power._indicator);
+        Main.panel.statusArea.aggregateMenu.menu.box.add_actor(this._brightness.menu.actor);
         this.parent();
     }
 });

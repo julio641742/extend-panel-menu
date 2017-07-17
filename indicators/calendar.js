@@ -112,18 +112,17 @@ const CalendarIndicator = new Lang.Class({
         this._calendar.connect("selected-date-changed", Lang.bind(this, function (calendar, date) {
             this._eventsSection.setDate(date);
         }));
-
+    },
+    override: function (format) {
+        this.resetFormat();
+        if (format == "") {
+            return
+        }
         let that = this;
         this._formatChanged = GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, 1, function () {
             that.changeFormat();
             return true;
         });
-    },
-    override: function (format) {
-        if (format == "") {
-            this.resetFormat();
-            return
-        }
         this._clockIndicator.hide();
         this._clockIndicatorFormat.show();
         this._dateFormat = format;

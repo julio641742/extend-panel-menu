@@ -38,12 +38,9 @@ const NotificationIndicator = new Lang.Class({
 
         this._messageListParent = this._messageList.actor.get_parent();
         this._messageListParent.remove_actor(this._messageList.actor);
-        this._newMessageIndicator = Main.panel.statusArea.dateMenu._indicator;
+        this._oldindicator = Main.panel.statusArea.dateMenu._indicator;
 
-        this._messageIndicatorParent = this._newMessageIndicator.actor.get_parent();
-        this._messageIndicatorParent.remove_child(this._newMessageIndicator.actor);
-
-        this._newMessageIndicator.actor = new St.Icon({
+        this._newMessageIndicator = new St.Icon({
             icon_name: "notification-new-symbolic",
             style_class: "system-status-icon",
             visible: false
@@ -54,10 +51,8 @@ const NotificationIndicator = new Lang.Class({
             style_class: "system-status-icon"
         });
 
-
-        this.box.add_child(this._newMessageIndicator.actor);
+        this.box.add_child(this._newMessageIndicator);
         this.box.add_child(this._messageIndicator);
-
 
         this._vbox = new St.BoxLayout({
             height: 400,
@@ -66,7 +61,6 @@ const NotificationIndicator = new Lang.Class({
 
         this._vbox.add(this._messageList.actor);
         this.menu.box.add(this._vbox);
-
 
         try {
             this._messageList._removeSection(this._messageList._mediaSection);
@@ -80,20 +74,21 @@ const NotificationIndicator = new Lang.Class({
             }
         }));
 
-        this._newMessage = this._newMessageIndicator.actor.connect('notify::visible', Lang.bind(this, function (obj) {
-            if (obj)
+        this._newMessage = this._oldindicator.actor.connect('notify::visible', Lang.bind(this, function (obj) {
+            if (obj) {
                 this._messageIndicator.visible = !obj.visible;
+                this._newMessageIndicator.visible = obj.visible;
+            }
         }));
 
         this._closeButton = null;
-        if(this._messageList._notificationSection._closeButton) {
+        if (this._messageList._notificationSection._closeButton) {
             // GNOME Shell 3.20 and 3.22
             this._closeButton = this._messageList._notificationSection._closeButton;
         } else {
             // GNOME Shell 3.24
             this._closeButton = this._messageList._clearButton;
         }
-
 
         this._hideIndicator = this._closeButton.connect("notify::visible", Lang.bind(this, function (obj) {
             if (this._autoHide) {
@@ -110,15 +105,13 @@ const NotificationIndicator = new Lang.Class({
         this._autoHide = value
         if (!value) {
             this.actor.show();
-        } else if (this._newMessageIndicator._sources == "") {
+        } else if (this._oldindicator._sources == "") {
             this.actor.hide();
         }
     },
     destroy: function () {
-        this._newMessageIndicator.actor.disconnect(this._newMessage);
+        this._oldindicator.actor.disconnect(this._newMessage);
         this._closeButton.disconnect(this._hideIndicator);
-        this.box.remove_child(this._newMessageIndicator.actor);
-        this._messageIndicatorParent.add_child(this._newMessageIndicator.actor);
         this._vbox.remove_child(this._messageList.actor)
         this._messageListParent.add_actor(this._messageList.actor);
         this.parent();

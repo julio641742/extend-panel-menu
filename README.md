@@ -4,12 +4,10 @@ All help is welcomed
 
 ## Screenshots
 ### New
-![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/settings-6.png)
+![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-nightlight-7.png)
+![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/settings-7.png)
+
 ![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-volume-5.png)
-
-> New settings and music player under volume indicator
-
-![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-nightlight-4.png)
 ![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-4.png)
 ![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-shell-theme-4.png)
 ![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-network-4.png)
@@ -39,10 +37,15 @@ Thanks to
 - @matteotanca (Italian translation)
 - @mrprobot (Geman translation)
 - @khaledhosny (Arabic translation)
+- @AlexGluck (Russian translation)
 
 ## Changes
 
-### v5.6
+### v7
+- Set nightlight temperature via the indicator
+
+
+### v6
 - Auto Hide the Notification Indicator now implemented
 - Tray offset option now implemented
 - Horizontal Spacing option now implemented
@@ -53,9 +56,9 @@ Thanks to
 
 ### v5
 - Music controls under the volume indicator
-- ~~Now works with "Status Area Horizontal Spacing" extension~~
+- Now works with "Status Area Horizontal Spacing" extension
 - Improved performance when moving indicators
-- ~~Change format of date in the calendar indicator~~
+- Change format of date in the calendar indicator
 - Switch between user icon/name
 - Translation ready (Looking for translators)
 - Fixed some bugs

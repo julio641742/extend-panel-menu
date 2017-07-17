@@ -33,8 +33,8 @@ const VolumeIndicator = new Lang.Class({
         this.parent("VolumeIndicator");
         this.menu.actor.add_style_class_name("aggregate-menu");
         this._volume = Main.panel.statusArea.aggregateMenu._volume;
-        Main.panel.statusArea.aggregateMenu._indicators.remove_actor(this._volume.indicators);
-        this.box.add_child(this._volume.indicators);
+        this._volume.indicators.remove_actor(this._volume._primaryIndicator);
+        this.box.add_child(this._volume._primaryIndicator);
         Main.panel.statusArea.aggregateMenu.menu.box.remove_actor(this._volume.menu.actor);
         this.menu.box.add_actor(this._volume.menu.actor);
         try {
@@ -46,11 +46,16 @@ const VolumeIndicator = new Lang.Class({
         let settings = new PopupMenu.PopupMenuItem(_("Volume Settings"));
         settings.connect("activate", Lang.bind(this, this._openApp, "gnome-sound-panel.desktop"));
         this.menu.addMenuItem(settings);
+        this._properties_changed = this.actor.connect("scroll-event", Lang.bind(this, this._onScrollEvent));
+    },
+    _onScrollEvent: function(actor, event) {
+        this._volume._onScrollEvent(actor, event);
     },
     destroy: function () {
-        this.box.remove_child(this._volume.indicators);
+        this.actor.disconnect(this._properties_changed);
+        this.box.remove_child(this._volume._primaryIndicator);
         this.menu.box.remove_actor(this._volume.menu.actor);
-        Main.panel.statusArea.aggregateMenu._indicators.add_actor(this._volume.indicators);
+        this._volume.indicators.add_actor(this._volume._primaryIndicator);
         Main.panel.statusArea.aggregateMenu.menu.box.add_actor(this._volume.menu.actor);
         this.parent();
     }

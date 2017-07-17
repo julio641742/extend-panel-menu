@@ -9,7 +9,7 @@
             <summary>Show an icon instead of name</summary>
         </key>
         <key name="date-format" type="s">
-            <default>"%a %B %e, %I:%M %p"</default>
+            <default>""</default>
             <summary>Date format</summary>
         </key>
         <key name="autohide-notification" type="b">

@@ -18,9 +18,12 @@
 */
 
 const St = imports.gi.St;
-const PanelMenu = imports.ui.panelMenu;
 const Lang = imports.lang;
+const Gio = imports.gi.Gio;
 const Shell = imports.gi.Shell;
+const PanelMenu = imports.ui.panelMenu;
+
+const SPACING_EXTENSION = 'status-area-horizontal-spacing@mathematical.coffee.gmail.com';
 
 const CustomButton = new Lang.Class({
     Name: "Button",
@@ -31,13 +34,34 @@ const CustomButton = new Lang.Class({
         this.name = name;
         this._center = false;
         this.box = new St.BoxLayout({
-            //vertical: false,
-            //style_class: "panel-status-menu-box"
+            vertical: false,
+            style_class: "panel-status-menu-box"
         });;
         this.actor.add_child(this.box);
     },
     _openApp: function (a, b, app) {
         Shell.AppSystem.get_default().lookup_app(app).activate();
+    },
+    set_spacing: function (spacing) {
+        this._default_spacing = spacing;
+        this.update_spacing(spacing);
+    },
+    update_spacing: function (spacing) {
+        let style = '-natural-hpadding: %dpx'.format(spacing);
+        if (spacing < 6) {
+            style += '; -minimum-hpadding: %dpx'.format(spacing);
+        }
+        this.actor.set_style(style);
+    },
+    calculate_spacing: function () {
+        let style = this.actor.get_style();
+        if (style) {
+            let start = style.indexOf("-natural-hpadding: ");
+            let end = style.indexOf("px;");
+            let val = parseInt(style.substring(start + 19, end));
+            return val;
+        }
+        return NaN
     },
     destroy: function () {
         this.parent();

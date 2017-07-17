@@ -20,8 +20,9 @@
 const St = imports.gi.St;
 const Lang = imports.lang;
 const Gio = imports.gi.Gio;
-const PopupMenu = imports.ui.popupMenu;
+const Main = imports.ui.main;
 const Slider = imports.ui.slider;
+const PopupMenu = imports.ui.popupMenu;
 const Gettext = imports.gettext.domain("extend-panel-menu");
 const _ = Gettext.gettext;
 const Extension = imports.misc.extensionUtils.getCurrentExtension();
@@ -34,9 +35,10 @@ const NightLightIndicator = new Lang.Class({
     _init: function () {
         this.parent("NightLightIndicator");
         this.menu.actor.add_style_class_name("aggregate-menu");
-        this._nightLight = new imports.ui.status.nightLight.Indicator();
+        this._nightLight = Main.panel.statusArea.aggregateMenu._nightLight;
         this.menu.box.set_width(250);
-        this.box.add_child(this._nightLight.indicators);
+        this._nightLight.indicators.remove_actor(this._nightLight._indicator);
+        this.box.add_child(this._nightLight._indicator);
         this._label = new St.Label({
             style_class: "label-menu"
         });
@@ -55,9 +57,10 @@ const NightLightIndicator = new Lang.Class({
         this._slider = new Slider.Slider(value);
         this._slider.connect('value-changed', Lang.bind(this, this._sliderChanged));
         sliderItem.actor.add(this._slider.actor, { expand: true });
-        this.menu.addMenuItem(sliderItem);
-
         this.menu.box.add_child(this._label);
+        this.menu.addMenuItem(sliderItem);
+        this._separator = new PopupMenu.PopupSeparatorMenuItem();
+        this.menu.addMenuItem(this._separator);
         this._disableItem = new PopupMenu.PopupMenuItem(_("Resume"));
         this._disableItem.connect("activate", Lang.bind(this, this._change));
         this.menu.addMenuItem(this._disableItem);
@@ -67,7 +70,7 @@ const NightLightIndicator = new Lang.Class({
         let nightSettings = new PopupMenu.PopupMenuItem(_("Display Settings"));
         nightSettings.connect("activate", Lang.bind(this, this._openApp, "gnome-display-panel.desktop"));
         this.menu.addMenuItem(nightSettings);
-        this._nightLight._proxy.connect("g-properties-changed", Lang.bind(this, this._sync));
+        this._properties_changed = this._nightLight._proxy.connect("g-properties-changed", Lang.bind(this, this._sync));
         this._sync();
     },
     _sliderChanged: function (slider, value) {
@@ -90,6 +93,12 @@ const NightLightIndicator = new Lang.Class({
         } else {
             this.actor.hide();
         }
+    },
+    destroy: function () {
+        this._nightLight._proxy.disconnect(this._properties_changed);
+        this.box.remove_child(this._nightLight._indicator);
+        this._nightLight.indicators.add_actor(this._nightLight._indicator);
+        this.parent();
     }
 });
 
