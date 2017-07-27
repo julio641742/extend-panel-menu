@@ -4,13 +4,15 @@ All help is welcomed
 
 ## Screenshots
 ### New
+- New Network Indicator [Wireless List]
+
+![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-network-8.png)
 ![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-nightlight-6.png)
 ![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/settings-7.png)
 
 ![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-volume-5.png)
 ![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-4.png)
 ![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-shell-theme-4.png)
-![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-network-4.png)
 ![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-power-4.png)
 ![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-calendar-4.png)
 ![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-notifications-4.png)
@@ -41,8 +43,12 @@ Thanks to
 
 ## Changes
 
+### v8
+- Now you can see a list of available networks
+
 ### v7
 - Set nightlight temperature via the indicator
+- Russian translation complete
 
 
 ### v6
