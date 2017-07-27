@@ -19,6 +19,7 @@
 
 const St = imports.gi.St;
 const Lang = imports.lang;
+const Gtk = imports.gi.Gtk;
 const Main = imports.ui.main;
 const GLib = imports.gi.GLib;
 const Clutter = imports.gi.Clutter;
@@ -61,10 +62,12 @@ const CalendarIndicator = new Lang.Class({
         let boxLayout;
         let vbox;
         try {
+            boxLayout = new imports.ui.dateMenu.CalendarColumnLayout(this._calendar.actor);
             vbox = new St.Widget({
                 style_class: "datemenu-calendar-column",
                 layout_manager: boxLayout
             });
+            boxLayout.hookup_style(vbox);
         } catch (e) {
             vbox = new St.BoxLayout({
                 style_class: "datemenu-calendar-column",
@@ -81,6 +84,7 @@ const CalendarIndicator = new Lang.Class({
             vertical: true,
             style_class: "datemenu-displays-box"
         });
+        displaySection.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC);
 
         vbox.add_actor(this._date.actor);
         vbox.add_actor(this._calendar.actor);
