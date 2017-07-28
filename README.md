@@ -34,6 +34,8 @@ It's on [Gnome Shell Extensions](https://extensions.gnome.org/extension/1201/ext
 - Sound Inidicator is known to dissapear, just adjust your volume to recover it (No solution found yet)
 
 ## Credits
+Settings Menu extracted from [Arc Menu](https://extensions.gnome.org/extension/1228/arc-menu/)
+
 Thanks to
 - @mortezaPRK and @Arch-Lover (Persian translation)
 - @matteotanca (Italian translation)
