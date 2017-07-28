@@ -489,7 +489,7 @@ const IndicatorsPage = new Lang.Class({
                 halign: Gtk.Align.END
             });
             positionCombo.append_text(_("Left"));
-            positionCombo.append_text(_("Centre"));
+            positionCombo.append_text(_("Center"));
             positionCombo.set_active(item["position"]);
             positionCombo.connect("changed", Lang.bind(this, this.enableCenter, indexItem));
 

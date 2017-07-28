@@ -5,11 +5,12 @@ All help is welcomed
 ## Screenshots
 ### New
 - New Network Indicator [Wireless List]
+- New Settings Widget
 
 ![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-network-8.png)
-![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-nightlight-6.png)
-![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/settings-7.png)
+![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/settings-8.png)
 
+![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-nightlight-6.png)
 ![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-volume-5.png)
 ![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-4.png)
 ![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-shell-theme-4.png)
@@ -47,6 +48,9 @@ Thanks to
 
 ### v8
 - Now you can see a list of available networks
+- Hide power indicator/label
+- New settings widget
+- [] translation complete
 
 ### v7
 - Set nightlight temperature via the indicator
