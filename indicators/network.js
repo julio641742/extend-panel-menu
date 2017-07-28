@@ -56,36 +56,18 @@ const NetworkIndicator = new Lang.Class({
 
         this._location = Main.panel.statusArea.aggregateMenu._location;
 
-        Main.panel.statusArea.aggregateMenu._indicators.remove_actor(this._location.indicators);
-        this.box.add_child(this._location.indicators);
+        this._location.indicators.remove_actor(this._location._indicator);
+        this.box.add_child(this._location._indicator);
 
         if (this._network) {
-            this._emptySpace = new St.Label({
-                text: ' ',
-                y_align: Clutter.ActorAlign.CENTER,
-                visible: this._network._vpnIndicator.visible,
-            });
             this._network.indicators.remove_actor(this._network._primaryIndicator);
             this._network.indicators.remove_actor(this._network._vpnIndicator);
             this.box.add_child(this._network._primaryIndicator);
-            this.box.add_child(this._emptySpace);
             this.box.add_child(this._network._vpnIndicator);
-            this._vsignal = this._network._vpnIndicator.connect('notify::visible', Lang.bind(this, function (obj) {
-                this._emptySpace.visible = obj.visible;
-            }));
         }
         if (this._bluetooth) {
-            this._emptySpace1 = new St.Label({
-                text: ' ',
-                y_align: Clutter.ActorAlign.CENTER,
-                visible: this._bluetooth._indicator.visible,
-            });
             this._bluetooth.indicators.remove_actor(this._bluetooth._indicator);
-            this.box.add_child(this._emptySpace1);
             this.box.add_child(this._bluetooth._indicator);
-            this._bsignal = this._bluetooth._indicator.connect('notify::visible', Lang.bind(this, function (obj) {
-                this._emptySpace1.visible = obj.visible;
-            }));
         }
 
         this._rfkill.indicators.remove_actor(this._rfkill._indicator);
@@ -164,7 +146,6 @@ const NetworkIndicator = new Lang.Class({
                         }
                     }));
                 }
-
             }
         }));
 
@@ -176,11 +157,9 @@ const NetworkIndicator = new Lang.Class({
         }
     },
     destroy: function () {
-        this._network._vpnIndicator.disconnect(this._vsignal);
-        this._bluetooth._indicator.disconnect(this._bsignal);
-        this.box.remove_child(this._location.indicators);
+        this.box.remove_child(this._location._indicator);
         this.menu.box.remove_actor(this._location.menu.actor);
-        Main.panel.statusArea.aggregateMenu._indicators.add_actor(this._location.indicators);
+        this._location.indicators.add_actor(this._location._indicator);
         Main.panel.statusArea.aggregateMenu.menu.box.add_actor(this._location.menu.actor);
         this.box.remove_child(this._rfkill._indicator);
         this.menu.box.remove_actor(this._rfkill.menu.actor);
