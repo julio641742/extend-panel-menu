@@ -36,9 +36,57 @@ function init() {
     Convenience.initTranslations("extend-panel-menu");
 }
 
+const IconButton = new GObject.Class({
+    Name: "IconButton",
+    GTypeName: "IconButton",
+    Extends: Gtk.Button,
+
+    _init: function (params) {
+        this.parent({});
+        if (params["circular"]) {
+            let context = this.get_style_context();
+            context.add_class("circular");
+        }
+        if (params["icon_name"]) {
+            let image = new Gtk.Image({
+                icon_name: params["icon_name"],
+                xalign: 0.46
+            });
+            this.add(image);
+        }
+    }
+});
+
+const DialogWindow = new Lang.Class({
+    Name: "DialogWindow",
+    GTypeName: "DialogWindow",
+    Extends: Gtk.Dialog,
+
+    _init: function (title, parent) {
+        this.parent({
+            title: title,
+            transient_for: parent.get_toplevel(),
+            use_header_bar: true,
+            modal: true
+        });
+        let vbox = new Gtk.VBox({
+            spacing: 20,
+            homogeneous: false,
+            margin: 5
+        });
+
+        this._createLayout(vbox);
+        this.get_content_area().add(vbox);
+    },
+
+    _createLayout: function (vbox) {
+        throw "Not implemented!";
+    }
+});
+
 const NotebookPage = new GObject.Class({
-    Name: 'NotebookPage',
-    GTypeName: 'NotebookPage',
+    Name: "NotebookPage",
+    GTypeName: "NotebookPage",
     Extends: Gtk.Box,
 
     _init: function (title) {
@@ -136,6 +184,7 @@ const SettingsPage = new Lang.Class({
     _init: function (settings) {
         this.parent(_("Settings"));
         this.settings = settings;
+        this.desktopSettings = new Gio.Settings({ schema_id: "org.gnome.desktop.interface" });
 
         /*
          * General Settings
@@ -175,7 +224,7 @@ const SettingsPage = new Lang.Class({
             hexpand: true,
             value_pos: Gtk.PositionType.RIGHT
         });
-        spacingScale.connect('format-value', function (scale, value) { return value.toString() + ' px'; });
+        spacingScale.connect("format-value", function (scale, value) { return value.toString() + " px"; });
         spacingScale.add_mark(3, Gtk.PositionType.BOTTOM, "3");
         spacingScale.add_mark(6, Gtk.PositionType.BOTTOM, "6");
         spacingScale.add_mark(9, Gtk.PositionType.BOTTOM, "9");
@@ -240,11 +289,19 @@ const SettingsPage = new Lang.Class({
             hexpand: true
         });
         let dateFormatWikiButton = new Gtk.LinkButton({
-            label: _("wiki"),
+            //label: _("wiki"),
             uri: "https://help.gnome.org/users/gthumb/unstable/gthumb-date-formats.html.en",
             xalign: 0,
-            hexpand: true
+            hexpand: true,
+            image: new Gtk.Image({
+                icon_name: "emblem-web",
+                xalign: 0.46
+            })
         });
+
+        let context = dateFormatWikiButton.get_style_context();
+        context.add_class("circular");
+
         let dateFormatEntry = new Gtk.Entry({
             hexpand: true,
             halign: Gtk.Align.END
@@ -278,13 +335,121 @@ const SettingsPage = new Lang.Class({
 
         notificationFrame.add(hideNotificationRow);
 
+        /*
+         * Power Settings
+        */
+        let powerFrame = new FrameBox(_("Power Indicator"));
+        let showPercentageLabelRow = new FrameBoxRow();
+        let autoHidePowerRow = new FrameBoxRow();
+
+        showPercentageLabelRow.add(new Gtk.Label({
+            label: _("Show Percentage Label"),
+            xalign: 0,
+            hexpand: true
+        }));
+        let showPercentageLabelSwitch = new Gtk.Switch({
+            halign: Gtk.Align.END
+        });
+        this.desktopSettings.bind("show-battery-percentage", showPercentageLabelSwitch, "active", Gio.SettingsBindFlags.DEFAULT);
+        showPercentageLabelRow.add(showPercentageLabelSwitch);
+
+        autoHidePowerRow.add(new Gtk.Label({
+            label: _("Autohide Power Settings"),
+            xalign: 0,
+            hexpand: true
+        }));
+
+        let autoHidePowerSettingsButton = new IconButton({
+            circular: true,
+            icon_name: 'emblem-system-symbolic'
+        });
+        autoHidePowerSettingsButton.connect('clicked', Lang.bind(this, function () {
+            let dialog = new AdvancedPowerCustomizationWindow(this.settings, this);
+            dialog.show_all();
+        }));
+
+        autoHidePowerRow.add(autoHidePowerSettingsButton);
+
+        powerFrame.add(showPercentageLabelRow);
+        powerFrame.add(autoHidePowerRow);
+
         // add the frames
         this.add(generalFrame);
         this.add(userFrame);
         this.add(calendarFrame);
         this.add(notificationFrame);
+        this.add(powerFrame);
     }
 });
+
+
+const AdvancedPowerCustomizationWindow = new Lang.Class({
+    Name: "AdvancedPowerCustomizationWindow",
+    Extends: DialogWindow,
+
+    _init: function (settings, parent) {
+        this.settings = settings;
+        this.parent(_("Power Indicator"), parent);
+    },
+
+    _createLayout: function (vbox) {
+
+        let powerFrame = new FrameBox(_("Settings"));
+        let hideOnFullRow = new FrameBoxRow();
+        let hideOnPercentRow = new FrameBoxRow();
+
+        hideOnFullRow.add(new Gtk.Label({
+            label: _("Autohide the Power Indicator on full power"),
+            xalign: 0,
+            hexpand: true
+        }));
+        let hideOnFullSwitch = new Gtk.Switch({
+            halign: Gtk.Align.END
+        });
+        this.settings.bind("autohide-on-full-power", hideOnFullSwitch, "active", Gio.SettingsBindFlags.DEFAULT);
+        hideOnFullRow.add(hideOnFullSwitch);
+
+        hideOnPercentRow.add(new Gtk.Label({
+            label: _("Autohide the Power Indicator when percentage is >="),
+            xalign: 0,
+            hexpand: true
+        }));
+        let hideOnPercentSwitch = new Gtk.Switch({
+            halign: Gtk.Align.END
+        });
+        this.settings.bind("autohide-on-percent", hideOnPercentSwitch, "active", Gio.SettingsBindFlags.DEFAULT);
+
+        let iconOrLabelCombo = new Gtk.ComboBoxText({
+            halign: Gtk.Align.END
+        });
+        iconOrLabelCombo.append_text(_("Icon and Label"));
+        iconOrLabelCombo.append_text(_("Only Label"));
+        iconOrLabelCombo.set_active(this.settings.get_int("autohide-power-icon-label"));
+        iconOrLabelCombo.connect('changed', Lang.bind(this, function (widget) {
+            this.settings.set_int("autohide-power-icon-label", widget.get_active());
+        }));
+
+
+        let powerPercentSpin = new Gtk.SpinButton({
+            hexpand: true,
+            halign: Gtk.Align.END
+        });
+        powerPercentSpin.set_sensitive(true);
+        powerPercentSpin.set_range(10, 100);
+        powerPercentSpin.set_increments(10, 10);
+        this.settings.bind("autohide-when-percent", powerPercentSpin, "value", Gio.SettingsBindFlags.DEFAULT);
+
+        hideOnPercentRow.add(hideOnPercentSwitch);
+        hideOnPercentRow.add(iconOrLabelCombo);
+        hideOnPercentRow.add(powerPercentSpin);
+
+        powerFrame.add(hideOnFullRow);
+        powerFrame.add(hideOnPercentRow);
+
+        vbox.add(powerFrame);
+    }
+});
+
 
 const IndicatorsPage = new Lang.Class({
     Name: "IndicatorsPage",
@@ -339,6 +504,9 @@ const IndicatorsPage = new Lang.Class({
                 halign: Gtk.Align.END
             });
 
+            let context = buttonBox.get_style_context();
+            context.add_class("linked");
+
             let buttonUp = new Gtk.Button({
                 //label: _("Up"),
                 image: new Gtk.Image({
@@ -371,7 +539,7 @@ const IndicatorsPage = new Lang.Class({
             this.indicatorsFrame.add(indicatorRow);
             this.indicatorsArray.push(indicatorRow);
         }
-        
+
         let positionRow = new FrameBoxRow();
         positionRow.add(new Gtk.Label({
             label: _("Top to bottom -> Left to right"),

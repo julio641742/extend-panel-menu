@@ -86,7 +86,7 @@ function enable() {
     // Load Settings
     settings = Convenience.getSettings();
     menuItems = new MenuItems(settings);
-    settingsChanged = new Array(7);
+    settingsChanged = new Array();
     settingsChanged[0] = settings.connect("changed::items", Lang.bind(this, applySettings));
     settingsChanged[1] = settings.connect("changed::tray-offset", Lang.bind(this, applySettings));
     settingsChanged[2] = settings.connect("changed::spacing", Lang.bind(this, changeSpacing));
@@ -94,12 +94,18 @@ function enable() {
     settingsChanged[4] = settings.connect("changed::user-icon", Lang.bind(this, changeUsericon));
     settingsChanged[5] = settings.connect("changed::date-format", Lang.bind(this, changeDateformat));
     settingsChanged[6] = settings.connect("changed::autohide-notification", Lang.bind(this, changeAutohide));
+    settingsChanged[6] = settings.connect("changed::autohide-on-full-power", Lang.bind(this, changeFullPowerHide));
+    settingsChanged[6] = settings.connect("changed::autohide-on-percent", Lang.bind(this, changePowerHide));
+    settingsChanged[6] = settings.connect("changed::autohide-when-percent", Lang.bind(this, changePowerHide));
+    settingsChanged[6] = settings.connect("changed::autohide-power-icon-label", Lang.bind(this, changePowerHide));
     applySettings();
     changeSpacing();
     changeUsername();
     changeUsericon();
     changeDateformat();
     changeAutohide();
+    changeFullPowerHide();
+    changePowerHide();
 }
 
 function changeSpacing() {
@@ -123,6 +129,16 @@ function changeDateformat() {
 function changeAutohide() {
     let autoHideNotification = settings.get_boolean("autohide-notification");
     notification.setHide(autoHideNotification);
+}
+function changeFullPowerHide() {
+    let hideOnFull = settings.get_boolean("autohide-on-full-power");
+    power.setHideOnFull(hideOnFull);
+}
+function changePowerHide() {
+    let hideOnPercent = settings.get_boolean("autohide-on-percent");
+    let hideWhenPercent = settings.get_int("autohide-when-percent");
+    let hideElements = settings.get_int("autohide-power-icon-label");
+    power.setHideOnPercent(hideOnPercent, hideWhenPercent, hideElements);
 }
 
 function applySettings() {

@@ -16,6 +16,23 @@
             <default>false</default>
             <summary>Auto hide the notification indicator</summary>
         </key>
+        <key name="autohide-on-full-power" type="b">
+            <default>false</default>
+            <summary>Auto hide the power indicator on full</summary>
+        </key>
+        <key name="autohide-on-percent" type="b">
+            <default>false</default>
+            <summary>Auto hide the power indicator on percent</summary>
+        </key>
+        <key name="autohide-when-percent" type="i">
+            <default>50</default>
+            <summary>Auto hide when percent</summary>
+            <range min="10" max="100"/>
+        </key>
+        <key name="autohide-power-icon-label" type="i">
+            <default>0</default>
+            <summary>Auto hide the power indicator (icon/label) on percent</summary>
+        </key>
         <key name="tray-offset" type="i">
             <default>0</default>
             <summary>Tray Offset</summary>
