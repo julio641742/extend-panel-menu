@@ -230,11 +230,6 @@ msgstr ""
 msgid "Power(Brightness) Indicator"
 msgstr ""
 
-msgid "Calendar Indicator"
-msgstr ""
-
 msgid "User Indicator"
 msgstr ""
 
-msgid "Notification Indicator"
-msgstr ""
