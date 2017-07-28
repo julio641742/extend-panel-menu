@@ -1,0 +1,234 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# neynefes <neynefes@ubuntu-tr.net>, 2017.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-07-13 21:06-0700\n"
+"PO-Revision-Date: 2017-07-29 02:45+0300\n"
+"Last-Translator: neynefes <neynefes@ubuntu-tr.net>\n"
+"Language-Team: Turkish\n"
+"Language: Turkish\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: volume.js:46
+msgid "Volume Settings"
+msgstr "Ses Ayarları"
+
+#: network.js:123
+msgid "Network Settings"
+msgstr "Ağ Ayarları"
+
+#: power.js:62
+msgid "Power Settings"
+msgstr "Güç Ayarları"
+
+#: nightlight.js:64 nightlight.js:90
+msgid "Resume"
+msgstr "Devam Et"
+
+#: nightlight.js:67
+msgid "Turn Off"
+msgstr "Kapat"
+
+#: nightlight.js:70
+msgid "Display Settings"
+msgstr "Görüntü Ayarları"
+
+#: nightlight.js:90
+msgid "Disable Until Tomorrow"
+msgstr "Yarına Kadar Devredışı"
+
+#: system.js:60
+msgid "About This Computer"
+msgstr "Bilgisayar Hakkında"
+
+#: system.js:64
+msgid "GNOME Help"
+msgstr "GNOME Yardım"
+
+#: system.js:70
+msgid "System Settings"
+msgstr "Sistem Ayarları"
+
+#: system.js:74
+msgid "Extension Settings"
+msgstr "Eklenti Ayarları"
+
+#: system.js:81
+msgid "Lock"
+msgstr "Kilitle"
+
+#: system.js:88
+msgid "Switch User"
+msgstr "Kullanıcı Değiştir"
+
+#: system.js:97
+msgid "Log Out"
+msgstr "Çıkış"
+
+#: system.js:104
+msgid "Account Settings"
+msgstr "Hesap Ayarları"
+
+#: system.js:112
+msgid "Orientation Lock"
+msgstr "Yönlendirme Kilidi"
+
+#: prefs.js:185
+msgid "Settings"
+msgstr "Ayarlar"
+
+#: prefs.js:192
+msgid "General Settings"
+msgstr "Genel Ayarlar"
+
+#: prefs.js:197
+msgid "Tray offset"
+msgstr ""
+
+#: prefs.js:210
+msgid "Spacing"
+msgstr "Boşluk"
+
+#: prefs.js:248
+msgid "User/System Indicator"
+msgstr "Kullanıcı/Sistem İndikatörü"
+
+#: prefs.js:253
+msgid "Name label (Empty to show real user name)"
+msgstr "İsim Etiketi (Boş bırakıldığında gerçek kullanıcı adı görüntülenir)"
+
+#: prefs.js:263
+msgid "Show an icon instead of name"
+msgstr "İsim yerine simge göster"
+
+#: prefs.js:283
+msgid "Calendar Indicator"
+msgstr "Takvim İndikatörü"
+
+#: prefs.js:287
+msgid "Change date format"
+msgstr "Tarih formatını değiştir"
+
+#: prefs.js:292
+msgid "wiki"
+msgstr "wiki"
+
+#: prefs.js:320
+msgid "Notification Indicator"
+msgstr "Bildirim İndikatörü"
+
+#: prefs.js:324
+msgid "Hide indicator when there are no notifications"
+msgstr "Bildirim olmadığında indikatörü gizle"
+
+#: prefs.js:341 prefs.js:392
+msgid "Power Indicator"
+msgstr "Güç İndikatörü"
+
+#: prefs.js:346
+msgid "Show battery percentage"
+msgstr "Batarya yüzdesini göster"
+
+#: prefs.js:357
+msgid "Hide Indicator Settings"
+msgstr "İndikatör Ayarlarını Gizle"
+
+#: prefs.js:397
+msgid "Autohide"
+msgstr "Otomatik gizlenme"
+
+#: prefs.js:402
+msgid "Hide indicator on full power"
+msgstr "Tam dolu olduğunda indikatörü gizle"
+
+#: prefs.js:413
+msgid "Hide indicator/label when battery percentage is >="
+msgstr "Batarya yüzdesi belirtilen değerden büyük olduğunda indikatörü/etiketi gizle"
+
+#: prefs.js:425
+msgid "Indicator and Label"
+msgstr "İndikatör ve Etiket"
+
+#: prefs.js:426
+msgid "Only Label"
+msgstr "Sadece Etiket"
+
+#: prefs.js:459
+msgid "Indicators"
+msgstr "İndikatörler"
+
+#: prefs.js:464
+msgid "Indicators Order"
+msgstr "İndikatör Düzeni"
+
+#: prefs.js:491
+msgid "Left"
+msgstr "Sol"
+
+#: prefs.js:492
+msgid "Center"
+msgstr "Orta"
+
+#: prefs.js:511
+msgid "Up"
+msgstr "Yukarı"
+
+#: prefs.js:522
+msgid "Down"
+msgstr "Aşağı"
+
+#: prefs.js:545
+msgid "Top to bottom -> Left to right"
+msgstr "Yukarıdan aşağıya -> Soldan sağa"
+
+#: prefs.js:550
+msgid "Reset Indicators"
+msgstr "İndikatörleri Sıfırla"
+
+#: prefs.js:556
+msgid "Reset"
+msgstr "Sıfırla"
+
+#: prefs.js:593
+msgid "About"
+msgstr "Hakkında"
+
+#: prefs.js:623
+msgid "Version: "
+msgstr "Sürüm: "
+
+#: prefs.js:632
+msgid "If something breaks, don't hesitate to leave a comment at "
+msgstr "Birşeyler yanlış giderse yorum atmaktan çekinmeyin "
+
+#: prefs.js:636
+msgid "Webpage/Github"
+msgstr "Website/Github"
+
+#: prefs.js:647
+msgid "Made with love by julio641742"
+msgstr "julio641742 tarafından aşkla yazıldı"
+
+#: schemas.xml
+msgid "Night Light Indicator [GNOME Shell>=3.24]"
+msgstr "Gece Işığı İndikatörü [GNOME Shell>=3.24]"
+
+msgid "Volume Indicator"
+msgstr "Ses İndikatörü"
+
+msgid "Network Indicator"
+msgstr "Ağ İndikatörü"
+
+msgid "Power(Brightness) Indicator"
+msgstr "Güç(Parlaklık) İndikatörü"
+
+msgid "User Indicator"
+msgstr "Kullanıcı İndikatörü"
