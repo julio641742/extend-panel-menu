@@ -343,7 +343,7 @@ const SettingsPage = new Lang.Class({
         let autoHidePowerRow = new FrameBoxRow();
 
         showPercentageLabelRow.add(new Gtk.Label({
-            label: _("Show Percentage Label"),
+            label: _("Show battery percentage"),
             xalign: 0,
             hexpand: true
         }));
@@ -354,7 +354,7 @@ const SettingsPage = new Lang.Class({
         showPercentageLabelRow.add(showPercentageLabelSwitch);
 
         autoHidePowerRow.add(new Gtk.Label({
-            label: _("Autohide Power Settings"),
+            label: _("Hide Indicator Settings"),
             xalign: 0,
             hexpand: true
         }));
@@ -394,12 +394,12 @@ const AdvancedPowerCustomizationWindow = new Lang.Class({
 
     _createLayout: function (vbox) {
 
-        let powerFrame = new FrameBox(_("Settings"));
+        let powerFrame = new FrameBox(_("Autohide"));
         let hideOnFullRow = new FrameBoxRow();
         let hideOnPercentRow = new FrameBoxRow();
 
         hideOnFullRow.add(new Gtk.Label({
-            label: _("Autohide the Power Indicator on full power"),
+            label: _("Hide indicator on full power"),
             xalign: 0,
             hexpand: true
         }));
@@ -410,7 +410,7 @@ const AdvancedPowerCustomizationWindow = new Lang.Class({
         hideOnFullRow.add(hideOnFullSwitch);
 
         hideOnPercentRow.add(new Gtk.Label({
-            label: _("Autohide the Power Indicator when percentage is >="),
+            label: _("Hide indicator/label when battery percentage is >="),
             xalign: 0,
             hexpand: true
         }));
@@ -422,10 +422,10 @@ const AdvancedPowerCustomizationWindow = new Lang.Class({
         let iconOrLabelCombo = new Gtk.ComboBoxText({
             halign: Gtk.Align.END
         });
-        iconOrLabelCombo.append_text(_("Icon and Label"));
+        iconOrLabelCombo.append_text(_("Indicator and Label"));
         iconOrLabelCombo.append_text(_("Only Label"));
         iconOrLabelCombo.set_active(this.settings.get_int("autohide-power-icon-label"));
-        iconOrLabelCombo.connect('changed', Lang.bind(this, function (widget) {
+        iconOrLabelCombo.connect("changed", Lang.bind(this, function (widget) {
             this.settings.set_int("autohide-power-icon-label", widget.get_active());
         }));
 
