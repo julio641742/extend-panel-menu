@@ -284,7 +284,7 @@ const SettingsPage = new Lang.Class({
         let dateFormatRow = new FrameBoxRow();
 
         let dateFormatLabel = new Gtk.Label({
-            label: _("Change format of date (Empty to system default)"),
+            label: _("Change date format"),
             xalign: 0,
             hexpand: true
         });
