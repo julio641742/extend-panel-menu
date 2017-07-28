@@ -321,7 +321,7 @@ const SettingsPage = new Lang.Class({
         let hideNotificationRow = new FrameBoxRow();
 
         let hideNotificationLabel = new Gtk.Label({
-            label: _("Autohide the Notification Indicator"),
+            label: _("Hide indicator when there are no notifications"),
             xalign: 0,
             hexpand: true
         });

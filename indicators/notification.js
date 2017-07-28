@@ -101,7 +101,7 @@ const NotificationIndicator = new Lang.Class({
 const MessagesIndicator = new Lang.Class({
     Name: 'MessagesIndicator',
 
-    _init: function(src) {
+    _init: function (src) {
         Gtk.IconTheme.get_default().append_search_path(Extension.dir.get_child('icons').get_path());
 
         this._newNotifications = "notification-new-symbolic";
@@ -120,29 +120,29 @@ const MessagesIndicator = new Lang.Class({
         Main.messageTray.connect('queue-changed', Lang.bind(this, this._updateCount));
 
         let sources = Main.messageTray.getSources();
-        sources.forEach(Lang.bind(this, function(source) { this._onSourceAdded(null, source); }));
+        sources.forEach(Lang.bind(this, function (source) { this._onSourceAdded(null, source); }));
     },
 
-    _onSourceAdded: function(tray, source) {
+    _onSourceAdded: function (tray, source) {
         source.connect('count-updated', Lang.bind(this, this._updateCount));
         this._sources.push(source);
         this._updateCount();
     },
 
-    _onSourceRemoved: function(tray, source) {
+    _onSourceRemoved: function (tray, source) {
         this._sources.splice(this._sources.indexOf(source), 1);
         this._updateCount();
     },
 
-    _updateCount: function() {
+    _updateCount: function () {
         let count = 0;
         this._sources.forEach(Lang.bind(this,
-            function(source) {
+            function (source) {
                 //count += source.unseenCount;
                 count += source.count;
             }));
         //count -= Main.messageTray.queueCount;
 
-        this.actor.icon_name = (count > 0)? this._newNotifications: this._noNotifications;
+        this.actor.icon_name = (count > 0) ? this._newNotifications : this._noNotifications;
     }
 });
