@@ -1,0 +1,182 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# neynefes <neynefes@ubuntu-tr.net>, 2017.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-07-13 21:06-0700\n"
+"PO-Revision-Date: 2017-07-29 00:16+0300\n"
+"Last-Translator: neynefes <neynefes@ubuntu-tr.net>\n"
+"Language-Team: Turkish\n"
+"Language: Turkish\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: extension.js:123
+msgid "Network Settings"
+msgstr "Ağ Ayarları"
+
+#: extension.js:198
+msgid "About This Computer"
+msgstr "Bilgisayar Hakkında"
+
+#: extension.js:202
+msgid "GNOME Help"
+msgstr "GNOME Yardım"
+
+#: extension.js:208
+msgid "System Settings"
+msgstr "Sistem Ayarları"
+
+#: extension.js:212
+msgid "Extension Settings"
+msgstr "Eklenti Ayarları"
+
+#: extension.js:219
+msgid "Lock"
+msgstr "Kilitle"
+
+#: extension.js:226
+msgid "Switch User"
+msgstr "Kullanıcı Değiştir"
+
+#: extension.js:235
+msgid "Log Out"
+msgstr "Çıkış"
+
+#: extension.js:242
+msgid "Account Settings"
+msgstr "Hesap Ayarları"
+
+#: extension.js:258
+msgid "Suspend"
+msgstr "Askıya Al"
+
+#: extension.js:265
+msgid "Power Off"
+msgstr "Kapat"
+
+#: extension.js:288 extension.js:313
+msgid "Resume"
+msgstr "Devam Et"
+
+#: extension.js:291
+msgid "Turn Off"
+msgstr "Kapat"
+
+#: extension.js:294
+msgid "Display Settings"
+msgstr "Görüntü Ayarları"
+
+#: extension.js:312
+msgid "Night Light Disabled"
+msgstr "Gece Işığı Devredışı"
+
+#: extension.js:312
+msgid "Night Light On"
+msgstr "Gece Işığı Açık"
+
+#: extension.js:313
+msgid "Disable Until Tomorrow"
+msgstr "Yarına Kadar Devredışı"
+
+#: extension.js:344
+msgid "Power Settings"
+msgstr "Güç Ayarları"
+
+#: extension.js:396
+msgid "Volume Settings"
+msgstr "Ses Ayarları"
+
+
+#: prefs.js:60
+msgid "Settings"
+msgstr "Ayarlar"
+
+#: prefs.js:70
+msgid "Name label (Empty to show real user name)"
+msgstr "İsim Etiketi (Boş bırakıldığında gerçek kullanıcı adı görüntülenir)"
+
+#: prefs.js:85
+msgid "Show an icon instead of name"
+msgstr "İsim yerine simge göster"
+
+#: prefs.js:98
+msgid "Tray offset (1 for Dash to panel compartibility)"
+msgstr ""
+
+#: prefs.js:116
+msgid "Spacing between icons"
+msgstr "Simgeler arası boşluk"
+
+#: prefs.js:136
+msgid "Autohide the Notification Indicator"
+msgstr "Bildirim İndikatörü Otomatik Saklansın"
+
+#: prefs.js:152
+msgid "Indicators"
+msgstr "İndikatörler"
+
+#: prefs.js:173
+msgid "Top to bottom -> Left to right"
+msgstr "Yukarıdan aşağıya -> Soldan sağa"
+
+#: prefs.js:182
+msgid "Reset Indicators"
+msgstr "İndikatörleri Sıfırla"
+
+#: prefs.js:188
+msgid "Reset"
+msgstr "Sıfırla"
+
+#: prefs.js:206
+msgid "Help"
+msgstr "Yardım"
+
+#: prefs.js:216
+msgid "If something breaks, don't hesitate to leave a comment at "
+msgstr "Birşeyler yanlış giderse yorum atmaktan çekinmeyin "
+
+#: prefs.js:222
+msgid "Github repo"
+msgstr "Github depo"
+
+#: prefs.js:233
+msgid "Made with love by #julio641742#"
+msgstr "#julio641742# tarafından aşkla yazıldı"
+
+#: prefs.js:256
+msgid "Up"
+msgstr "Yukarı"
+
+#: prefs.js:263
+msgid "Down"
+msgstr "Aşağı"
+
+
+#: schemas.xml
+msgid "Night Light Indicator [GNOME Shell>=3.24]"
+msgstr "Gece Işığı İndikatörü [GNOME Shell>=3.24]"
+
+msgid "Volume Indicator"
+msgstr "Ses İndikatörü"
+
+msgid "Network Indicator"
+msgstr "Ağ İndikatörü"
+
+msgid "Power(Brightness) Indicator"
+msgstr "Güç(Parlaklık) İndikatörü"
+
+msgid "Calendar Indicator"
+msgstr "Takvim İndikatörü"
+
+msgid "User Indicator"
+msgstr "Kullanıcı İndikatörü"
+
+msgid "Notification Indicator"
+msgstr "Bildirim İndikatörü"
