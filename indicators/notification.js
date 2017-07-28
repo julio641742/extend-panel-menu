@@ -32,27 +32,15 @@ const NotificationIndicator = new Lang.Class({
 
     _init: function () {
         this.parent("NotificationIndicator");
-        Gtk.IconTheme.get_default().append_search_path(Extension.dir.get_child('icons').get_path());
 
         this._messageList = Main.panel.statusArea.dateMenu._messageList;
 
         this._messageListParent = this._messageList.actor.get_parent();
         this._messageListParent.remove_actor(this._messageList.actor);
-        this._oldindicator = Main.panel.statusArea.dateMenu._indicator;
 
-        this._newMessageIndicator = new St.Icon({
-            icon_name: "notification-new-symbolic",
-            style_class: "system-status-icon",
-            visible: false
-        });
+        this._indicator = new MessagesIndicator(Main.panel.statusArea.dateMenu._indicator._sources);
 
-        this._messageIndicator = new St.Icon({
-            icon_name: "notifications-symbolic",
-            style_class: "system-status-icon"
-        });
-
-        this.box.add_child(this._newMessageIndicator);
-        this.box.add_child(this._messageIndicator);
+        this.box.add_child(this._indicator.actor);
 
         this._vbox = new St.BoxLayout({
             height: 400,
@@ -71,13 +59,6 @@ const NotificationIndicator = new Lang.Class({
             if (isOpen) {
                 let now = new Date();
                 this._messageList.setDate(now);
-            }
-        }));
-
-        this._newMessage = this._oldindicator.actor.connect('notify::visible', Lang.bind(this, function (obj) {
-            if (obj) {
-                this._messageIndicator.visible = !obj.visible;
-                this._newMessageIndicator.visible = obj.visible;
             }
         }));
 
@@ -105,15 +86,63 @@ const NotificationIndicator = new Lang.Class({
         this._autoHide = value
         if (!value) {
             this.actor.show();
-        } else if (this._oldindicator._sources == "") {
+        } else if (this._indicator._sources == "") {
             this.actor.hide();
         }
     },
     destroy: function () {
-        this._oldindicator.actor.disconnect(this._newMessage);
         this._closeButton.disconnect(this._hideIndicator);
         this._vbox.remove_child(this._messageList.actor)
         this._messageListParent.add_actor(this._messageList.actor);
         this.parent();
+    }
+});
+
+const MessagesIndicator = new Lang.Class({
+    Name: 'MessagesIndicator',
+
+    _init: function(src) {
+        Gtk.IconTheme.get_default().append_search_path(Extension.dir.get_child('icons').get_path());
+
+        this._newNotifications = "notification-new-symbolic";
+
+        this._noNotifications = "notifications-symbolic";
+
+        this.actor = new St.Icon({
+            icon_name: this._noNotifications,
+            style_class: "system-status-icon"
+        });
+
+        this._sources = src;
+
+        Main.messageTray.connect('source-added', Lang.bind(this, this._onSourceAdded));
+        Main.messageTray.connect('source-removed', Lang.bind(this, this._onSourceRemoved));
+        Main.messageTray.connect('queue-changed', Lang.bind(this, this._updateCount));
+
+        let sources = Main.messageTray.getSources();
+        sources.forEach(Lang.bind(this, function(source) { this._onSourceAdded(null, source); }));
+    },
+
+    _onSourceAdded: function(tray, source) {
+        source.connect('count-updated', Lang.bind(this, this._updateCount));
+        this._sources.push(source);
+        this._updateCount();
+    },
+
+    _onSourceRemoved: function(tray, source) {
+        this._sources.splice(this._sources.indexOf(source), 1);
+        this._updateCount();
+    },
+
+    _updateCount: function() {
+        let count = 0;
+        this._sources.forEach(Lang.bind(this,
+            function(source) {
+                //count += source.unseenCount;
+                count += source.count;
+            }));
+        //count -= Main.messageTray.queueCount;
+
+        this.actor.icon_name = (count > 0)? this._newNotifications: this._noNotifications;
     }
 });
