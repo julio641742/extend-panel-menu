@@ -139,7 +139,7 @@ msgstr "Batarya yüzdesini göster"
 
 #: prefs.js:357
 msgid "Hide Indicator Settings"
-msgstr "İndikatör Ayarlarını Gizle"
+msgstr "İndikatör Gizlenme Ayarı"
 
 #: prefs.js:397
 msgid "Autohide"
