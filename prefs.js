@@ -289,14 +289,14 @@ const SettingsPage = new Lang.Class({
             hexpand: true
         });
         let dateFormatWikiButton = new Gtk.LinkButton({
-            //label: _("wiki"),
-            uri: "https://help.gnome.org/users/gthumb/unstable/gthumb-date-formats.html.en",
-            xalign: 0,
-            hexpand: true,
-            image: new Gtk.Image({
-                icon_name: "emblem-web",
-                xalign: 0.46
-            })
+            label: _("wiki"),
+            uri: "https://help.gnome.org/users/gthumb/unstable/gthumb-date-formats.html",
+            //xalign: 0,
+            //hexpand: true,
+            //image: new Gtk.Image({
+                //icon_name: "emblem-web",
+                //xalign: 0.46
+            //})
         });
 
         let context = dateFormatWikiButton.get_style_context();
