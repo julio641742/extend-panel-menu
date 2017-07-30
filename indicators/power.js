@@ -91,8 +91,8 @@ const PowerIndicator = new Lang.Class({
             if (hideOnFull) {
                 this.actor.hide();
             } else if (hideAtPercent) {
-                log("here");
-                log(this._actor);
+                //log("here");
+                //log(this._actor);
                 this._actor.hide();
             }
 
