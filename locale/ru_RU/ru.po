@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: extend-panel-menu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-14 12:16+0300\n"
-"PO-Revision-Date: 2017-07-14 12:18+0300\n"
+"POT-Creation-Date: 2017-07-29 02:11+0300\n"
+"PO-Revision-Date: 2017-07-29 02:34+0300\n"
 "Last-Translator: Alex Gluck <alexgluck@bk.ru>\n"
 "Language-Team: Alex Gluck <alexgluck@bk.ru>\n"
 "Language: ru_RU\n"
@@ -19,145 +19,205 @@ msgstr ""
 "X-Generator: Poedit 2.0.2\n"
 "X-Poedit-Flags-xgettext: --add-comments\n"
 
-#: extension.js:123
-msgid "Network Settings"
-msgstr "Сетевые Настройки"
-
-#: extension.js:198
-msgid "About This Computer"
-msgstr "О Компьютере"
-
-#: extension.js:202
-msgid "GNOME Help"
-msgstr "GNOME Помощь"
-
-#: extension.js:208
-msgid "System Settings"
-msgstr "Системные Настройки"
-
-#: extension.js:212
-msgid "Extension Settings"
-msgstr "Настройки Расширения"
-
-#: extension.js:219
-msgid "Lock"
-msgstr "Заблокировать"
-
-#: extension.js:226
-msgid "Switch User"
-msgstr "Переключить пользователя"
-
-#: extension.js:235
-msgid "Log Out"
-msgstr "Выйти"
-
-#: extension.js:242
-msgid "Account Settings"
-msgstr "Настройки Пользователя"
-
-#: extension.js:258
-msgid "Suspend"
-msgstr "Сон"
-
-#: extension.js:265
-msgid "Power Off"
-msgstr "Выключить"
-
-#: extension.js:288 extension.js:313
-msgid "Resume"
-msgstr "Подтвердить"
-
-#: extension.js:291
-msgid "Turn Off"
-msgstr "Выключить"
-
-#: extension.js:294
-msgid "Display Settings"
-msgstr "Настройки экрана"
-
-#: extension.js:312
-msgid "Night Light Disabled"
-msgstr "Ночная подсветка выключена"
-
-#: extension.js:312
-msgid "Night Light On"
-msgstr "Ночная подсветка включена"
-
-#: extension.js:313
-msgid "Disable Until Tomorrow"
-msgstr "Отключить до завтра"
-
-#: extension.js:344
-msgid "Power Settings"
-msgstr "Настройки Питания"
-
-#: extension.js:396
+#: volume.js:46
 msgid "Volume Settings"
 msgstr "Настройки Звука"
 
-#: prefs.js:60
+#: network.js:123
+msgid "Network Settings"
+msgstr "Сетевые Настройки"
+
+#: power.js:62
+msgid "Power Settings"
+msgstr "Настройки Питания"
+
+#: nightlight.js:64 nightlight.js:90
+msgid "Resume"
+msgstr "Подтвердить"
+
+#: nightlight.js:67
+msgid "Turn Off"
+msgstr "Выключить"
+
+#: nightlight.js:70
+msgid "Display Settings"
+msgstr "Настройки экрана"
+
+#: nightlight.js:90
+msgid "Disable Until Tomorrow"
+msgstr "Отключить до завтра"
+
+#: system.js:60
+msgid "About This Computer"
+msgstr "О Компьютере"
+
+#: system.js:64
+msgid "GNOME Help"
+msgstr "GNOME Помощь"
+
+#: system.js:70
+msgid "System Settings"
+msgstr "Системные Настройки"
+
+#: system.js:74
+msgid "Extension Settings"
+msgstr "Настройки Расширения"
+
+#: system.js:81
+msgid "Lock"
+msgstr "Заблокировать"
+
+#: system.js:88
+msgid "Switch User"
+msgstr "Переключить пользователя"
+
+#: system.js:97
+msgid "Log Out"
+msgstr "Выйти"
+
+#: system.js:104
+msgid "Account Settings"
+msgstr "Настройки Пользователя"
+
+#: system.js:112
+msgid "Orientation Lock"
+msgstr "Блокировать поворот экрана"
+
+#: prefs.js:185
 msgid "Settings"
 msgstr "Настройки"
 
-#: prefs.js:70
+#: prefs.js:192
+msgid "General Settings"
+msgstr "Основные настройки"
+
+#: prefs.js:197
+msgid "Tray offset"
+msgstr "Смещение трея"
+
+#: prefs.js:210
+msgid "Spacing"
+msgstr "Расстояние между иконками"
+
+#: prefs.js:248
+msgid "User/System Indicator"
+msgstr "Индикатор Пользователя"
+
+#: prefs.js:253
 msgid "Name label (Empty to show real user name)"
 msgstr "Имя пользователя (Оставьте пустым для текущего имени)"
 
-#: prefs.js:85
+#: prefs.js:263
 msgid "Show an icon instead of name"
 msgstr "Показывать иконку вместо имени"
 
-#: prefs.js:98
-msgid "Tray offset (1 for Dash to panel compartibility)"
-msgstr "Смещение в трее (1 для совместимости  с Dash to panel)"
+#: prefs.js:283
+msgid "Calendar Indicator"
+msgstr "Индикатор Календаря"
 
-#: prefs.js:116
-msgid "Spacing between icons"
-msgstr "Расстояние между иконками"
+#: prefs.js:287
+msgid "Change date format"
+msgstr "Изменить формат даты"
 
-#: prefs.js:136
-msgid "Autohide the Notification Indicator"
-msgstr "Скрывать индикатор уведомлений"
+#: prefs.js:292
+msgid "wiki"
+msgstr "описание"
 
-#: prefs.js:152
+#: prefs.js:320
+msgid "Notification Indicator"
+msgstr "Индикатор Уведомлений"
+
+#: prefs.js:324
+msgid "Hide indicator when there are no notifications"
+msgstr "Когда нет уведомлений скрыть индикатор"
+
+#: prefs.js:341 prefs.js:392
+msgid "Power Indicator"
+msgstr "Индикатор питания"
+
+#: prefs.js:346
+msgid "Show battery percentage"
+msgstr "Показывать проценты на батарее"
+
+#: prefs.js:357
+msgid "Hide Indicator Settings"
+msgstr "Настройки скрытия"
+
+#: prefs.js:397
+msgid "Autohide"
+msgstr "Автоматически скрывать"
+
+#: prefs.js:402
+msgid "Hide indicator on full power"
+msgstr "Скрывать при полной зарядке"
+
+#: prefs.js:413
+msgid "Hide indicator/label when battery percentage is >="
+msgstr "Скрывать индикатор/иконку когда процент заряда >="
+
+#: prefs.js:425
+msgid "Indicator and Label"
+msgstr "Иконки и подписи"
+
+#: prefs.js:426
+msgid "Only Label"
+msgstr "Подписи"
+
+#: prefs.js:459
 msgid "Indicators"
 msgstr "Индикаторы"
 
-#: prefs.js:173
-msgid "Top to bottom -> Left to right"
-msgstr "Вверх левее -> Вниз правее"
+#: prefs.js:464
+msgid "Indicators Order"
+msgstr "Порядок индикаторов"
 
-#: prefs.js:182
-msgid "Reset Indicators"
-msgstr "Сбросить Позицию Индикаторов"
+#: prefs.js:491
+msgid "Left"
+msgstr "Влево"
 
-#: prefs.js:188
-msgid "Reset"
-msgstr "Сбросить"
+#: prefs.js:492
+msgid "Center"
+msgstr "По центру"
 
-#: prefs.js:206
-msgid "Help"
-msgstr "Помощь"
-
-#: prefs.js:216
-msgid "If something breaks, don't hesitate to leave a comment at "
-msgstr "Если что то сломалось не стесняйтесь писать на "
-
-#: prefs.js:222
-msgid "Github repo"
-msgstr "Репозиторий на гитхабе"
-
-#: prefs.js:233
-msgid "Made with love by #julio641742#"
-msgstr "Сделано с любовью  от #julio641742#"
-
-#: prefs.js:256
+#: prefs.js:511
 msgid "Up"
 msgstr "Вверх"
 
-#: prefs.js:263
+#: prefs.js:522
 msgid "Down"
 msgstr "Вниз"
+
+#: prefs.js:545
+msgid "Top to bottom -> Left to right"
+msgstr "Вверх левее -> Вниз правее"
+
+#: prefs.js:550
+msgid "Reset Indicators"
+msgstr "Сбросить позицию индикаторов"
+
+#: prefs.js:556
+msgid "Reset"
+msgstr "Сбросить"
+
+#: prefs.js:593
+msgid "About"
+msgstr "О расширении"
+
+#: prefs.js:623
+msgid "Version: "
+msgstr "Версия: "
+
+#: prefs.js:632
+msgid "If something breaks, don't hesitate to leave a comment at "
+msgstr "Если что то сломалось не стесняйтесь писать на "
+
+#: prefs.js:636
+msgid "Webpage/Github"
+msgstr "Гитхаб"
+
+#: prefs.js:647
+msgid "Made with love by julio641742"
+msgstr "Сделано с любовью от julio641742"
 
 #: schemas.xml
 msgid "Night Light Indicator [GNOME Shell>=3.24]"
@@ -167,22 +227,40 @@ msgid "Volume Indicator"
 msgstr "Индикатор звука"
 
 msgid "Network Indicator"
-msgstr "Сетевой индикатор"
+msgstr "Индикатор подключений"
 
 msgid "Power(Brightness) Indicator"
 msgstr "Индикатор Аккумулятора/Яркости"
 
-msgid "Calendar Indicator"
-msgstr "Индикатор Календаря"
-
 msgid "User Indicator"
 msgstr "Индикатор Пользователя"
 
-msgid "Notification Indicator"
-msgstr "Индикатор Уведомлений"
+#~ msgid "Suspend"
+#~ msgstr "Сон"
+
+#~ msgid "Power Off"
+#~ msgstr "Выключить"
+
+#~ msgid "Night Light Disabled"
+#~ msgstr "Ночная подсветка выключена"
+
+#~ msgid "Night Light On"
+#~ msgstr "Ночная подсветка включена"
+
+#~ msgid "Tray offset (1 for Dash to panel compartibility)"
+#~ msgstr "Смещение в трее (1 для совместимости  с Dash to panel)"
+
+#~ msgid "Spacing between icons"
+#~ msgstr "Расстояние между иконками"
+
+#~ msgid "Autohide the Notification Indicator"
+#~ msgstr "Скрывать индикатор уведомлений"
+
+#~ msgid "Help"
+#~ msgstr "Помощь"
+
+#~ msgid "Github repo"
+#~ msgstr "Репозиторий на гитхабе"
 
 #~ msgid "Change format of date (Empty to system default)"
 #~ msgstr "Изменить формат даты (оставьте пустым для системного значения)"
-
-#~ msgid "wiki"
-#~ msgstr "Wiki"
