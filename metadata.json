@@ -5,7 +5,8 @@
   "shell-version": [
     "3.20",
     "3.22",
-    "3.24"
+    "3.24",
+    "3.26"
   ],
   "url": "https://github.com/julio641742/extend-panel-menu",
   "uuid": "extend-panel-menu@julio641742",
