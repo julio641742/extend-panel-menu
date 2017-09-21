@@ -51,8 +51,11 @@ let calendar;
 let user;
 let notification;
 
+let nightlightCapable;
+
 const VERSION = Config.PACKAGE_VERSION;
 const VERSION_NIGHLIGHT = "3.24";
+const VERSION_NEW_SYSTEM = "3.25"
 const CENTER_BOX = Main.panel._centerBox;
 const RIGHT_BOX = Main.panel._rightBox;
 
@@ -61,14 +64,16 @@ function enable() {
     Main.panel.statusArea.dateMenu.container.hide();
     Main.panel._centerBox.remove_child(Main.panel.statusArea.dateMenu.container);
 
+    nightlightCapable = versionCheck(VERSION_NIGHLIGHT, VERSION);
+
     network = new NetworkIndicator();
     volume = new VolumeIndicator();
     power = new PowerIndicator();
     calendar = new CalendarIndicator();
     notification = new NotificationIndicator();
-    user = new UserIndicator();
+    user = new UserIndicator(versionCheck(VERSION_NEW_SYSTEM, VERSION));
 
-    if (ExtensionUtils.versionCheck([VERSION_NIGHLIGHT], VERSION)) {
+    if (nightlightCapable) {
         nightlight = new NightLightIndicator();
     }
 
@@ -79,7 +84,7 @@ function enable() {
     Main.panel.addToStatusArea(power.name, power, 0, "right");
     Main.panel.addToStatusArea(network.name, network, 0, "right");
     Main.panel.addToStatusArea(volume.name, volume, 0, "right");
-    if (ExtensionUtils.versionCheck([VERSION_NIGHLIGHT], VERSION)) {
+    if (nightlightCapable) {
         Main.panel.addToStatusArea(nightlight.name, nightlight, 0, "right");
     }
 
@@ -106,6 +111,16 @@ function enable() {
     changeAutohide();
     changeFullPowerHide();
     changePowerHide();
+}
+
+function versionCheck(required, current) {
+	let currentArray = current.split('.');
+	let major = currentArray[0];
+	let minor = currentArray[1];
+	let requiredArray = required.split('.');
+	if (requiredArray[0] == major && parseInt(requiredArray[1]) <= parseInt(minor))
+		return true;
+	return false;
 }
 
 function changeSpacing() {
@@ -153,7 +168,7 @@ function applySettings() {
     setup(enabled, center, indicators, "network", network);
     setup(enabled, center, indicators, "notification", notification);
     setup(enabled, center, indicators, "calendar", calendar);
-    if (ExtensionUtils.versionCheck([VERSION_NIGHLIGHT], VERSION)) {
+    if (nightlightCapable) {
         setup(enabled, center, indicators, "nightlight", nightlight);
     }
 
