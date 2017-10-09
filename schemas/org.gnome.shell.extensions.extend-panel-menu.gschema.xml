@@ -12,6 +12,10 @@
             <default>""</default>
             <summary>Date format</summary>
         </key>
+        <key name="always-show-nightlight" type="b">
+            <default>false</default>
+            <summary>Show Night Light icon if service is disabled</summary>
+        </key>
         <key name="autohide-notification" type="b">
             <default>false</default>
             <summary>Auto hide the notification indicator</summary>

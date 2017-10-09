@@ -27,6 +27,8 @@ const Gettext = imports.gettext.domain("extend-panel-menu");
 const _ = Gettext.gettext;
 const Extension = imports.misc.extensionUtils.getCurrentExtension();
 const CustomButton = Extension.imports.indicators.button.CustomButton;
+const Convenience = Extension.imports.convenience;
+
 
 const NightLightIndicator = new Lang.Class({
     Name: "NightLightIndicator",
@@ -42,6 +44,8 @@ const NightLightIndicator = new Lang.Class({
         this._label = new St.Label({
             style_class: "label-menu"
         });
+
+        this._extensionSettings = Convenience.getSettings();
 
         this._settings = new Gio.Settings({
             schema_id: "org.gnome.settings-daemon.plugins.color"
@@ -83,8 +87,11 @@ const NightLightIndicator = new Lang.Class({
     _turnOff: function () {
         this._settings.set_boolean("night-light-enabled", false);
     },
+    _turnOn: function () {
+        this._settings.set_boolean("night-light-enabled", true);
+    },
     _sync: function () {
-        let visible = this._nightLight._proxy.NightLightActive;
+        let visible = this._nightLight._proxy.NightLightActive || this._extensionSettings.get_boolean('always-show-nightlight');
         let disabled = this._nightLight._proxy.DisabledUntilTomorrow;
         this._label.set_text(disabled ? _("Night Light Disabled") : _("Night Light On"));
         this._disableItem.label.text = disabled ? _("Resume") : _("Disable Until Tomorrow");
