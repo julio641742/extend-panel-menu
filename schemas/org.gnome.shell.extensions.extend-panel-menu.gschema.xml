@@ -14,7 +14,7 @@
         </key>
         <key name="always-show-nightlight" type="b">
             <default>false</default>
-            <summary>Show Night Light icon if service is disabled</summary>
+            <summary>Show Night Light indicator when effect is inactive</summary>
         </key>
         <key name="autohide-notification" type="b">
             <default>false</default>

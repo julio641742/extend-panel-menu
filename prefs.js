@@ -380,7 +380,7 @@ const SettingsPage = new Lang.Class({
         let showNightLightRow = new FrameBoxRow();
 
         let showNightLightLabel = new Gtk.Label({
-            label: _("Show menu item even when Night Light is disabled"),
+            label: _("Show indicator when effect is inactive"),
             xalign: 0,
             hexpand: true
         });
