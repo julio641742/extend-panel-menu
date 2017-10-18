@@ -55,7 +55,7 @@ let nightlightCapable;
 
 const VERSION = Config.PACKAGE_VERSION;
 const VERSION_NIGHLIGHT = "3.24";
-const VERSION_NEW_SYSTEM = "3.25"
+const VERSION_NEW_SYSTEM = "3.25";
 const CENTER_BOX = Main.panel._centerBox;
 const RIGHT_BOX = Main.panel._rightBox;
 
@@ -103,6 +103,7 @@ function enable() {
     settingsChanged[6] = settings.connect("changed::autohide-on-percent", Lang.bind(this, changePowerHide));
     settingsChanged[6] = settings.connect("changed::autohide-when-percent", Lang.bind(this, changePowerHide));
     settingsChanged[6] = settings.connect("changed::autohide-power-icon-label", Lang.bind(this, changePowerHide));
+    settingsChanged[7] = settings.connect("changed::always-show-nightlight", Lang.bind(this, changeNightLight));
     applySettings();
     changeSpacing();
     changeUsername();
@@ -154,6 +155,10 @@ function changePowerHide() {
     let hideWhenPercent = settings.get_int("autohide-when-percent");
     let hideElements = settings.get_int("autohide-power-icon-label");
     power.setHideOnPercent(hideOnPercent, hideWhenPercent, hideElements);
+}
+
+function changeNightLight() {
+    nightlight._sync();
 }
 
 function applySettings() {
