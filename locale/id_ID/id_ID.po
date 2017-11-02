@@ -1,0 +1,235 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-10-02 14:32+0700\n"
+"PO-Revision-Date: 2017-10-02 14:43+0700\n"
+"Language-Team: Indonesian <yudi.al@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.11\n"
+"Last-Translator: Mahyuddin <yudi.al@gmail.com>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: id_ID\n"
+
+#: volume.js:46
+msgid "Volume Settings"
+msgstr "Pengaturan Suara"
+
+#: network.js:123
+msgid "Network Settings"
+msgstr "Pengaturan Jaringan"
+
+#: power.js:62
+msgid "Power Settings"
+msgstr "Pengaturan Daya"
+
+#: nightlight.js:64 nightlight.js:90
+msgid "Resume"
+msgstr "Lanjutkan"
+
+#: nightlight.js:67
+msgid "Turn Off"
+msgstr "Matikan"
+
+#: nightlight.js:70
+msgid "Display Settings"
+msgstr "Pengaturan Tampilan"
+
+#: nightlight.js:90
+msgid "Disable Until Tomorrow"
+msgstr "Nonaktifkan Sampai Besok"
+
+#: system.js:60
+msgid "About This Computer"
+msgstr "Tentang Komputer Ini"
+
+#: system.js:64
+msgid "GNOME Help"
+msgstr "Bantuan GNOME"
+
+#: system.js:70
+msgid "System Settings"
+msgstr "Pengaturan Sistem"
+
+#: system.js:74
+msgid "Extension Settings"
+msgstr "Pengaturan Ektensi"
+
+#: system.js:81
+msgid "Lock"
+msgstr "Kunci"
+
+#: system.js:88
+msgid "Switch User"
+msgstr "Alih Pengguna"
+
+#: system.js:97
+msgid "Log Out"
+msgstr "Keluar"
+
+#: system.js:104
+msgid "Account Settings"
+msgstr "Pengaturan Akun"
+
+#: system.js:112
+msgid "Orientation Lock"
+msgstr "Kunci Orientasi"
+
+#: prefs.js:185
+msgid "Settings"
+msgstr "Pengaturan"
+
+#: prefs.js:192
+msgid "General Settings"
+msgstr "Pengaturan Umum"
+
+#: prefs.js:197
+msgid "Tray offset"
+msgstr "Tray offset"
+
+#: prefs.js:210
+msgid "Spacing"
+msgstr "Spasi"
+
+#: prefs.js:248
+msgid "User/System Indicator"
+msgstr "Indikator Pengguna/Sistem"
+
+#: prefs.js:253
+msgid "Name label (Empty to show real user name)"
+msgstr "Label nama (Kosongkan untuk menampilkan nama pengguna sebenarnya)"
+
+#: prefs.js:263
+msgid "Show an icon instead of name"
+msgstr "Tampilkan ikon dan bukan nama"
+
+#: prefs.js:283
+msgid "Calendar Indicator"
+msgstr "Indikator Kalender"
+
+#: prefs.js:287
+msgid "Change date format"
+msgstr "Ubah format tanggal"
+
+#: prefs.js:292
+msgid "wiki"
+msgstr "wiki"
+
+#: prefs.js:320
+msgid "Notification Indicator"
+msgstr "Indikator Pemberitahuan"
+
+#: prefs.js:324
+msgid "Hide indicator when there are no notifications"
+msgstr "Sembunyikan indikator bila tidak ada pemberitahuan"
+
+#: prefs.js:341 prefs.js:392
+msgid "Power Indicator"
+msgstr "Indikator Daya"
+
+#: prefs.js:346
+msgid "Show battery percentage"
+msgstr "Tunjukkan persentase baterai"
+
+#: prefs.js:357
+msgid "Hide Indicator Settings"
+msgstr "Sembunyikan Indikator Pengaturan"
+
+#: prefs.js:397
+msgid "Autohide"
+msgstr "Sembunyi Otomatis"
+
+#: prefs.js:402
+msgid "Hide indicator on full power"
+msgstr "Sembunyikan indikator saat daya penuh"
+
+#: prefs.js:413
+msgid "Hide indicator/label when battery percentage is >="
+msgstr "Sembunyikan indikator/label bila persentase baterai >="
+
+#: prefs.js:425
+msgid "Indicator and Label"
+msgstr "Indikator dan Label"
+
+#: prefs.js:426
+msgid "Only Label"
+msgstr "Hanya Label"
+
+#: prefs.js:459
+msgid "Indicators"
+msgstr "Indikator"
+
+#: prefs.js:464
+msgid "Indicators Order"
+msgstr "Urutan Indikator"
+
+#: prefs.js:491
+msgid "Left"
+msgstr "Kiri"
+
+#: prefs.js:492
+msgid "Center"
+msgstr "Tengah"
+
+#: prefs.js:511
+msgid "Up"
+msgstr "Naik"
+
+#: prefs.js:522
+msgid "Down"
+msgstr "Turun"
+
+#: prefs.js:545
+msgid "Top to bottom -> Left to right"
+msgstr "Atas ke bawah -> Kiri ke kanan"
+
+#: prefs.js:550
+msgid "Reset Indicators"
+msgstr "Reset Indikator"
+
+#: prefs.js:556
+msgid "Reset"
+msgstr "Reset"
+
+#: prefs.js:593
+msgid "About"
+msgstr "Tentang"
+
+#: prefs.js:623
+msgid "Version: "
+msgstr "Versi:"
+
+#: prefs.js:632
+msgid "If something breaks, don't hesitate to leave a comment at "
+msgstr "Jika ada yang berhenti, jangan ragu untuk meninggalkan komentar di "
+
+#: prefs.js:636
+msgid "Webpage/Github"
+msgstr "Halaman web/Github"
+
+#: prefs.js:647
+msgid "Made with love by julio641742"
+msgstr "Dibuat dengan cinta oleh julio641742"
+
+#: schemas.xml
+msgid "Night Light Indicator [GNOME Shell>=3.24]"
+msgstr "Indikator Cahaya Malam [GNOME Shell>=3.24]"
+
+msgid "Volume Indicator"
+msgstr "Indikator Suara"
+
+msgid "Network Indicator"
+msgstr "Indikator Jaringan"
+
+msgid "Power(Brightness) Indicator"
+msgstr "Indikator Daya(Kecerahan)"
+
+msgid "User Indicator"
+msgstr "Indikator Pengguna"
