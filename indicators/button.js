@@ -23,14 +23,12 @@ const Gio = imports.gi.Gio;
 const Shell = imports.gi.Shell;
 const PanelMenu = imports.ui.panelMenu;
 
-const SPACING_EXTENSION = 'status-area-horizontal-spacing@mathematical.coffee.gmail.com';
-
-const CustomButton = new Lang.Class({
+var CustomButton = new Lang.Class({
     Name: "Button",
     Extends: PanelMenu.Button,
 
     _init: function (name) {
-        this.parent(0.0, name, false);
+        this.parent(0.0, name);
         this.name = name;
         this._center = false;
         this.box = new St.BoxLayout({

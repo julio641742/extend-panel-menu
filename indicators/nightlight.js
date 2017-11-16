@@ -28,7 +28,7 @@ const _ = Gettext.gettext;
 const Extension = imports.misc.extensionUtils.getCurrentExtension();
 const CustomButton = Extension.imports.indicators.button.CustomButton;
 
-const NightLightIndicator = new Lang.Class({
+var NightLightIndicator = new Lang.Class({
     Name: "NightLightIndicator",
     Extends: CustomButton,
 

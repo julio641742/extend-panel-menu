@@ -26,7 +26,7 @@ const Clutter = imports.gi.Clutter;
 const Extension = imports.misc.extensionUtils.getCurrentExtension();
 const CustomButton = Extension.imports.indicators.button.CustomButton;
 
-const CalendarIndicator = new Lang.Class({
+var CalendarIndicator = new Lang.Class({
     Name: "CalendarIndicator",
     Extends: CustomButton,
     _init: function () {
@@ -54,7 +54,7 @@ const CalendarIndicator = new Lang.Class({
         try {
             this._weatherSection = Main.panel.statusArea.dateMenu._weatherItem;
             this._sectionParent.remove_child(this._weatherSection.actor);
-        } catch (e) { }
+        } catch (e) {}
 
         this.box.add_actor(this._clockIndicator);
         this.box.add_actor(this._clockIndicatorFormat);
@@ -161,7 +161,7 @@ const CalendarIndicator = new Lang.Class({
         try {
             this._weatherSection.actor.get_parent().remove_child(this._weatherSection.actor)
             this._sectionParent.add_child(this._weatherSection.actor)
-        } catch (e) { }
+        } catch (e) {}
 
         this.parent();
     }

@@ -16,7 +16,6 @@
 
     Copyright 2017 Julio Galvan
 */
-
 const Lang = imports.lang;
 const Main = imports.ui.main;
 const Config = imports.misc.config;
@@ -51,29 +50,31 @@ let calendar;
 let user;
 let notification;
 
-let nightlightCapable;
+let nightlightSupport;
 
 const VERSION = Config.PACKAGE_VERSION;
 const VERSION_NIGHLIGHT = "3.24";
-const VERSION_NEW_SYSTEM = "3.25"
+const VERSION_SYSTEM_ACTIONS = "3.26";
+
 const CENTER_BOX = Main.panel._centerBox;
 const RIGHT_BOX = Main.panel._rightBox;
 
 function enable() {
+    log("EXT=========================================================================================================");
     Main.panel.statusArea.aggregateMenu.container.hide();
     Main.panel.statusArea.dateMenu.container.hide();
     Main.panel._centerBox.remove_child(Main.panel.statusArea.dateMenu.container);
 
-    nightlightCapable = versionCheck(VERSION_NIGHLIGHT, VERSION);
+    nightlightSupport = versionCheck(VERSION_NIGHLIGHT, VERSION);
 
     network = new NetworkIndicator();
     volume = new VolumeIndicator();
     power = new PowerIndicator();
     calendar = new CalendarIndicator();
     notification = new NotificationIndicator();
-    user = new UserIndicator(versionCheck(VERSION_NEW_SYSTEM, VERSION));
+    user = new UserIndicator(versionCheck(VERSION_SYSTEM_ACTIONS, VERSION));
 
-    if (nightlightCapable) {
+    if (nightlightSupport) {
         nightlight = new NightLightIndicator();
     }
 
@@ -84,7 +85,7 @@ function enable() {
     Main.panel.addToStatusArea(power.name, power, 0, "right");
     Main.panel.addToStatusArea(network.name, network, 0, "right");
     Main.panel.addToStatusArea(volume.name, volume, 0, "right");
-    if (nightlightCapable) {
+    if (nightlightSupport) {
         Main.panel.addToStatusArea(nightlight.name, nightlight, 0, "right");
     }
 
@@ -111,6 +112,7 @@ function enable() {
     changeAutohide();
     changeFullPowerHide();
     changePowerHide();
+    log("EXT=========================================================================================================");
 }
 
 function versionCheck(required, current) {
@@ -168,7 +170,7 @@ function applySettings() {
     setup(enabled, center, indicators, "network", network);
     setup(enabled, center, indicators, "notification", notification);
     setup(enabled, center, indicators, "calendar", calendar);
-    if (nightlightCapable) {
+    if (nightlightSupport) {
         setup(enabled, center, indicators, "nightlight", nightlight);
     }
 
@@ -228,7 +230,7 @@ function disable() {
     if (nightlight) {
         nightlight.destroy();
     }
-
+    
     volume.destroy();
     power.destroy();
     network.destroy();

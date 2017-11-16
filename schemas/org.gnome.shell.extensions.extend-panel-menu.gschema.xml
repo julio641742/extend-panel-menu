@@ -43,6 +43,10 @@
             <summary>Horizontal Spacing</summary>
             <range min="0" max="12"/>
         </key>
+        <key name="players" type="s">
+            <default>""</default>
+            <summary>MPRIS2 Capable Media Players</summary>
+        </key>
         <key name="items" type="s">
             <default>"Night Light Indicator [GNOME Shell>=3.24];1;0;nightlight|Volume Indicator;1;0;volume|Network Indicator;1;0;network|Power(Brightness) Indicator;1;0;power|Calendar Indicator;1;0;calendar|User Indicator;1;0;user|Notification Indicator;1;0;notification"</default>
             <summary>Indicators</summary>

@@ -28,7 +28,7 @@ const _ = Gettext.gettext;
 const Extension = imports.misc.extensionUtils.getCurrentExtension();
 const CustomButton = Extension.imports.indicators.button.CustomButton;
 
-const PowerIndicator = new Lang.Class({
+var PowerIndicator = new Lang.Class({
     Name: "PowerIndicator",
     Extends: CustomButton,
 
@@ -63,12 +63,14 @@ const PowerIndicator = new Lang.Class({
         this._settings.connect("activate", Lang.bind(this, this._openApp, "gnome-power-panel.desktop"));
         this.menu.addMenuItem(this._settings);
         this._properties_changed = this._power._proxy.connect("g-properties-changed", Lang.bind(this, this._sync));
+        this._power._desktopSettings.connect("changed::show-battery-percentage", Lang.bind(this, this._sync));
         this._sync();
     },
     _sync: function () {
         let powertype = this._power._proxy.IsPresent;
         if (!powertype) {
             this._brightnessIcon.show();
+            this._brightness.menu.actor.show();
             this._power._indicator.hide();
             this._percentageLabel.hide();
             this._separator.actor.hide();
@@ -77,6 +79,7 @@ const PowerIndicator = new Lang.Class({
         } else {
             this._brightnessIcon.hide();
             this._power._indicator.show();
+            this._brightness.menu.actor.show();
             this._percentageLabel.visible = this._power._desktopSettings.get_boolean("show-battery-percentage");
             this._percentageLabel.clutter_text.set_markup('<span size="smaller">' + this._power._proxy.Percentage + " %</span>");
             this._separator.actor.show();
@@ -101,6 +104,7 @@ const PowerIndicator = new Lang.Class({
     },
     showPercentageLabel: function (status) {
         this._power._desktopSettings.set_boolean(status);
+        this._sync();
     },
     setHideOnFull: function (status) {
         this._hideOnFull = status;

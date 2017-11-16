@@ -35,7 +35,7 @@ const NetworkManager = imports.gi.NetworkManager;
 const Util = imports.misc.util;
 const Mainloop = imports.mainloop;
 
-const NetworkIndicator = new Lang.Class({
+var NetworkIndicator = new Lang.Class({
     Name: "NetworkIndicator",
     Extends: CustomButton,
 
@@ -58,20 +58,25 @@ const NetworkIndicator = new Lang.Class({
 
         this._location.indicators.remove_actor(this._location._indicator);
         this.box.add_child(this._location._indicator);
+        this._location._indicator.hide();
 
         if (this._network) {
             this._network.indicators.remove_actor(this._network._primaryIndicator);
             this._network.indicators.remove_actor(this._network._vpnIndicator);
             this.box.add_child(this._network._primaryIndicator);
             this.box.add_child(this._network._vpnIndicator);
+            this._network._primaryIndicator.hide();
+            this._network._vpnIndicator.hide();
         }
         if (this._bluetooth) {
             this._bluetooth.indicators.remove_actor(this._bluetooth._indicator);
             this.box.add_child(this._bluetooth._indicator);
+            this._bluetooth._indicator.hide();
         }
 
         this._rfkill.indicators.remove_actor(this._rfkill._indicator);
         this.box.add_child(this._rfkill._indicator);
+        this._rfkill._indicator.hide();
 
         this._arrowIcon = new St.Icon({
             icon_name: "go-bottom",
@@ -79,12 +84,12 @@ const NetworkIndicator = new Lang.Class({
         });
         this.box.add_child(this._arrowIcon);
 
-        // WIRELESS MENU
-        this.wirelessMenu = new PopupMenu.PopupSubMenuMenuItem("", true);
-        this.wirelessMenu.menu.box.add(new St.Label());
-        this.menu.addMenuItem(this.wirelessMenu);
-        this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
-        // TESTING
+        if (this._network) {
+            this.wirelessMenu = new PopupMenu.PopupSubMenuMenuItem("", true);
+            this.wirelessMenu.menu.box.add(new St.Label());
+            this.menu.addMenuItem(this.wirelessMenu);
+            this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
+        }
 
         if (this._network) {
             Main.panel.statusArea.aggregateMenu.menu.box.remove_actor(this._network.menu.actor);
@@ -113,8 +118,9 @@ const NetworkIndicator = new Lang.Class({
         if (this._bluetooth) {
             this._bluetooth._proxy.connect("g-properties-changed", Lang.bind(this, this._sync));
         }
-        this._sync();
 
+        this._sync();
+        this._location._syncIndicator();
         this._rfkill._sync();
         if (this._bluetooth) {
             this._bluetooth._sync();
@@ -122,32 +128,35 @@ const NetworkIndicator = new Lang.Class({
 
 
         // WIRELESS MENU
-        this.menu.connect("open-state-changed", Lang.bind(this, function (menu, isOpen) {
-            if (isOpen) {
-                let nmdevices = Main.panel.statusArea.aggregateMenu._network._nmDevices;
-                for (let i = 0; i < nmdevices.length; i++) {
-                    if (nmdevices[i]._delegate instanceof imports.ui.status.network.NMDeviceWireless) {
-                        this._devicewireless = nmdevices[i]._delegate;
-                        //log('found');
-                        break;
-                    }
-                };
-
-                if (this._devicewireless && Main.panel.statusArea.aggregateMenu._network._client.wireless_hardware_enabled) {
-                    //log("wirelesslist");
-                    this._wirelesslist = new WirelessList(this._devicewireless._client, this._devicewireless._device, this._devicewireless._settings, this.wirelessMenu);
-                    this._menuclosed = this.menu.connect('open-state-changed', Lang.bind(this, function (menu, isOpen) {
-                        if (!isOpen) {
-                            this._wirelesslist.destroy();
-                            this._wirelesslist = null;
-                            this.menu.disconnect(this._menuclosed);
-                            this._menuclosed = null;
-                            //log("destroyed");
+        if (this._network) {
+            this.menu.connect("open-state-changed", Lang.bind(this, function (menu, isOpen) {
+                if (isOpen) {
+                    let nmdevices = Main.panel.statusArea.aggregateMenu._network._nmDevices;
+                    for (let i = 0; i < nmdevices.length; i++) {
+                        if (nmdevices[i]._delegate instanceof imports.ui.status.network.NMDeviceWireless) {
+                            this._devicewireless = nmdevices[i]._delegate;
+                            //log('found');
+                            break;
                         }
-                    }));
+                    };
+
+                    if (this._devicewireless && Main.panel.statusArea.aggregateMenu._network._client.wireless_hardware_enabled) {
+                        //log("wirelesslist");
+                        this._wirelesslist = new WirelessList(this._devicewireless._client, this._devicewireless._device, this._devicewireless._settings, this.wirelessMenu);
+                        this.wirelessMenu.menu.open();
+                        this._menuclosed = this.menu.connect('open-state-changed', Lang.bind(this, function (menu, isOpen) {
+                            if (!isOpen) {
+                                this._wirelesslist.destroy();
+                                this._wirelesslist = null;
+                                this.menu.disconnect(this._menuclosed);
+                                this._menuclosed = null;
+                                //log("destroyed");
+                            }
+                        }));
+                    }
                 }
-            }
-        }));
+            }));
+        }
 
     },
     _sync: function () {
@@ -180,7 +189,7 @@ const NetworkIndicator = new Lang.Class({
 });
 
 
-const WirelessPopupMenuItem = new Lang.Class({
+var WirelessPopupMenuItem = new Lang.Class({
     Name: 'WirelessPopupMenuItem',
     Extends: PopupMenu.PopupBaseMenuItem,
 
@@ -199,8 +208,14 @@ const WirelessPopupMenuItem = new Lang.Class({
         this.actor.add_child(this.label);
         this.actor.label_actor = this.label;
 
-        this._icons = new St.BoxLayout({ style_class: 'nm-dialog-icons' });
-        this.actor.add(this._icons, { expand: true, x_fill: false, x_align: St.Align.END });
+        this._icons = new St.BoxLayout({
+            style_class: 'nm-dialog-icons'
+        });
+        this.actor.add(this._icons, {
+            expand: true,
+            x_fill: false,
+            x_align: St.Align.END
+        });
 
         this._selectedIcon = new St.Icon({
             style_class: 'nm-dialog-icon',
@@ -208,12 +223,16 @@ const WirelessPopupMenuItem = new Lang.Class({
         });
         this._icons.add_actor(this._selectedIcon);
 
-        this._secureIcon = new St.Icon({ style_class: 'nm-dialog-icon' });
+        this._secureIcon = new St.Icon({
+            style_class: 'nm-dialog-icon'
+        });
         if (this._ap._secType != imports.ui.status.network.NMAccessPointSecurity.NONE)
             this._secureIcon.icon_name = 'network-wireless-encrypted-symbolic';
         this._icons.add_actor(this._secureIcon);
 
-        this._signalIcon = new St.Icon({ style_class: 'nm-dialog-icon' });
+        this._signalIcon = new St.Icon({
+            style_class: 'nm-dialog-icon'
+        });
         this._icons.add_actor(this._signalIcon);
 
         this._sync();
@@ -241,7 +260,7 @@ const WirelessPopupMenuItem = new Lang.Class({
 });
 
 
-const WirelessList = new Lang.Class({
+var WirelessList = new Lang.Class({
     Name: 'WirelessList',
 
     _init: function (client, device, settings, parent) {
@@ -365,12 +384,13 @@ const WirelessList = new Lang.Class({
         } else {
             this.menu.icon.icon_name = 'network-wireless-signal-excellent-symbolic';
             this.menu.label.set_text(_("Wi-Fi Networks"));
-            this.submenu.open();
         }
     },
 
     _buildLayout: function () {
-        this._itemBox = new St.BoxLayout({ vertical: true });
+        this._itemBox = new St.BoxLayout({
+            vertical: true
+        });
         this.submenu.actor.add_actor(this._itemBox);
         this._scrollView = this.submenu.actor;
     },
@@ -382,12 +402,13 @@ const WirelessList = new Lang.Class({
             this._client.activate_connection(connection, this._device, null, null);
         } else {
             let accessPoints = network.accessPoints;
-            if ((accessPoints[0]._secType == imports.ui.status.network.NMAccessPointSecurity.WPA2_ENT)
-                || (accessPoints[0]._secType == imports.ui.status.network.NMAccessPointSecurity.WPA_ENT)) {
+            if ((accessPoints[0]._secType == imports.ui.status.network.NMAccessPointSecurity.WPA2_ENT) ||
+                (accessPoints[0]._secType == imports.ui.status.network.NMAccessPointSecurity.WPA_ENT)) {
                 // 802.1x-enabled APs require further configuration, so they're
                 // handled in gnome-control-center
                 Util.spawn(['gnome-control-center', 'network', 'connect-8021x-wifi',
-                    this._device.get_path(), accessPoints[0].dbus_path]);
+                    this._device.get_path(), accessPoints[0].dbus_path
+                ]);
             } else {
                 let connection = new NetworkManager.Connection();
                 this._client.add_and_activate_connection(connection, this._device, accessPoints[0].dbus_path, null)
@@ -484,7 +505,10 @@ const WirelessList = new Lang.Class({
             let network = this._networks[i];
             for (let j = 0; j < network.accessPoints.length; j++) {
                 if (network.accessPoints[j] == accessPoint)
-                    return { network: i, ap: j };
+                    return {
+                        network: i,
+                        ap: j
+                    };
             }
         }
 

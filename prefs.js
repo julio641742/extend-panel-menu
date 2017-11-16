@@ -184,11 +184,13 @@ const SettingsPage = new Lang.Class({
     _init: function (settings) {
         this.parent(_("Settings"));
         this.settings = settings;
-        this.desktopSettings = new Gio.Settings({ schema_id: "org.gnome.desktop.interface" });
+        this.desktopSettings = new Gio.Settings({
+            schema_id: "org.gnome.desktop.interface"
+        });
 
         /*
          * General Settings
-        */
+         */
         let generalFrame = new FrameBox(_("General Settings"));
         let offsetRow = new FrameBoxRow();
         let spacingRow = new FrameBoxRow();
@@ -224,7 +226,9 @@ const SettingsPage = new Lang.Class({
             hexpand: true,
             value_pos: Gtk.PositionType.RIGHT
         });
-        spacingScale.connect("format-value", function (scale, value) { return value.toString() + " px"; });
+        spacingScale.connect("format-value", function (scale, value) {
+            return value.toString() + " px";
+        });
         spacingScale.add_mark(3, Gtk.PositionType.BOTTOM, "3");
         spacingScale.add_mark(6, Gtk.PositionType.BOTTOM, "6");
         spacingScale.add_mark(9, Gtk.PositionType.BOTTOM, "9");
@@ -244,7 +248,7 @@ const SettingsPage = new Lang.Class({
 
         /*
          * User Settings
-        */
+         */
         let userFrame = new FrameBox(_("User/System Indicator"));
         let nameLabelRow = new FrameBoxRow();
         let nameIconRow = new FrameBoxRow();
@@ -279,7 +283,7 @@ const SettingsPage = new Lang.Class({
 
         /*
          * Calendar Settings
-        */
+         */
         let calendarFrame = new FrameBox(_("Calendar Indicator"));
         let dateFormatRow = new FrameBoxRow();
 
@@ -294,8 +298,8 @@ const SettingsPage = new Lang.Class({
             //xalign: 0,
             //hexpand: true,
             //image: new Gtk.Image({
-                //icon_name: "emblem-web",
-                //xalign: 0.46
+            //icon_name: "emblem-web",
+            //xalign: 0.46
             //})
         });
 
@@ -316,7 +320,7 @@ const SettingsPage = new Lang.Class({
 
         /*
          * Notification Settings
-        */
+         */
         let notificationFrame = new FrameBox(_("Notification Indicator"));
         let hideNotificationRow = new FrameBoxRow();
 
@@ -337,7 +341,7 @@ const SettingsPage = new Lang.Class({
 
         /*
          * Power Settings
-        */
+         */
         let powerFrame = new FrameBox(_("Power Indicator"));
         let showPercentageLabelRow = new FrameBoxRow();
         let autoHidePowerRow = new FrameBoxRow();
@@ -459,18 +463,20 @@ const IndicatorsPage = new Lang.Class({
         this.parent(_("Indicators"));
         this.settings = settings;
         this.menuItems = menuItems;
-        this.indicatorsArray = new Array();
+        //this.indicatorsArray = new Array();
 
-        this.indicatorsFrame = new FrameBox(_("Indicators Order"));
+        this.indicatorsFrame = new FrameBox("");
         this.buildList();
 
         // add the frames
         this.add(this.indicatorsFrame);
     },
     buildList: function () {
-        for (let rowIndex in this.indicatorsArray) {
-            this.indicatorsArray[rowIndex].destroy();
-        }
+
+        this.remove(this.indicatorsFrame);
+        this.indicatorsFrame = new FrameBox(_("Indicators Order"));
+        this.add(this.indicatorsFrame);
+
         this.indicatorsArray = new Array();
         let items = this.menuItems.getItems();
 
@@ -600,7 +606,9 @@ const AboutPage = new Lang.Class({
         let logoPath = Me.path + "/icons/logo.png";
         let [imageWidth, imageHeight] = [128, 128];
         let pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(logoPath, imageWidth, imageHeight);
-        let menuImage = new Gtk.Image({ pixbuf: pixbuf });
+        let menuImage = new Gtk.Image({
+            pixbuf: pixbuf
+        });
         let menuImageBox = new Gtk.VBox({
             margin_top: 5,
             margin_bottom: 5,
@@ -652,7 +660,7 @@ const AboutPage = new Lang.Class({
         // Create the GNU software box
         let gnuSofwareLabel = new Gtk.Label({
             label: '<span size="small">This program comes with ABSOLUTELY NO WARRANTY.\n' +
-            'See the <a href="http://www.gnu.org/licenses/gpl-3.0.html">GNU General Public License version 3</a> for details.</span>',
+                'See the <a href="http://www.gnu.org/licenses/gpl-3.0.html">GNU General Public License version 3</a> for details.</span>',
             use_markup: true,
             justify: Gtk.Justification.CENTER,
             expand: true

@@ -27,7 +27,7 @@ const _ = Gettext.gettext;
 const Extension = imports.misc.extensionUtils.getCurrentExtension();
 const CustomButton = Extension.imports.indicators.button.CustomButton;
 
-const UserIndicator = new Lang.Class({
+var UserIndicator = new Lang.Class({
     Name: "UserIndicator",
     Extends: CustomButton,
 
@@ -52,7 +52,7 @@ const UserIndicator = new Lang.Class({
 
         this._session = this._system._session;
         this._loginManager = this._system._loginManager;
-		this._systemActions = enableSystemActions;
+        this._systemActions = enableSystemActions;
 
 
         this.menu.box.set_width(270);
@@ -81,11 +81,13 @@ const UserIndicator = new Lang.Class({
         this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem()); // SEPARATOR
 
         let lock = new PopupMenu.PopupMenuItem(_("Lock"));
-		if(this._systemActions) {
-			lock.connect("activate", () => {this._system._systemActions.activateLockScreen();});
-		} else {
-			lock.connect("activate", Lang.bind(this, this._system._onLockScreenClicked));
-		}
+        if (this._systemActions) {
+            lock.connect("activate", () => {
+                this._system._systemActions.activateLockScreen();
+            });
+        } else {
+            lock.connect("activate", Lang.bind(this, this._system._onLockScreenClicked));
+        }
         this.menu.addMenuItem(lock);
         if (!this._system._lockScreenAction.visible) {
             lock.actor.hide();
@@ -93,34 +95,38 @@ const UserIndicator = new Lang.Class({
 
         let switchuser = new PopupMenu.PopupMenuItem(_("Switch User"));
         this.menu.addMenuItem(switchuser);
-		if(this._systemActions) {
-	        switchuser.connect("activate", () => {this._system._systemActions.activateSwitchUser();});
-			if (!this._system._loginScreenItem.actor.visible) {
-            	switchuser.actor.hide();
-        	}
-		} else {
-			switchuser.connect("activate", Lang.bind(this, this._system._onLoginScreenActivate));
-        	if (!this._system._updateSwitchUser) {
-            	switchuser.actor.hide();
-        	}
-		}
+        if (this._systemActions) {
+            switchuser.connect("activate", () => {
+                this._system._systemActions.activateSwitchUser();
+            });
+            if (!this._system._loginScreenItem.actor.visible) {
+                switchuser.actor.hide();
+            }
+        } else {
+            switchuser.connect("activate", Lang.bind(this, this._system._onLoginScreenActivate));
+            if (!this._system._updateSwitchUser) {
+                switchuser.actor.hide();
+            }
+        }
 
 
         this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem()); // SEPARATOR
 
         let logout = new PopupMenu.PopupMenuItem(_("Log Out"));
         this.menu.addMenuItem(logout);
-		if(this._systemActions) {
-			logout.connect("activate", () => {this._system._systemActions.activateLogout();});
-			if (!this._system._logoutItem.actor.visible) {
-            	logout.actor.hide();
-        	}
-		} else {
-			logout.connect("activate", Lang.bind(this, this._system._onQuitSessionActivate));
-			if (!this._system._updateLogout) {
-            	logout.actor.hide();
-        	}
-		}
+        if (this._systemActions) {
+            logout.connect("activate", () => {
+                this._system._systemActions.activateLogout();
+            });
+            if (!this._system._logoutItem.actor.visible) {
+                logout.actor.hide();
+            }
+        } else {
+            logout.connect("activate", Lang.bind(this, this._system._onQuitSessionActivate));
+            if (!this._system._updateLogout) {
+                logout.actor.hide();
+            }
+        }
 
 
 
@@ -141,22 +147,26 @@ const UserIndicator = new Lang.Class({
         ///////////////
 
         let suspend = new PopupMenu.PopupMenuItem(_("Suspend"));
-		if(this._systemActions) {
-	        suspend.connect("activate", () => {this._system._systemActions.activateSuspend();});
-		} else {
-			suspend.connect("activate", Lang.bind(this, this._system._onSuspendClicked));
-		}
+        if (this._systemActions) {
+            suspend.connect("activate", () => {
+                this._system._systemActions.activateSuspend();
+            });
+        } else {
+            suspend.connect("activate", Lang.bind(this, this._system._onSuspendClicked));
+        }
         this.menu.addMenuItem(suspend);
         if (!this._system._suspendAction.visible) {
             suspend.actor.hide();
         }
 
         let power = new PopupMenu.PopupMenuItem(_("Power Off"));
-		if(this._systemActions) {
-			power.connect("activate", () => {this._system._systemActions.activatePowerOff();});
-		} else {
-			power.connect("activate", Lang.bind(this, this._system._onPowerOffClicked));
-		}	
+        if (this._systemActions) {
+            power.connect("activate", () => {
+                this._system._systemActions.activatePowerOff();
+            });
+        } else {
+            power.connect("activate", Lang.bind(this, this._system._onPowerOffClicked));
+        }
         this.menu.addMenuItem(power);
         if (!this._system._powerOffAction.visible) {
             power.actor.hide();

@@ -26,7 +26,7 @@ const _ = Gettext.gettext;
 const Extension = imports.misc.extensionUtils.getCurrentExtension();
 const CustomButton = Extension.imports.indicators.button.CustomButton;
 
-const NotificationIndicator = new Lang.Class({
+var NotificationIndicator = new Lang.Class({
     Name: "NotificationIndicator",
     Extends: CustomButton,
 
@@ -52,8 +52,7 @@ const NotificationIndicator = new Lang.Class({
 
         try {
             this._messageList._removeSection(this._messageList._mediaSection);
-        }
-        catch (e) { }
+        } catch (e) {}
 
         this.menu.connect("open-state-changed", Lang.bind(this, function (menu, isOpen) {
             if (isOpen) {
@@ -98,7 +97,7 @@ const NotificationIndicator = new Lang.Class({
     }
 });
 
-const MessagesIndicator = new Lang.Class({
+var MessagesIndicator = new Lang.Class({
     Name: 'MessagesIndicator',
 
     _init: function (src) {
@@ -120,7 +119,9 @@ const MessagesIndicator = new Lang.Class({
         Main.messageTray.connect('queue-changed', Lang.bind(this, this._updateCount));
 
         let sources = Main.messageTray.getSources();
-        sources.forEach(Lang.bind(this, function (source) { this._onSourceAdded(null, source); }));
+        sources.forEach(Lang.bind(this, function (source) {
+            this._onSourceAdded(null, source);
+        }));
     },
 
     _onSourceAdded: function (tray, source) {

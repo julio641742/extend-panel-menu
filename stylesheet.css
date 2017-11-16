@@ -18,10 +18,24 @@
 */
 
 .label-menu {
-	margin: 10px;
-	padding-left: 20px;
+    margin: 10px;
+    padding-left: 20px;
 }
 
 .music-box {
-	max-width: 400px;
+    max-width: 400px;
+}
+
+.remove-menubutton {
+    border-radius: 10px;
+    padding: 0px 4px;
+}
+
+.remove-menubutton:hover,
+.remove-menubutton:focus {
+    padding: 1px 5px;
+}
+
+.remove-menubutton>StIcon {
+    icon-size: 16px;
 }

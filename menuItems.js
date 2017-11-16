@@ -17,16 +17,16 @@
     Copyright 2017 Julio Galvan
 */
 const Lang = imports.lang;
-const MenuItems = new Lang.Class({
+var MenuItems = new Lang.Class({
     Name: "MenuItems",
-    _init: function(settings) {
+    _init: function (settings) {
         this.settings = settings;
     },
-    getItems: function() {
+    getItems: function () {
         let itemsString = this.settings.get_string("items");
         return this.itemsToArray(itemsString);
     },
-    itemsToArray: function(itemsString) {
+    itemsToArray: function (itemsString) {
         let items = itemsString.split("|");
         let itemsArray = new Array();
         for (let indexItem in items) {
@@ -41,7 +41,7 @@ const MenuItems = new Lang.Class({
         }
         return itemsArray;
     },
-    changeOrder: function(index, posRel) {
+    changeOrder: function (index, posRel) {
         let items = this.getItems();
         if ((posRel < 0 && index > 0) || (posRel > 0 && index < (items.length - 1))) {
             let temp = items[index];
@@ -52,7 +52,7 @@ const MenuItems = new Lang.Class({
         }
         return false;
     },
-    changeEnable: function(index, value) {
+    changeEnable: function (index, value) {
         let items = this.getItems();
         if (index < 0 && index >= items.length) {
             return false;
@@ -61,7 +61,7 @@ const MenuItems = new Lang.Class({
         this.setItems(items);
         return true;
     },
-    changePosition: function(index, value) {
+    changePosition: function (index, value) {
         let items = this.getItems();
         if (index < 0 && index >= items.length) {
             return false;
@@ -70,11 +70,11 @@ const MenuItems = new Lang.Class({
         this.setItems(items);
         return true;
     },
-    setItems: function(items) {
+    setItems: function (items) {
         let itemsString = this.itemsToString(items);
         this.settings.set_string("items", itemsString);
     },
-    itemsToString: function(itemsArray) {
+    itemsToString: function (itemsArray) {
         let items = new Array()
         for (let indexItem in itemsArray) {
             let itemDatasArray = itemsArray[indexItem];
@@ -83,7 +83,7 @@ const MenuItems = new Lang.Class({
         }
         return items.join("|");
     },
-    getEnableItems: function() {
+    getEnableItems: function () {
         let items = this.getItems();
         let indexItem;
         let itemsEnable = new Array();
@@ -95,8 +95,8 @@ const MenuItems = new Lang.Class({
         }
         return itemsEnable;
     },
-    getCenterItems: function() {
-     let items = this.getItems();
+    getCenterItems: function () {
+        let items = this.getItems();
         let indexItem;
         let itemsEnable = new Array();
         for (indexItem in items) {
@@ -105,6 +105,6 @@ const MenuItems = new Lang.Class({
                 itemsEnable.push(item["shortcut"]);
             }
         }
-        return itemsEnable;   
+        return itemsEnable;
     }
 });
