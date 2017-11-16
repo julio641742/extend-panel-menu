@@ -60,7 +60,6 @@ const CENTER_BOX = Main.panel._centerBox;
 const RIGHT_BOX = Main.panel._rightBox;
 
 function enable() {
-    log("EXT=========================================================================================================");
     Main.panel.statusArea.aggregateMenu.container.hide();
     Main.panel.statusArea.dateMenu.container.hide();
     Main.panel._centerBox.remove_child(Main.panel.statusArea.dateMenu.container);
@@ -116,7 +115,6 @@ function enable() {
     changeAutohide();
     changeFullPowerHide();
     changePowerHide();
-    log("EXT=========================================================================================================");
 }
 
 function versionCheck(required, current) {
