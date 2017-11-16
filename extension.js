@@ -100,10 +100,14 @@ function enable() {
     settingsChanged[4] = settings.connect("changed::user-icon", Lang.bind(this, changeUsericon));
     settingsChanged[5] = settings.connect("changed::date-format", Lang.bind(this, changeDateformat));
     settingsChanged[6] = settings.connect("changed::autohide-notification", Lang.bind(this, changeAutohide));
-    settingsChanged[6] = settings.connect("changed::autohide-on-full-power", Lang.bind(this, changeFullPowerHide));
-    settingsChanged[6] = settings.connect("changed::autohide-on-percent", Lang.bind(this, changePowerHide));
-    settingsChanged[6] = settings.connect("changed::autohide-when-percent", Lang.bind(this, changePowerHide));
-    settingsChanged[6] = settings.connect("changed::autohide-power-icon-label", Lang.bind(this, changePowerHide));
+    settingsChanged[7] = settings.connect("changed::autohide-on-full-power", Lang.bind(this, changeFullPowerHide));
+    settingsChanged[8] = settings.connect("changed::autohide-on-percent", Lang.bind(this, changePowerHide));
+    settingsChanged[9] = settings.connect("changed::autohide-when-percent", Lang.bind(this, changePowerHide));
+    settingsChanged[10] = settings.connect("changed::autohide-power-icon-label", Lang.bind(this, changePowerHide));
+    if (nightlightSupport) {
+        settingsChanged[11] = settings.connect("changed::always-show-nightlight", Lang.bind(this, changeNightLight));
+        changeNightLight();
+    }
     applySettings();
     changeSpacing();
     changeUsername();
@@ -156,6 +160,10 @@ function changePowerHide() {
     let hideWhenPercent = settings.get_int("autohide-when-percent");
     let hideElements = settings.get_int("autohide-power-icon-label");
     power.setHideOnPercent(hideOnPercent, hideWhenPercent, hideElements);
+}
+function changeNightLight() {
+    let status = settings.get_boolean("always-show-nightlight");
+    nightlight._alwaysShow(status);
 }
 
 function applySettings() {

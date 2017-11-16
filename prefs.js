@@ -377,12 +377,34 @@ const SettingsPage = new Lang.Class({
         powerFrame.add(showPercentageLabelRow);
         powerFrame.add(autoHidePowerRow);
 
+        /*
+         * Night Light Settings
+         */
+        let nightLightFrame = new FrameBox(_("Night Light"));
+        let showNightLightRow = new FrameBoxRow();
+
+        let showNightLightLabel = new Gtk.Label({
+            label: _("Show indicator when effect is inactive"),
+            xalign: 0,
+            hexpand: true
+        });
+        let showNightLightSwitch = new Gtk.Switch({
+            halign: Gtk.Align.END
+        });
+        this.settings.bind("always-show-nightlight", showNightLightSwitch, "active", Gio.SettingsBindFlags.DEFAULT);
+
+        showNightLightRow.add(showNightLightLabel);
+        showNightLightRow.add(showNightLightSwitch);
+
+        nightLightFrame.add(showNightLightRow);
+
         // add the frames
         this.add(generalFrame);
         this.add(userFrame);
         this.add(calendarFrame);
         this.add(notificationFrame);
         this.add(powerFrame);
+        this.add(nightLightFrame);
     }
 });
 

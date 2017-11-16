@@ -46,6 +46,7 @@ var NightLightIndicator = new Lang.Class({
         this._settings = new Gio.Settings({
             schema_id: "org.gnome.settings-daemon.plugins.color"
         });
+        this._settings_changed = this._settings.connect('changed::night-light-enabled', Lang.bind(this, this._sync)); 
 
         let sliderItem = new PopupMenu.PopupBaseMenuItem({ activate: false });
         let sliderIcon = new St.Icon({
@@ -64,9 +65,9 @@ var NightLightIndicator = new Lang.Class({
         this._disableItem = new PopupMenu.PopupMenuItem(_("Resume"));
         this._disableItem.connect("activate", Lang.bind(this, this._change));
         this.menu.addMenuItem(this._disableItem);
-        let turnItem = new PopupMenu.PopupMenuItem(_("Turn Off"));
-        turnItem.connect("activate", Lang.bind(this, this._turnOff));
-        this.menu.addMenuItem(turnItem);
+        this.turnItem = new PopupMenu.PopupMenuItem(_("Turn Off"));
+        this.turnItem.connect("activate", Lang.bind(this, this._toggleFeature));
+        this.menu.addMenuItem(this.turnItem);
         let nightSettings = new PopupMenu.PopupMenuItem(_("Display Settings"));
         nightSettings.connect("activate", Lang.bind(this, this._openApp, "gnome-display-panel.desktop"));
         this.menu.addMenuItem(nightSettings);
@@ -80,11 +81,18 @@ var NightLightIndicator = new Lang.Class({
     _change: function () {
         this._nightLight._proxy.DisabledUntilTomorrow = !this._nightLight._proxy.DisabledUntilTomorrow;
     },
-    _turnOff: function () {
-        this._settings.set_boolean("night-light-enabled", false);
+    _toggleFeature: function () {
+        let enabledStatus = this._settings.get_boolean("night-light-enabled");
+        this._settings.set_boolean("night-light-enabled", !enabledStatus);
+    },
+    _alwaysShow: function (value) {
+        this._alwaysShowIndicator = value;
+        this._sync();
     },
     _sync: function () {
-        let visible = this._nightLight._proxy.NightLightActive;
+        let featureEnabled = this._settings.get_boolean("night-light-enabled");
+        this.turnItem.label.set_text(featureEnabled ? _("Turn Off") : _("Turn On"));
+        let visible = this._nightLight._proxy.NightLightActive || this._alwaysShowIndicator;
         let disabled = this._nightLight._proxy.DisabledUntilTomorrow;
         this._label.set_text(disabled ? _("Night Light Disabled") : _("Night Light On"));
         this._disableItem.label.text = disabled ? _("Resume") : _("Disable Until Tomorrow");
@@ -95,6 +103,7 @@ var NightLightIndicator = new Lang.Class({
         }
     },
     destroy: function () {
+        this._settings.disconnect(this._settings_changed);
         this._nightLight._proxy.disconnect(this._properties_changed);
         this.box.remove_child(this._nightLight._indicator);
         this._nightLight.indicators.add_actor(this._nightLight._indicator);
