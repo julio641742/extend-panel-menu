@@ -7,17 +7,17 @@ All help is welcomed
 - New Network Indicator [Wireless List]
 - New Settings Widget
 
-![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-network-8.png)
-![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/settings-8.png)
+![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/network-v8.png)
+![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/settings-v8.png)
 
-![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-nightlight-6.png)
-![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-volume-5.png)
-![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-4.png)
-![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-shell-theme-4.png)
-![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-power-4.png)
-![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-calendar-4.png)
-![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-notifications-4.png)
-![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/extend-panel-user-4.png)
+![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/panel-v8.png)
+![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/panel-theme-v8.png)
+![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/nightlight-v8.png)
+![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/volume-v8.png)
+![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/power-v8.png)
+![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/calendar-v8.png)
+![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/notification-v8.png)
+![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/user-v8.png)
 
 
 ## Features
@@ -32,7 +32,6 @@ It's on [Gnome Shell Extensions](https://extensions.gnome.org/extension/1201/ext
 
 ## Known Issues
 > This extension may not work properly in some distros
-- Sound Inidicator is known to dissapear, just adjust your volume to recover it (No solution found yet)
 
 ## Credits
 Settings Menu extracted from [Arc Menu](https://extensions.gnome.org/extension/1228/arc-menu/)
@@ -43,6 +42,8 @@ Thanks to
 - @mrprobot (Geman translation)
 - @khaledhosny (Arabic translation)
 - @AlexGluck (Russian translation)
+- @emhaye (Indonesia translation)
+- @neynefes (Turkish translation)
 
 ## Changes
 
@@ -50,7 +51,10 @@ Thanks to
 - Now you can see a list of available networks
 - Hide power indicator/label
 - New settings widget
-- [] translation complete
+- Option to always show the nighlight indicator
+- Save list of recently opened mpris compartible media players
+- Indonesia/Turkish translation
+- GNOME Shell 3.26 support
 
 ### v7
 - Set nightlight temperature via the indicator
