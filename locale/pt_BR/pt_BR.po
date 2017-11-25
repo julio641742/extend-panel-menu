@@ -1,0 +1,219 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-11-15 18:04-0800\n"
+"PO-Revision-Date: 2017-11-19 12:38-0200\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.3\n"
+"Last-Translator: Elizeu Marino <elizeumarino@gmail.com>\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: pt_BR\n"
+
+#: ../prefs.js:185
+msgid "Settings"
+msgstr "Configurações"
+
+#: ../prefs.js:194
+msgid "General Settings"
+msgstr "Configurações Gerais"
+
+#: ../prefs.js:199
+msgid "Tray offset"
+msgstr "Posição da Bandeja"
+
+#: ../prefs.js:212
+msgid "Spacing"
+msgstr "Espaço"
+
+#: ../prefs.js:252
+msgid "User/System Indicator"
+msgstr "Indicador de Usuário"
+
+#: ../prefs.js:257
+msgid "Name label (Empty to show real user name)"
+msgstr "Nome (Vazio para mostrar o nome de usuário real)"
+
+#: ../prefs.js:267
+msgid "Show an icon instead of name"
+msgstr "Mostre um ícone em vez do nome"
+
+#: ../prefs.js:287
+msgid "Calendar Indicator"
+msgstr "Indicador de calendário"
+
+#: ../prefs.js:291
+msgid "Change date format"
+msgstr "Formato da data"
+
+#: ../prefs.js:296
+msgid "wiki"
+msgstr "Ajuda"
+
+#: ../prefs.js:324
+msgid "Notification Indicator"
+msgstr "Indicador de notificação"
+
+#: ../prefs.js:328
+msgid "Hide indicator when there are no notifications"
+msgstr "Ocultar indicador quando não houver notificações"
+
+#: ../prefs.js:345 ../prefs.js:418
+msgid "Power Indicator"
+msgstr "Indicador de energia"
+
+#: ../prefs.js:350
+msgid "Show battery percentage"
+msgstr "Mostrar porcentagem da bateria"
+
+#: ../prefs.js:361
+msgid "Hide Indicator Settings"
+msgstr "Ocultar configurações do indicador"
+
+#: ../prefs.js:383
+msgid "Night Light"
+msgstr "Luz noturna"
+
+#: ../prefs.js:387
+msgid "Show indicator when effect is inactive"
+msgstr "Mostrar indicador quando o efeito estiver inativo"
+
+#: ../prefs.js:423
+msgid "Autohide"
+msgstr "Auto Ocultar"
+
+#: ../prefs.js:428
+msgid "Hide indicator on full power"
+msgstr "Ocultar indicador de energia"
+
+#: ../prefs.js:439
+msgid "Hide indicator/label when battery percentage is >="
+msgstr "Ocultar indicador da bateria"
+
+#: ../prefs.js:451
+msgid "Indicator and Label"
+msgstr "Indicador de Nome"
+
+#: ../prefs.js:452
+msgid "Only Label"
+msgstr "Só nome"
+
+#: ../prefs.js:485
+msgid "Indicators"
+msgstr "Indicadores"
+
+#: ../prefs.js:499
+msgid "Indicators Order"
+msgstr "Ordenar Indicadores"
+
+#: ../prefs.js:519
+msgid "Left"
+msgstr "Esquerda"
+
+#: ../prefs.js:520
+msgid "Center"
+msgstr "Centro"
+
+#: ../prefs.js:573
+msgid "Top to bottom -> Left to right"
+msgstr "De cima para baixo -> De esquerda para a direita"
+
+#: ../prefs.js:578
+msgid "Reset Indicators"
+msgstr "Redefinir Indicadores"
+
+#: ../prefs.js:584
+msgid "Reset"
+msgstr "Restabelecer"
+
+#: ../prefs.js:621
+msgid "About"
+msgstr "Sobre"
+
+#: ../prefs.js:653
+msgid "Version: "
+msgstr "Versão:"
+
+#: ../prefs.js:662
+msgid "If something breaks, don't hesitate to leave a comment at "
+msgstr "Se algo quebrar, não hesite em deixar um comentário no"
+
+#: ../prefs.js:666
+msgid "Webpage/Github"
+msgstr "Página da Web / Github"
+
+#: ../prefs.js:677
+msgid "Made with love by julio641742"
+msgstr "Feito com amor por julio641742"
+
+#: ../indicators/network.js:110
+msgid "Network Settings"
+msgstr "Configurações de rede"
+
+#: ../indicators/network.js:374
+msgid "Airplane Mode is On"
+msgstr "Modo Avião Ligado"
+
+#: ../indicators/network.js:378
+msgid "Wi-Fi is Off"
+msgstr "Wi-Fi desligado"
+
+#: ../indicators/network.js:382
+msgid "No Networks"
+msgstr "Sem redes"
+
+#: ../indicators/network.js:386
+msgid "Wi-Fi Networks"
+msgstr "Redes Wi-Fi"
+
+#: ../indicators/nightlight.js:65 ../indicators/nightlight.js:98
+msgid "Resume"
+msgstr "Resumir"
+
+#: ../indicators/nightlight.js:68 ../indicators/nightlight.js:94
+msgid "Turn Off"
+msgstr "Desligar"
+
+#: ../indicators/nightlight.js:71
+msgid "Display Settings"
+msgstr "Ajustar Tela"
+
+#: ../indicators/nightlight.js:94
+msgid "Turn On"
+msgstr "Ligar"
+
+#: ../indicators/nightlight.js:97
+msgid "Night Light Disabled"
+msgstr "Luz noturna desativada"
+
+#: ../indicators/nightlight.js:97
+msgid "Night Light On"
+msgstr "Luz noturna ligada"
+
+#: ../indicators/nightlight.js:98
+msgid "Disable Until Tomorrow"
+msgstr "Desligar até amanhã"
+
+#: ../indicators/nightlight.js:98 schemas.xml
+msgid "Night Light Indicator [GNOME Shell>=3.24]"
+msgstr "Indicador de luz noturna [GNOME Shell> = 3.24]"
+
+msgid "Volume Indicator"
+msgstr "Indicador de Volume"
+
+msgid "Network Indicator"
+msgstr "Indicador de rede"
+
+msgid "Power(Brightness) Indicator"
+msgstr "Indicador de energia (brilho)"
+
+msgid "User Indicator"
+msgstr "Indicador de usuário"
