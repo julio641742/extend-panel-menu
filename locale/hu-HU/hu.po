@@ -1,0 +1,176 @@
+# Hungarian translations for PACKAGE package.
+# Copyright (C) 2017 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Fazekas Márton, 2017.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-05-04 00:15-0700\n"
+"PO-Revision-Date: 2017-05-04 18:13-0700\n"
+"Last-Translator: Fazekas Márton\n"
+"Language-Team: Hungarian\n"
+"Language: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: extension.js:122
+msgid "Network Settings"
+msgstr "Hálózati beállítások"
+
+#: extension.js:185
+msgid "About This Computer"
+msgstr "A Számítógép névjegye"
+
+#: extension.js:189
+msgid "GNOME Help"
+msgstr "GNOME Súgó"
+
+#: extension.js:195
+msgid "System Settings"
+msgstr "Rendszerbeállítások"
+
+#: extension.js:199
+msgid "Extension Settings"
+msgstr "Bővítmény beállítások"
+
+#: extension.js:206
+msgid "Lock"
+msgstr "Zárolás"
+
+#: extension.js:213
+msgid "Switch User"
+msgstr "Felhasználóváltás"
+
+#: extension.js:222
+msgid "Log Out"
+msgstr "Kijelentkezés"
+
+#: extension.js:229
+msgid "Account Settings"
+msgstr "Fiók beállítások"
+
+#: extension.js:245
+msgid "Suspend"
+msgstr "Felfüggesztés"
+
+#: extension.js:252
+msgid "Power Off"
+msgstr "Leállítás"
+
+#: extension.js:278 extension.js:303
+msgid "Resume"
+msgstr "Folytatás"
+
+#: extension.js:281
+msgid "Turn Off"
+msgstr "Kikapcsolás"
+
+#: extension.js:284
+msgid "Display Settings"
+msgstr "Megjelenítési beállítások"
+
+#: extension.js:302
+msgid "Night Light Disabled"
+msgstr "Éjjeli fény Ki"
+
+#: extension.js:302
+msgid "Night Light On"
+msgstr "Éjjeli fény Be"
+
+#: extension.js:303
+msgid "Disable Until Tomorrow"
+msgstr "Letiltás holnapig"
+
+#: extension.js:334
+msgid "Power Settings"
+msgstr "Energia beállítások"
+
+#: extension.js:379
+msgid "Volume Settings"
+msgstr "Hangerő beállítások"
+
+#: prefs.js:60
+msgid "Settings"
+msgstr "Beállítások"
+
+#: prefs.js:70
+msgid "Name label (Empty to show real user name)"
+msgstr "Megjelenő név (Üres: a valódi felhasználónév használata)"
+
+#: prefs.js:85
+msgid "Show an icon instead of name"
+msgstr "Ikon használata a név helyett"
+
+#: prefs.js:98
+msgid "Change format of date (Empty to system default)"
+msgstr "Időformátum megadása (Üres: rendszerbeállítás használata)"
+
+#: prefs.js:103
+msgid "wiki"
+msgstr "Wiki"
+
+#: prefs.js:122
+msgid "Indicators"
+msgstr "Indikátorok"
+
+#: prefs.js:143
+msgid "Top to bottom -> Left to right"
+msgstr "Felülről lefelé -> Balról jobbra"
+
+#: prefs.js:152
+msgid "Reset Indicators"
+msgstr "Indikátorok visszaállítása"
+
+#: prefs.js:158
+msgid "Reset"
+msgstr "Visszaállítás"
+
+#: prefs.js:176
+msgid "Help"
+msgstr "Súgó"
+
+#: prefs.js:186
+msgid "If something breaks, don't hesitate to leave a comment at "
+msgstr "Ha problémát észlel, lépjen velünk kapcsolatba itt: "
+
+#: prefs.js:192
+msgid "Github repo"
+msgstr "Github Repo"
+
+#: prefs.js:203
+msgid "Made with love by #julio641742#"
+msgstr "Szerettel: #julio641742#"
+
+#: prefs.js:226
+msgid "Up"
+msgstr "Fel"
+
+#: prefs.js:233
+msgid "Down"
+msgstr "Le"
+
+#: schemas.xml
+msgid "Night Light Indicator [GNOME Shell>=3.24]"
+msgstr "Éjszakai fény Indikátor"
+
+msgid "Volume Indicator"
+msgstr "Hangerő Indikátor"
+
+msgid "Network Indicator"
+msgstr "Hálózat Indikátor"
+
+msgid "Power (Brightness) Indicator"
+msgstr "Energia (Fényerő) Indikátor"
+
+msgid "Calendar Indicator"
+msgstr "Naptár Indikátor"
+
+msgid "User Indicator"
+msgstr "Felhasználó Indikátor"
+
+msgid "Notification Indicator"
+msgstr "Értesítés Indikátor"
