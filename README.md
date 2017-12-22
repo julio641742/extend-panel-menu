@@ -44,6 +44,7 @@ Thanks to
 - @AlexGluck (Russian translation)
 - @emhaye (Indonesia translation)
 - @neynefes (Turkish translation)
+- @zseliakiraly (Hungarian translation)
 
 ## Changes
 
