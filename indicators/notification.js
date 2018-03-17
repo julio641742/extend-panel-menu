@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License
     along with Extend Panel Menu.  If not, see <http://www.gnu.org/licenses/>.
 
-    Copyright 2017 Julio Galvan
+    Copyright 2017-2018 Julio Galvan
 */
 
 const St = imports.gi.St;
@@ -54,23 +54,15 @@ var NotificationIndicator = new Lang.Class({
             this._messageList._removeSection(this._messageList._mediaSection);
         } catch (e) {}
 
-        this.menu.connect("open-state-changed", Lang.bind(this, function (menu, isOpen) {
+        this.menu.connect("open-state-changed", (menu, isOpen) => {
             if (isOpen) {
                 let now = new Date();
                 this._messageList.setDate(now);
             }
-        }));
+        });
 
-        this._closeButton = null;
-        if (this._messageList._notificationSection._closeButton) {
-            // GNOME Shell 3.20 and 3.22
-            this._closeButton = this._messageList._notificationSection._closeButton;
-        } else {
-            // GNOME Shell 3.24
-            this._closeButton = this._messageList._clearButton;
-        }
-
-        this._hideIndicator = this._closeButton.connect("notify::visible", Lang.bind(this, function (obj) {
+        this._closeButton = this._messageList._clearButton;
+        this._hideIndicator = this._closeButton.connect("notify::visible", (obj) => {
             if (this._autoHide) {
                 if (obj.visible) {
                     this.actor.show();
@@ -78,7 +70,7 @@ var NotificationIndicator = new Lang.Class({
                     this.actor.hide();
                 }
             }
-        }));
+        });
 
     },
     setHide: function (value) {
@@ -114,36 +106,36 @@ var MessagesIndicator = new Lang.Class({
 
         this._sources = src;
 
-        Main.messageTray.connect('source-added', Lang.bind(this, this._onSourceAdded));
-        Main.messageTray.connect('source-removed', Lang.bind(this, this._onSourceRemoved));
-        Main.messageTray.connect('queue-changed', Lang.bind(this, this._updateCount));
+        this._source_added = Main.messageTray.connect('source-added', (t, source) => this._onSourceAdded(t, source));
+        this._source_removed = Main.messageTray.connect('source-removed', (t, source) => {
+            this._sources.splice(this._sources.indexOf(source), 1);
+            this._updateCount();
+        });
+        this._queue_changed = Main.messageTray.connect('queue-changed', () => this._updateCount());
 
         let sources = Main.messageTray.getSources();
-        sources.forEach(Lang.bind(this, function (source) {
+        sources.forEach((source) => {
             this._onSourceAdded(null, source);
-        }));
+        });
     },
-
     _onSourceAdded: function (tray, source) {
-        source.connect('count-updated', Lang.bind(this, this._updateCount));
+        source.connect('count-updated', () => this._updateCount());
         this._sources.push(source);
         this._updateCount();
     },
-
-    _onSourceRemoved: function (tray, source) {
-        this._sources.splice(this._sources.indexOf(source), 1);
-        this._updateCount();
-    },
-
     _updateCount: function () {
         let count = 0;
-        this._sources.forEach(Lang.bind(this,
-            function (source) {
-                //count += source.unseenCount;
-                count += source.count;
-            }));
+        this._sources.forEach((source) => {
+            //count += source.unseenCount;
+            count += source.count;
+        });
         //count -= Main.messageTray.queueCount;
 
         this.actor.icon_name = (count > 0) ? this._newNotifications : this._noNotifications;
-    }
+    },
+    destroy: function () {
+        Main.messageTray.disconnect(this._source_added);
+        Main.messageTray.disconnect(this._source_removed);
+        Main.messageTray.disconnect(this._queue_changed);
+    },
 });

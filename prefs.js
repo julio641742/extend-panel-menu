@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License
     along with Extend Panel Menu.  If not, see <http://www.gnu.org/licenses/>.
 
-    Copyright 2017 Julio Galvan
+    Copyright 2017-2018 Julio Galvan
 */
 
 const Gio = imports.gi.Gio;
@@ -57,7 +57,7 @@ const IconButton = new GObject.Class({
     }
 });
 
-const DialogWindow = new Lang.Class({
+var DialogWindow = new Lang.Class({
     Name: "DialogWindow",
     GTypeName: "DialogWindow",
     Extends: Gtk.Dialog,
@@ -104,7 +104,7 @@ const NotebookPage = new GObject.Class({
     }
 });
 
-const FrameBox = new Lang.Class({
+var FrameBox = new Lang.Class({
     Name: "FrameBox",
     GTypeName: "FrameBox",
     Extends: Gtk.Frame,
@@ -124,7 +124,7 @@ const FrameBox = new Lang.Class({
     }
 });
 
-const FrameBoxRow = new Lang.Class({
+var FrameBoxRow = new Lang.Class({
     Name: "FrameBoxRow",
     GTypeName: "FrameBoxRow",
     Extends: Gtk.ListBoxRow,
@@ -177,7 +177,7 @@ const PrefsWidget = new GObject.Class({
     }
 });
 
-const SettingsPage = new Lang.Class({
+var SettingsPage = new Lang.Class({
     Name: "SettingsPage",
     Extends: NotebookPage,
 
@@ -409,7 +409,7 @@ const SettingsPage = new Lang.Class({
 });
 
 
-const AdvancedPowerCustomizationWindow = new Lang.Class({
+var AdvancedPowerCustomizationWindow = new Lang.Class({
     Name: "AdvancedPowerCustomizationWindow",
     Extends: DialogWindow,
 
@@ -477,7 +477,7 @@ const AdvancedPowerCustomizationWindow = new Lang.Class({
 });
 
 
-const IndicatorsPage = new Lang.Class({
+var IndicatorsPage = new Lang.Class({
     Name: "IndicatorsPage",
     Extends: NotebookPage,
 
@@ -613,7 +613,7 @@ const IndicatorsPage = new Lang.Class({
     },
 });
 
-const AboutPage = new Lang.Class({
+var AboutPage = new Lang.Class({
     Name: "AboutPage",
     Extends: NotebookPage,
 

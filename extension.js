@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License
     along with Extend Panel Menu.  If not, see <http://www.gnu.org/licenses/>.
 
-    Copyright 2017 Julio Galvan
+    Copyright 2017-2018 Julio Galvan
 */
 const Lang = imports.lang;
 const Main = imports.ui.main;
@@ -50,12 +50,6 @@ let calendar;
 let user;
 let notification;
 
-let nightlightSupport;
-
-const VERSION = Config.PACKAGE_VERSION;
-const VERSION_NIGHLIGHT = "3.24";
-const VERSION_SYSTEM_ACTIONS = "3.26";
-
 const CENTER_BOX = Main.panel._centerBox;
 const RIGHT_BOX = Main.panel._rightBox;
 
@@ -64,19 +58,13 @@ function enable() {
     Main.panel.statusArea.dateMenu.container.hide();
     Main.panel._centerBox.remove_child(Main.panel.statusArea.dateMenu.container);
 
-    nightlightSupport = versionCheck(VERSION_NIGHLIGHT, VERSION);
-
     network = new NetworkIndicator();
     volume = new VolumeIndicator();
     power = new PowerIndicator();
     calendar = new CalendarIndicator();
     notification = new NotificationIndicator();
-    user = new UserIndicator(versionCheck(VERSION_SYSTEM_ACTIONS, VERSION));
-
-    if (nightlightSupport) {
-        nightlight = new NightLightIndicator();
-    }
-
+    user = new UserIndicator();
+    nightlight = new NightLightIndicator();
 
     Main.panel.addToStatusArea(notification.name, notification, 0, "right");
     Main.panel.addToStatusArea(user.name, user, 0, "right");
@@ -84,29 +72,26 @@ function enable() {
     Main.panel.addToStatusArea(power.name, power, 0, "right");
     Main.panel.addToStatusArea(network.name, network, 0, "right");
     Main.panel.addToStatusArea(volume.name, volume, 0, "right");
-    if (nightlightSupport) {
-        Main.panel.addToStatusArea(nightlight.name, nightlight, 0, "right");
-    }
+    Main.panel.addToStatusArea(nightlight.name, nightlight, 0, "right");
 
     // Load Settings
     settings = Convenience.getSettings();
     menuItems = new MenuItems(settings);
     settingsChanged = new Array();
-    settingsChanged[0] = settings.connect("changed::items", Lang.bind(this, applySettings));
-    settingsChanged[1] = settings.connect("changed::tray-offset", Lang.bind(this, applySettings));
-    settingsChanged[2] = settings.connect("changed::spacing", Lang.bind(this, changeSpacing));
-    settingsChanged[3] = settings.connect("changed::username-text", Lang.bind(this, changeUsername));
-    settingsChanged[4] = settings.connect("changed::user-icon", Lang.bind(this, changeUsericon));
-    settingsChanged[5] = settings.connect("changed::date-format", Lang.bind(this, changeDateformat));
-    settingsChanged[6] = settings.connect("changed::autohide-notification", Lang.bind(this, changeAutohide));
-    settingsChanged[7] = settings.connect("changed::autohide-on-full-power", Lang.bind(this, changeFullPowerHide));
-    settingsChanged[8] = settings.connect("changed::autohide-on-percent", Lang.bind(this, changePowerHide));
-    settingsChanged[9] = settings.connect("changed::autohide-when-percent", Lang.bind(this, changePowerHide));
-    settingsChanged[10] = settings.connect("changed::autohide-power-icon-label", Lang.bind(this, changePowerHide));
-    if (nightlightSupport) {
-        settingsChanged[11] = settings.connect("changed::always-show-nightlight", Lang.bind(this, changeNightLight));
-        changeNightLight();
-    }
+    let i = 0;
+    settingsChanged[i++] = settings.connect("changed::items", applySettings);
+    settingsChanged[i++] = settings.connect("changed::tray-offset", applySettings);
+    settingsChanged[i++] = settings.connect("changed::spacing", changeSpacing);
+    settingsChanged[i++] = settings.connect("changed::username-text", changeUsername);
+    settingsChanged[i++] = settings.connect("changed::user-icon", changeUsericon);
+    settingsChanged[i++] = settings.connect("changed::date-format", changeDateformat);
+    settingsChanged[i++] = settings.connect("changed::autohide-notification", changeAutohide);
+    settingsChanged[i++] = settings.connect("changed::autohide-on-full-power", changeFullPowerHide);
+    settingsChanged[i++] = settings.connect("changed::autohide-on-percent", changePowerHide);
+    settingsChanged[i++] = settings.connect("changed::autohide-when-percent", changePowerHide);
+    settingsChanged[i++] = settings.connect("changed::autohide-power-icon-label", changePowerHide);
+    settingsChanged[i++] = settings.connect("changed::always-show-nightlight", changeNightLight);
+
     applySettings();
     changeSpacing();
     changeUsername();
@@ -115,16 +100,7 @@ function enable() {
     changeAutohide();
     changeFullPowerHide();
     changePowerHide();
-}
-
-function versionCheck(required, current) {
-	let currentArray = current.split('.');
-	let major = currentArray[0];
-	let minor = currentArray[1];
-	let requiredArray = required.split('.');
-	if (requiredArray[0] == major && parseInt(requiredArray[1]) <= parseInt(minor))
-		return true;
-	return false;
+    changeNightLight();
 }
 
 function changeSpacing() {
@@ -133,32 +109,39 @@ function changeSpacing() {
         item.set_spacing(spacing);
     });
 }
+
 function changeUsername() {
     let username = settings.get_string("username-text");
     user.changeLabel(username);
 }
+
 function changeUsericon() {
     let enableUserIcon = settings.get_boolean("user-icon");
     user.changeIcon(enableUserIcon);
 }
+
 function changeDateformat() {
     let dateformat = settings.get_string("date-format");
     calendar.override(dateformat);
 }
+
 function changeAutohide() {
     let autoHideNotification = settings.get_boolean("autohide-notification");
     notification.setHide(autoHideNotification);
 }
+
 function changeFullPowerHide() {
     let hideOnFull = settings.get_boolean("autohide-on-full-power");
     power.setHideOnFull(hideOnFull);
 }
+
 function changePowerHide() {
     let hideOnPercent = settings.get_boolean("autohide-on-percent");
     let hideWhenPercent = settings.get_int("autohide-when-percent");
     let hideElements = settings.get_int("autohide-power-icon-label");
     power.setHideOnPercent(hideOnPercent, hideWhenPercent, hideElements);
 }
+
 function changeNightLight() {
     let status = settings.get_boolean("always-show-nightlight");
     nightlight._alwaysShow(status);
@@ -176,9 +159,7 @@ function applySettings() {
     setup(enabled, center, indicators, "network", network);
     setup(enabled, center, indicators, "notification", notification);
     setup(enabled, center, indicators, "calendar", calendar);
-    if (nightlightSupport) {
-        setup(enabled, center, indicators, "nightlight", nightlight);
-    }
+    setup(enabled, center, indicators, "nightlight", nightlight);
 
     let rightchildren = RIGHT_BOX.get_children().length;
     let centerchildren = CENTER_BOX.get_children().length;
@@ -207,9 +188,7 @@ function setup(enabledItems, centerItems, arrayIndicators, name, indicator) {
 }
 
 function removeAll() {
-    if (nightlight) {
-        removeContainer(nightlight);
-    }
+    removeContainer(nightlight);
     removeContainer(volume);
     removeContainer(network);
     removeContainer(power);
@@ -233,16 +212,15 @@ function disable() {
     });
     settingsChanged = null;
     settings = null;
-    if (nightlight) {
-        nightlight.destroy();
-    }
-    
+
+    nightlight.destroy();
     volume.destroy();
     power.destroy();
     network.destroy();
     user.destroy();
     notification.destroy();
     calendar.destroy();
+
     Main.panel.statusArea.aggregateMenu.container.show();
     Main.panel.statusArea.dateMenu.container.show();
     Main.panel._centerBox.add_child(Main.panel.statusArea.dateMenu.container);

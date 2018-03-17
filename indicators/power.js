@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License
     along with Extend Panel Menu.  If not, see <http://www.gnu.org/licenses/>.
 
-    Copyright 2017 Julio Galvan
+    Copyright 2017-2018 Julio Galvan
 */
 
 const St = imports.gi.St;
@@ -60,10 +60,10 @@ var PowerIndicator = new Lang.Class({
         });
         this.menu.box.add_child(this._label);
         this._settings = new PopupMenu.PopupMenuItem(_("Power Settings"));
-        this._settings.connect("activate", Lang.bind(this, this._openApp, "gnome-power-panel.desktop"));
+        this._settings.connect("activate", () => this._openApp("gnome-power-panel.desktop"));
         this.menu.addMenuItem(this._settings);
-        this._properties_changed = this._power._proxy.connect("g-properties-changed", Lang.bind(this, this._sync));
-        this._power._desktopSettings.connect("changed::show-battery-percentage", Lang.bind(this, this._sync));
+        this._properties_changed = this._power._proxy.connect("g-properties-changed", () => this._sync());
+        this._show_battery_signal = this._power._desktopSettings.connect("changed::show-battery-percentage", () => this._sync());
         this._sync();
     },
     _sync: function () {
@@ -94,8 +94,6 @@ var PowerIndicator = new Lang.Class({
             if (hideOnFull) {
                 this.actor.hide();
             } else if (hideAtPercent) {
-                //log("here");
-                //log(this._actor);
                 this._actor.hide();
             }
 
@@ -118,6 +116,7 @@ var PowerIndicator = new Lang.Class({
     },
     destroy: function () {
         this._power._proxy.disconnect(this._properties_changed);
+        this._power._desktopSettings.disconnect(this._show_battery_signal);
         this.box.remove_child(this._power._indicator);
         this.menu.box.remove_actor(this._brightness.menu.actor);
         this._power.indicators.add_actor(this._power._indicator);

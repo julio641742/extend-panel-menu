@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License
     along with Extend Panel Menu.  If not, see <http://www.gnu.org/licenses/>.
 
-    Copyright 2017 Julio Galvan
+    Copyright 2017-2018 Julio Galvan
 */
 const Gettext = imports.gettext;
 const Gio = imports.gi.Gio;

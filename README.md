@@ -1,15 +1,7 @@
 # Extend Panel Menu
 
-All help is welcomed
-
-## Screenshots
-### New
-- New Network Indicator [Wireless List]
-- New Settings Widget
-
 ![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/network-v8.png)
 ![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/settings-v8.png)
-
 ![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/panel-v8.png)
 ![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/panel-theme-v8.png)
 ![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/nightlight-v8.png)
@@ -20,14 +12,11 @@ All help is welcomed
 ![Screenshot](https://raw.githubusercontent.com/julio641742/extend-panel-menu/master/screenshots/user-v8.png)
 
 
-## Features
-- Separate every indicator
-
-## Manual install
-To install, simply download and execute `make all` and  `make install`. Enable it with Gnome Tweak Tool
+## Manual installation
+Run `make all` and  `make install`. Enable the extension via the Gnome Tweak Tool
 
 ## One-click install
-It's on [Gnome Shell Extensions](https://extensions.gnome.org/extension/1201/extend-panel-menu/)
+It's on [Gnome Shell Extensions website](https://extensions.gnome.org/extension/1201/extend-panel-menu/)
 
 
 ## Known Issues
@@ -47,6 +36,10 @@ Thanks to
 - @zseliakiraly (Hungarian translation)
 
 ## Changes
+
+### v9-alpha
+- Initial GNOME Shell 3.28 support
+- Drop support for GNOME Shell 3.20-24
 
 ### v8
 - Now you can see a list of available networks

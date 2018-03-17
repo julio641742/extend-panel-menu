@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License
     along with Extend Panel Menu.  If not, see <http://www.gnu.org/licenses/>.
 
-    Copyright 2017 Julio Galvan
+    Copyright 2017-2018 Julio Galvan
 */
 
 const St = imports.gi.St;
@@ -108,15 +108,15 @@ var NetworkIndicator = new Lang.Class({
 
         this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
         let network = new PopupMenu.PopupMenuItem(_("Network Settings"));
-        network.connect("activate", Lang.bind(this, this._openApp, "gnome-network-panel.desktop"));
+        network.connect("activate", () => this._openApp("gnome-network-panel.desktop"));
         this.menu.addMenuItem(network);
 
-        this._rfkill._manager._proxy.connect("g-properties-changed", Lang.bind(this, this._sync));
+        this._rfkill_properties_changed = this._rfkill._manager._proxy.connect("g-properties-changed", () => this._sync());
         if (this._network) {
-            this._network._primaryIndicator.connect("notify", Lang.bind(this, this._sync))
+            this._network_notify = this._network._primaryIndicator.connect("notify", () => this._sync());
         }
         if (this._bluetooth) {
-            this._bluetooth._proxy.connect("g-properties-changed", Lang.bind(this, this._sync));
+            this._bluetooth_properties_changed = this._bluetooth._proxy.connect("g-properties-changed", () => this._sync());
         }
 
         this._sync();
@@ -129,22 +129,20 @@ var NetworkIndicator = new Lang.Class({
 
         // WIRELESS MENU
         if (this._network) {
-            this.menu.connect("open-state-changed", Lang.bind(this, function (menu, isOpen) {
+            this.menu.connect("open-state-changed", (menu, isOpen) => {
                 if (isOpen) {
                     let nmdevices = Main.panel.statusArea.aggregateMenu._network._nmDevices;
                     for (let i = 0; i < nmdevices.length; i++) {
                         if (nmdevices[i]._delegate instanceof imports.ui.status.network.NMDeviceWireless) {
                             this._devicewireless = nmdevices[i]._delegate;
-                            //log('found');
                             break;
                         }
                     };
 
                     if (this._devicewireless && Main.panel.statusArea.aggregateMenu._network._client.wireless_hardware_enabled) {
-                        //log("wirelesslist");
                         this._wirelesslist = new WirelessList(this._devicewireless._client, this._devicewireless._device, this._devicewireless._settings, this.wirelessMenu);
                         this.wirelessMenu.menu.open();
-                        this._menuclosed = this.menu.connect('open-state-changed', Lang.bind(this, function (menu, isOpen) {
+                        this._menuclosed = this.menu.connect('open-state-changed', (menu, isOpen) => {
                             if (!isOpen) {
                                 this._wirelesslist.destroy();
                                 this._wirelesslist = null;
@@ -152,10 +150,10 @@ var NetworkIndicator = new Lang.Class({
                                 this._menuclosed = null;
                                 //log("destroyed");
                             }
-                        }));
+                        });
                     }
                 }
-            }));
+            });
         }
 
     },
@@ -166,6 +164,13 @@ var NetworkIndicator = new Lang.Class({
         }
     },
     destroy: function () {
+        this._rfkill._manager._proxy.disconnect(this._rfkill_properties_changed);
+        if (this._network) {
+            this._network._primaryIndicator.disconnect(this._network_notify);
+        }
+        if (this._bluetooth) {
+            this._bluetooth._proxy.disconnect(this._bluetooth_properties_changed);
+        }
         this.box.remove_child(this._location._indicator);
         this.menu.box.remove_actor(this._location.menu.actor);
         this._location.indicators.add_actor(this._location._indicator);

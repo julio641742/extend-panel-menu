@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License
     along with Extend Panel Menu.  If not, see <http://www.gnu.org/licenses/>.
 
-    Copyright 2017 Julio Galvan
+    Copyright 2017-2018 Julio Galvan
 */
 const St = imports.gi.St;
 const Lang = imports.lang;
@@ -46,7 +46,7 @@ var VolumeIndicator = new Lang.Class({
         Main.panel.statusArea.dateMenu._messageList._removeSection(this._mediaSection);
         this._mediaSection.actor.add_style_class_name("music-box");
         this.menu.box.add_actor(this._mediaSection.actor);
-        this._mediaVisible = this._mediaSection.actor.connect("notify::visible", Lang.bind(this, function (obj) {
+        this._mediaVisible = this._mediaSection.actor.connect("notify::visible", () => {
             for (let player of this._mediaSection._players.values()) {
                 if (player._mprisProxy.DesktopEntry) {
                     let app = player._mprisProxy.DesktopEntry;
@@ -57,7 +57,7 @@ var VolumeIndicator = new Lang.Class({
                     }
                 }
             }
-        }));
+        });
         this._playerMenuContainer = new PopupMenu.PopupMenuSection();
         this.menu.addMenuItem(this._playerMenuContainer);
         let players = this._getPlayers();
@@ -66,9 +66,9 @@ var VolumeIndicator = new Lang.Class({
         }
 
         let settings = new PopupMenu.PopupMenuItem(_("Volume Settings"));
-        settings.connect("activate", Lang.bind(this, this._openApp, "gnome-sound-panel.desktop"));
+        settings.connect("activate", () => this._openApp("gnome-sound-panel.desktop"));
         this.menu.addMenuItem(settings);
-        this._properties_changed = this.actor.connect("scroll-event", Lang.bind(this, this._onScrollEvent));
+        this.actor.connect("scroll-event", (actor, event) => this._volume._onScrollEvent(actor, event));
     },
     _addPlayer: function (name) {
         let app = Shell.AppSystem.get_default().lookup_app(name + ".desktop")
@@ -92,30 +92,25 @@ var VolumeIndicator = new Lang.Class({
             item.actor.add_actor(icon);
             item.actor.add_actor(label);
             item.actor.add_actor(removeButton);
-            item.connect("activate", Lang.bind(this, this._openApp, name + ".desktop"));
+            item.connect("activate", () => this._openApp(name + ".desktop"));
             this._playerMenuContainer.actor.add_actor(item.actor);
 
-            removeButton.connect('clicked', Lang.bind(this, function () {
+            removeButton.connect('clicked', () => {
                 let players = this._getPlayers();
-                players = players.filter(function (val) {
-                    return val !== name
+                players = players.filter((val) => {
+                    return val !== name;
                 })
                 this._settings.set_string("players", players.join("|"));
                 this._playerMenuContainer.actor.remove_actor(item.actor);
-            }));
+            });
         }
     },
     _getPlayers: function () {
         let itemsString = this._settings.get_string("players");
         return itemsString.split("|");
     },
-    _onScrollEvent: function (actor, event) {
-        this._volume._onScrollEvent(actor, event);
-    },
-
     destroy: function () {
         this._mediaSection.actor.disconnect(this._mediaVisible);
-        this.actor.disconnect(this._properties_changed);
         this.box.remove_child(this._volume._primaryIndicator);
         this.menu.box.remove_actor(this._volume.menu.actor);
         this.menu.box.remove_actor(this._mediaSection.actor);

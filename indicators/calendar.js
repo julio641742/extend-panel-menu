@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License
     along with Extend Panel Menu.  If not, see <http://www.gnu.org/licenses/>.
 
-    Copyright 2017 Julio Galvan
+    Copyright 2017-2018 Julio Galvan
 */
 
 const St = imports.gi.St;
@@ -37,6 +37,7 @@ var CalendarIndicator = new Lang.Class({
         this._date = Main.panel.statusArea.dateMenu._date;
         this._eventsSection = new imports.ui.calendar.EventsSection();
         this._clocksSection = Main.panel.statusArea.dateMenu._clocksItem;
+        this._weatherSection = Main.panel.statusArea.dateMenu._weatherItem;
         this._clockIndicator = Main.panel.statusArea.dateMenu._clockDisplay;
         this._clockIndicatorFormat = new St.Label({
             visible: false,
@@ -50,30 +51,19 @@ var CalendarIndicator = new Lang.Class({
         this._calendarParent.remove_child(this._calendar.actor);
         this._calendarParent.remove_child(this._date.actor);
         this._sectionParent.remove_child(this._clocksSection.actor);
-
-        try {
-            this._weatherSection = Main.panel.statusArea.dateMenu._weatherItem;
-            this._sectionParent.remove_child(this._weatherSection.actor);
-        } catch (e) {}
+        this._sectionParent.remove_child(this._weatherSection.actor);
 
         this.box.add_actor(this._clockIndicator);
         this.box.add_actor(this._clockIndicatorFormat);
 
         let boxLayout;
         let vbox;
-        try {
-            boxLayout = new imports.ui.dateMenu.CalendarColumnLayout(this._calendar.actor);
-            vbox = new St.Widget({
-                style_class: "datemenu-calendar-column",
-                layout_manager: boxLayout
-            });
-            boxLayout.hookup_style(vbox);
-        } catch (e) {
-            vbox = new St.BoxLayout({
-                style_class: "datemenu-calendar-column",
-                vertical: true
-            });
-        }
+        boxLayout = new imports.ui.dateMenu.CalendarColumnLayout(this._calendar.actor);
+        vbox = new St.Widget({
+            style_class: "datemenu-calendar-column",
+            layout_manager: boxLayout
+        });
+        boxLayout.hookup_style(vbox);
         let displaySection = new St.ScrollView({
             style_class: "datemenu-displays-section vfade",
             x_expand: true,
@@ -94,28 +84,25 @@ var CalendarIndicator = new Lang.Class({
         dbox.add(this._clocksSection.actor, {
             x_fill: true
         });
-
-        if (this._weatherSection) {
-            dbox.add(this._weatherSection.actor, {
-                x_fill: true
-            });
-        }
+        dbox.add(this._weatherSection.actor, {
+            x_fill: true
+        });
 
         displaySection.add_actor(dbox);
         vbox.add_actor(displaySection);
         this.menu.box.add(vbox);
 
-        this.menu.connect("open-state-changed", Lang.bind(this, function (menu, isOpen) {
+        this.menu.connect("open-state-changed", (menu, isOpen) => {
             if (isOpen) {
                 let now = new Date();
                 this._calendar.setDate(now);
                 this._eventsSection.setDate(now);
                 this._date.setDate(now);
             }
-        }));
-        this._calendar.connect("selected-date-changed", Lang.bind(this, function (calendar, date) {
+        });
+        this._date_changed = this._calendar.connect("selected-date-changed", (calendar, date) => {
             this._eventsSection.setDate(date);
-        }));
+        });
     },
     override: function (format) {
         this.resetFormat();
@@ -123,7 +110,7 @@ var CalendarIndicator = new Lang.Class({
             return
         }
         let that = this;
-        this._formatChanged = GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, 1, function () {
+        this._formatChanged = GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, 1, () => {
             that.changeFormat();
             return true;
         });
@@ -148,20 +135,18 @@ var CalendarIndicator = new Lang.Class({
     },
     destroy: function () {
         this.resetFormat();
+        this._calendar.disconnect(this._date_changed);
         this.box.remove_child(this._clockIndicator);
         this._calendar.actor.get_parent().remove_child(this._calendar.actor)
         this._date.actor.get_parent().remove_child(this._date.actor)
         this._clocksSection.actor.get_parent().remove_child(this._clocksSection.actor)
+        this._weatherSection.actor.get_parent().remove_child(this._weatherSection.actor)
 
         this._indicatorParent.add_actor(this._clockIndicator)
         this._calendarParent.add_child(this._calendar.actor)
         this._calendarParent.add_child(this._date.actor)
         this._sectionParent.add_child(this._clocksSection.actor)
-
-        try {
-            this._weatherSection.actor.get_parent().remove_child(this._weatherSection.actor)
-            this._sectionParent.add_child(this._weatherSection.actor)
-        } catch (e) {}
+        this._sectionParent.add_child(this._weatherSection.actor)
 
         this.parent();
     }
