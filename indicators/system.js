@@ -55,7 +55,7 @@ var UserIndicator = new Lang.Class({
         //////////////////////////////////////////////////////////////
         // MENU
         let about = new PopupMenu.PopupMenuItem(_("About This Computer"));
-        about.connect("activate", () => this._openApp("gnome-info-panel.desktop"));
+        about.connect("activate", () => imports.misc.util.spawn([ "gnome-control-center", "info-overview" ]));
         this.menu.addMenuItem(about);
 
         let help = new PopupMenu.PopupMenuItem(_("GNOME Help"));
@@ -104,13 +104,12 @@ var UserIndicator = new Lang.Class({
         this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem()); // SEPARATOR
 
         //////////////
-        // INCONCLUSIVE
-        //this.orientation = new PopupMenu.PopupMenuItem(_("Orientation Lock"));
-        //this.orientation.connect("activate", Lang.bind(this, this._system._onOrientationLockClicked));
-        //this.menu.addMenuItem(this.orientation);
-        //if (!this._system._orientationLockAction.visible) {
-        //    this.orientation.actor.hide();
-        //}
+        let orientation = new PopupMenu.PopupMenuItem(_("Orientation Lock"));
+        orientation.connect("activate", () => this._system._systemActions.activateLockOrientation());
+        this.menu.addMenuItem(orientation);
+        if (!this._system._orientationLockAction.visible) {
+            orientation.actor.hide();
+        }
         ///////////////
 
         let suspend = new PopupMenu.PopupMenuItem(_("Suspend"));

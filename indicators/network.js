@@ -31,7 +31,6 @@ const CustomButton = Extension.imports.indicators.button.CustomButton;
 
 const GObject = imports.gi.GObject;
 const Rfkill = imports.ui.status.rfkill;
-const NetworkManager = imports.gi.NetworkManager;
 const Util = imports.misc.util;
 const Mainloop = imports.mainloop;
 
@@ -138,7 +137,6 @@ var NetworkIndicator = new Lang.Class({
                             break;
                         }
                     };
-
                     if (this._devicewireless && Main.panel.statusArea.aggregateMenu._network._client.wireless_hardware_enabled) {
                         this._wirelesslist = new WirelessList(this._devicewireless._client, this._devicewireless._device, this._devicewireless._settings, this.wirelessMenu);
                         this.wirelessMenu.menu.open();
@@ -148,7 +146,6 @@ var NetworkIndicator = new Lang.Class({
                                 this._wirelesslist = null;
                                 this.menu.disconnect(this._menuclosed);
                                 this._menuclosed = null;
-                                //log("destroyed");
                             }
                         });
                     }
@@ -273,6 +270,7 @@ var WirelessList = new Lang.Class({
         this._device = device;
         this.menu = parent;
         this.submenu = parent.menu;
+        this._use_NM = settings == null;
 
         this._wirelessEnabledChangedId = this._client.connect('notify::wireless-enabled',
             Lang.bind(this, this._syncView));
@@ -284,7 +282,12 @@ var WirelessList = new Lang.Class({
         this._networks = [];
         this._buildLayout();
 
-        let connections = settings.list_connections();
+        let connections = null;
+        if (this._use_NM) {
+            connections = client.get_connections();
+        } else {
+            connections = settings.list_connections();
+        }
         this._connections = connections.filter(Lang.bind(this, function (connection) {
             return device.connection_valid(connection);
         }));
@@ -347,7 +350,11 @@ var WirelessList = new Lang.Class({
     },
 
     _onScanTimeout: function () {
-        this._device.request_scan_simple(null);
+        if (this._use_NM) {
+            this._device.request_scan_async(null, null);
+        } else {
+            this._device.request_scan_simple(null);
+        }
         return GLib.SOURCE_CONTINUE;
     },
 
@@ -404,19 +411,30 @@ var WirelessList = new Lang.Class({
         let network = this._selectedNetwork;
         if (network.connections.length > 0) {
             let connection = network.connections[0];
-            this._client.activate_connection(connection, this._device, null, null);
+            if (this._use_NM) {
+                this._client.activate_connection_async(connection, this._device, null, null, null);
+            } else {
+                this._client.activate_connection(connection, this._device, null, null);
+            }
         } else {
             let accessPoints = network.accessPoints;
             if ((accessPoints[0]._secType == imports.ui.status.network.NMAccessPointSecurity.WPA2_ENT) ||
                 (accessPoints[0]._secType == imports.ui.status.network.NMAccessPointSecurity.WPA_ENT)) {
                 // 802.1x-enabled APs require further configuration, so they're
                 // handled in gnome-control-center
-                Util.spawn(['gnome-control-center', 'network', 'connect-8021x-wifi',
-                    this._device.get_path(), accessPoints[0].dbus_path
+                Util.spawn(['gnome-control-center', 'wifi', 'connect-8021x-wifi',
+                    this._device.get_path(), this._use_NM ? accessPoints[0].path : accessPoints[0].dbus_path
                 ]);
             } else {
-                let connection = new NetworkManager.Connection();
-                this._client.add_and_activate_connection(connection, this._device, accessPoints[0].dbus_path, null)
+                if (this._use_NM) {
+                    // GNOME >=3.28
+                    let connection = new imports.gi.NM.SimpleConnection();
+                    this._client.add_and_activate_connection_async(connection, this._device, accessPoints[0].path, null, null)
+                } else {
+                    // GNOME 3.26
+                    let connection = new imports.gi.NetworkManager.Connection();
+                    this._client.add_and_activate_connection(connection, this._device, accessPoints[0].dbus_path, null);
+                }
             }
         }
         this.menu._parent.close();
@@ -450,7 +468,7 @@ var WirelessList = new Lang.Class({
             else if (wpa_flags & imports.ui.status.network.NM80211ApSecurityFlags.KEY_MGMT_PSK)
                 type = imports.ui.status.network.NMAccessPointSecurity.WPA_PSK;
         } else {
-            if (flags & NM80211ApFlags.PRIVACY)
+            if (flags & imports.ui.status.network.NM80211ApFlags.PRIVACY)
                 type = imports.ui.status.network.NMAccessPointSecurity.WEP;
             else
                 type = imports.ui.status.network.NMAccessPointSecurity.NONE;
@@ -495,7 +513,9 @@ var WirelessList = new Lang.Class({
     },
 
     _networkCompare: function (network, accessPoint) {
-        if (!imports.ui.status.network.ssidCompare(network.ssid, accessPoint.get_ssid()))
+        if (this._use_NM && !network.ssid.equal(accessPoint.get_ssid()))
+            return false
+        if (!this._use_NM && !imports.ui.status.network.ssidCompare(network.ssid, accessPoint.get_ssid()))
             return false;
         if (network.mode != accessPoint.mode)
             return false;
